@@ -1,0 +1,52 @@
+Cvolton's Private Hideout ->
+#cvolton2
+
+ℹ INFO ℹ ->
+#rules-welcome
+#to-do-list
+#news
+#autonews
+
+👤 COMMUNITY 👤 ->
+#events
+#quotes
+
+💬 CHAT 💬 ->
+#main-chat
+#secondary-chat
+#serious-chat
+#shitposting
+#foreign-languages
+#support
+#requests
+#ads
+#spam
+
+🛠 MOD STUFF 🛠 ->
+#mod-chat
+#mod-rant
+#log-spam
+#appeals
+#rating
+#strikes-log
+#mod-logs
+
+🔒 PRIVATE 🔒 ->
+#team-supreme
+#coding
+#retardados-mentais
+#maincra
+#fluffy-lel
+#writers
+#doge-helpers
+#friendly-chat
+#annoying-chat
+#helper-chat
+#vip-chat
+#verified-chat
+#mikha-chat
+#translator-chat
+#drama
+#team-gc
+
+No category ->

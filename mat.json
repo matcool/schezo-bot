@@ -1,0 +1,4064 @@
+{
+  "success": true,
+  "player": {
+    "_id": "535b7d06fa32dc526925166c",
+    "achievements": {
+      "general_coins": 622,
+      "vampirez_coins": 145,
+      "vampirez_kill_survivors": 7,
+      "paintball_coins": 45,
+      "paintball_kills": 9,
+      "vampirez_kill_vampires": 2,
+      "warlords_paladin_level": 0,
+      "warlords_mage_level": 0,
+      "warlords_shaman_level": 0,
+      "warlords_warrior_level": 0,
+      "skywars_kills_solo": 702,
+      "skywars_wins_team": 20,
+      "skywars_kills_team": 154,
+      "skywars_wins_solo": 61,
+      "skywars_kits_solo": 13,
+      "skywars_cages": 16,
+      "skywars_kits_team": 10,
+      "walls3_coins": 16,
+      "general_wins": 180,
+      "uhc_moving_up": 1,
+      "uhc_hunter": 1,
+      "uhc_champion": 0,
+      "blitz_coins": 46,
+      "blitz_kills": 1,
+      "uhc_bounty": 4685,
+      "warlords_assist": 4,
+      "warlords_coins": 18,
+      "truecombat_kit_hoarder_solo": 0,
+      "truecombat_kit_hoarder_team": 0,
+      "supersmash_hero_slayer": 7,
+      "supersmash_smash_champion": 2,
+      "skywars_wins_mega": 0,
+      "skywars_kills_mega": 5,
+      "skywars_kits_mega": 0,
+      "general_challenger": 590,
+      "general_quest_master": 241,
+      "speeduhc_hunter": 1,
+      "speeduhc_uhc_master": 1,
+      "arcade_football_pro": 3,
+      "arcade_arcade_winner": 27,
+      "arcade_miniwalls_winner": 3,
+      "bedwars_wins": 609,
+      "arcade_arcade_banker": 17825,
+      "tntgames_bow_spleef_wins": 0,
+      "tntgames_pvp_run_killer": 0,
+      "tntgames_tnt_tag_wins": 0,
+      "tntgames_tnt_wizards_kills": 2,
+      "tntgames_wizards_wins": 0,
+      "tntgames_pvp_run_wins": 0,
+      "tntgames_tnt_run_wins": 0,
+      "blitz_war_veteran": 0,
+      "blitz_wins_teams": 0,
+      "blitz_wins": 0,
+      "bedwars_level": 76,
+      "copsandcrims_bomb_specialist": 0,
+      "copsandcrims_hero_terrorist": 0,
+      "copsandcrims_serial_killer": 0,
+      "arcade_bounty_hunter": 134,
+      "arcade_team_work": 26,
+      "bedwars_beds": 932,
+      "tntgames_tnt_triathlon": 13,
+      "tntgames_tnt_banker": 352,
+      "bedwars_loot_box": 83,
+      "vampirez_zombie_killer": 4,
+      "paintball_wins": 0,
+      "quake_coins": 0,
+      "quake_wins": 0,
+      "quake_kills": 0,
+      "murdermystery_kills_as_murderer": 78,
+      "murdermystery_wins_as_survivor": 55,
+      "murdermystery_wins_as_murderer": 2,
+      "blitz_looter": 14,
+      "skyclash_cards_unlocked": 9,
+      "skyclash_packs_opened": 1,
+      "skyclash_kills": 1,
+      "halloween2017_pumpkin_smasher": 29,
+      "halloween2017_pumpkinator": 516,
+      "christmas2017_advent": 22,
+      "christmas2017_no_christmas": 84,
+      "walls3_wins": 0,
+      "walls3_kills": 0,
+      "gingerbread_banker": 5000,
+      "christmas2017_santa_says_rounds": 3,
+      "buildbattle_build_battle_points": 91,
+      "buildbattle_guess_the_build_guesses": 4,
+      "buildbattle_guess_the_build_winner": 1,
+      "buildbattle_build_battle_score": 25
+    },
+    "achievementsOneTime": [
+      "general_first_join",
+      "general_first_game",
+      "vampirez_vampire_shop",
+      "general_first_chat",
+      "paintball_no_killstreaks",
+      "blitz_first_game",
+      "general_youtuber",
+      "arcade_pig_fishing_super_bacon",
+      "arcade_trampolinio_red_wool",
+      "vampirez_purchase_sword",
+      "vampirez_purchase_food",
+      "skywars_well_well",
+      "walls3_find_chest",
+      "skywars_enderdragon",
+      "skywars_touch_of_death",
+      "skywars_shiny_stuff",
+      "skywars_gapple",
+      "skywars_now_im_enchanted",
+      "skywars_mob_spawner",
+      "general_first_party",
+      "skywars_gotcha",
+      "housing_join_guild",
+      "housing_join_staff",
+      "housing_join_youtube",
+      "housing_give_cookie",
+      "housing_join_random",
+      "general_use_portal",
+      "general_first_friend",
+      "housing_new_look",
+      "housing_become_resident",
+      "skywars_legendary",
+      "speeduhc_golden_apple",
+      "speeduhc_melon_smasher",
+      "skywars_lucky_souls",
+      "bedwars_already_over",
+      "bedwars_team_player",
+      "arcade_bounty_hunter_target_killer",
+      "bedwars_builder",
+      "bedwars_destroy_beds",
+      "bedwars_merciless",
+      "bedwars_first_blood",
+      "tntgames_bow_spleef_first_double_jump",
+      "arcade_dragon_killer",
+      "bedwars_diamond_hoarder",
+      "bedwars_geared_up",
+      "bedwars_strategist",
+      "skywars_siege",
+      "skywars_open_chest",
+      "bedwars_ultimate_defense",
+      "bedwars_emerald_hoarder",
+      "bedwars_super_looter",
+      "bedwars_first",
+      "bedwars_bed_trap",
+      "bedwars_dont_need_bed",
+      "bedwars_survivor",
+      "bedwars_iron_punch",
+      "bedwars_shear_luck",
+      "bedwars_alchemist",
+      "bedwars_pickaxe_challenge",
+      "gingerbread_getting_good",
+      "arcade_woops_didnt_mean_to",
+      "skywars_fast_and_furious",
+      "skywars_peacemaker",
+      "uhc_shiny_rock",
+      "skywars_hasta_la_vista",
+      "skywars_gone_fishing",
+      "tntgames_tnt_tag_blownup",
+      "skywars_baller",
+      "murdermystery_ride_monorail",
+      "murdermystery_survive_storm_on_top",
+      "murdermystery_be_the_hero",
+      "murdermystery_blessing_and_curse",
+      "murdermystery_play_game_in_lobby",
+      "general_a_long_journey_begins",
+      "murdermystery_kill_detective_fast",
+      "murdermystery_special_two_in_a_row",
+      "murdermystery_win_survivor_due_to_time",
+      "murdermystery_pickup_gold",
+      "murdermystery_win_murderer_fell_in_trap",
+      "murdermystery_murderer_first_kill",
+      "murdermystery_thirty_gold_picked_up",
+      "skyclash_my_playstyle",
+      "halloween2017_second_ghost",
+      "halloween2017_hi_there",
+      "halloween2017_all_ghosts",
+      "halloween2017_spooky_chest",
+      "christmas2017_sharing_is_caring",
+      "christmas2017_hunt_begins",
+      "christmas2017_eat_this",
+      "christmas2017_bouncy_castle",
+      "general_achievement_npc",
+      "christmas2017_merry_christmas",
+      "christmas2017_real_santa",
+      "christmas2017_uh_uh",
+      "bedwars_fireballs",
+      "christmas2017_legendary",
+      "buildbattle_no_mistakes",
+      "buildbattle_braniac",
+      "skywars_well_deserved",
+      "christmas2017_santa_helper",
+      "uhc_crafting_revolution",
+      "arcade_world_economics",
+      "uhc_adrenaline",
+      "skywars_max_perk",
+      "skywars_fists_of_fury"
+    ],
+    "displayname": "mateus_craft",
+    "firstLogin": 1398504710919,
+    "knownAliases": [
+      "mateus_craftt",
+      "mateus_craft"
+    ],
+    "knownAliasesLower": [
+      "mateus_craftt",
+      "mateus_craft"
+    ],
+    "lastLogin": 1523149443247,
+    "newClock": "NONE",
+    "playername": "mateus_craft",
+    "stats": {
+      "TNTGames": {
+        "coins": 24479,
+        "deaths_bowspleef": 4,
+        "deaths_capture": 4,
+        "tags_bowspleef": 18,
+        "kills_capture": 1,
+        "record_tntrun": 108,
+        "packages": [
+          "tiered_achievement_flag_1",
+          "clicked_tnt_run_npc"
+        ],
+        "new_spleef_repulsor": 1,
+        "new_tntag_speedy": 1,
+        "new_firewizard_regen": 1,
+        "new_witherwizard_regen": 1,
+        "new_kineticwizard_regen": 1,
+        "new_icewizard_explode": 1,
+        "new_pvprun_double_jumps": 1,
+        "new_tntrun_double_jumps": 1,
+        "new_firewizard_explode": 1,
+        "new_bloodwizard_explode": 1,
+        "new_bloodwizard_regen": 1,
+        "new_icewizard_regen": 1,
+        "new_witherwizard_explode": 1,
+        "new_spleef_double_jumps": 1,
+        "new_kineticwizard_explode": 1,
+        "new_spleef_tripleshot": 1,
+        "run_potions_splashed_on_players": 0,
+        "deaths_tntrun": 2,
+        "winstreak": 0,
+        "wins": 0,
+        "kills_tntag": 1
+      },
+      "VampireZ": {
+        "coins": 15790,
+        "human_deaths": 5,
+        "human_kills": 3,
+        "vampire_deaths": 14,
+        "zombie_kills": 4,
+        "vampire_kills": 2,
+        "updated_stats": true
+      },
+      "Paintball": {
+        "shots_fired": 414,
+        "coins": 35665,
+        "deaths": 21,
+        "kills": 9,
+        "packages": [
+          "achievement_flag_1",
+          "achievement_flag_2"
+        ]
+      },
+      "Arcade": {
+        "coins": 1374476,
+        "poop_collected": 21,
+        "time_stamp": 1515098111794,
+        "stamp_level": 1,
+        "deaths_oneinthequiver": 199,
+        "kills_oneinthequiver": 174,
+        "music": false,
+        "weekly_coins_b": 15843,
+        "monthly_coins_a": 10249,
+        "monthly_coins_b": 20673,
+        "weekly_coins_a": 15079,
+        "powerkicks_soccer": 2,
+        "goals_soccer": 3,
+        "wins_soccer": 1,
+        "miniwalls_activeKit": "archer",
+        "kills_mini_walls": 21,
+        "deaths_mini_walls": 26,
+        "wither_damage_mini_walls": 30,
+        "arrows_hit_mini_walls": 16,
+        "wins_mini_walls": 3,
+        "arrows_shot_mini_walls": 79,
+        "wins_party": 1,
+        "rounds_simon_says": 221,
+        "sw_kills": 1,
+        "sw_weekly_kills_a": 1,
+        "sw_deaths": 1,
+        "sw_shots_fired": 76,
+        "sw_monthly_kills_b": 1,
+        "sw_rebel_kills": 1,
+        "dec2016_achievements2": true,
+        "dec2016_achievements": true,
+        "bounty_kills_oneinthequiver": 11,
+        "max_wave": 13,
+        "hitw_record_q": 44,
+        "hitw_record_f": 56,
+        "rounds_hole_in_the_wall": 20,
+        "kills_dragonwars2": 3,
+        "headshots_dayone": 5,
+        "kills_dayone": 24,
+        "final_kills_mini_walls": 5,
+        "wins_farm_hunt": 1
+      },
+      "HungerGames": {
+        "deaths": 7,
+        "coins": 27671,
+        "archer": 2,
+        "armorer": 1,
+        "scout": 1,
+        "meatmaster": 1,
+        "knight": 1,
+        "monthly_kills_b": 1,
+        "weekly_kills_b": 1,
+        "kills": 1,
+        "packages": [
+          "fixachievements2",
+          "fixachievements1"
+        ]
+      },
+      "Battleground": {
+        "mage_spec": "pyromancer",
+        "warrior_spec": "berserker",
+        "paladin_spec": "avenger",
+        "selected_mount": "noble_steed",
+        "shaman_spec": "thunderlord",
+        "packages": [
+          "legacyachievement2",
+          "legacyachievement3",
+          "legacyachievement8"
+        ],
+        "coins": 39548,
+        "chosen_class": "paladin",
+        "play_streak": 0,
+        "avenger_plays": 1,
+        "damage_prevented_paladin": 666,
+        "deaths": 5,
+        "damage_prevented": 666,
+        "damage": 3682,
+        "heal_avenger": 2515,
+        "damage_avenger": 3682,
+        "paladin_plays": 1,
+        "assists": 4,
+        "heal": 2515,
+        "damage_prevented_avenger": 666,
+        "heal_paladin": 2515,
+        "damage_paladin": 3682,
+        "damage_taken": 31222
+      },
+      "SkyWars": {
+        "win_streak": 0,
+        "survived_players": 10762,
+        "losses": 1545,
+        "losses_solo": 1229,
+        "survived_players_kit_basic_solo_default": 161,
+        "deaths_kit_basic_solo_default": 31,
+        "losses_solo_normal": 228,
+        "blocks_placed": 14338,
+        "deaths_solo": 1228,
+        "deaths": 1550,
+        "quits": 1379,
+        "deaths_solo_normal": 228,
+        "survived_players_solo": 6569,
+        "losses_kit_basic_solo_default": 32,
+        "blocks_broken": 3179,
+        "deaths_team_normal": 51,
+        "survived_players_kit_mining_team_default": 586,
+        "survived_players_team": 3143,
+        "losses_kit_mining_team_default": 47,
+        "losses_team_normal": 50,
+        "deaths_kit_mining_team_default": 49,
+        "losses_team": 247,
+        "deaths_team": 253,
+        "kills_kit_mining_team_default": 9,
+        "kills_team": 154,
+        "coins": 319608,
+        "souls_gathered": 948,
+        "kills_team_normal": 32,
+        "kills": 890,
+        "souls": 0,
+        "egg_thrown": 6754,
+        "soul_well": 204,
+        "usedSoulWell": true,
+        "packages": [
+          "cage_toffee-cage",
+          "kit_supporting_team_armorsmith",
+          "cage_nether-cage",
+          "cage_orange-cage",
+          "cage_green-cage",
+          "cage_farm-hunt-cage",
+          "kit_advanced_solo_pyro",
+          "legacyachievement",
+          "cage_void-cage",
+          "cage_default",
+          "cage_sky-cage",
+          "kit_advanced_solo_farmer",
+          "cage_banana-cage",
+          "cage_cloud-cage",
+          "kit_basic_solo_armorsmith",
+          "kit_basic_solo_ecologist",
+          "kit_supporting_team_healer",
+          "kit_supporting_team_ecologist",
+          "cage_bubblegum-cage",
+          "cage_slime-cage",
+          "legacyachievement3",
+          "legacyachievement4",
+          "cage_mist-cage",
+          "fix_achievements2",
+          "kit_basic_solo_scout",
+          "kit_attacking_team_scout",
+          "kit_basic_solo_energix",
+          "cage_redstone-master-cage",
+          "kit_basic_solo_disco",
+          "kit_attacking_team_salmon",
+          "kit_defending_team_batguy",
+          "kit_basic_solo_fisherman",
+          "kit_defending_team_guardian",
+          "kit_attacking_team_knight",
+          "kit_basic_solo_frog",
+          "kit_basic_solo_batguy",
+          "cage_lime-cage",
+          "kit_advanced_solo_cannoneer",
+          "kit_basic_solo_baseball-player",
+          "kit_basic_solo_rookie",
+          "kit_defending_team_armorer",
+          "divisionskywars_skywars_rating_11_17",
+          "divisionskywars_skywars_rating_12_17",
+          "deathcry_fireball",
+          "cage_blue-cage",
+          "kit_defending_team_disco"
+        ],
+        "assists_team": 32,
+        "assists_kit_mining_team_default": 8,
+        "assists": 99,
+        "games_solo": 193,
+        "games": 271,
+        "games_kit_basic_solo_default": 4,
+        "wins": 95,
+        "wins_kit_mining_team_default": 3,
+        "wins_team_normal": 5,
+        "wins_team": 20,
+        "games_kit_mining_team_default": 5,
+        "games_team": 39,
+        "losses_team_insane": 197,
+        "deaths_team_insane": 202,
+        "arrows_hit": 503,
+        "kills_team_insane": 122,
+        "arrows_shot": 1590,
+        "wins_team_insane": 15,
+        "deaths_solo_insane": 1000,
+        "losses_solo_insane": 1001,
+        "kills_kit_basic_solo_default": 8,
+        "kills_solo": 702,
+        "kills_solo_normal": 128,
+        "kills_solo_insane": 574,
+        "paid_souls": 408,
+        "activeKit_TEAM": "kit_supporting_team_armorsmith",
+        "games_kit_supporting_team_armorsmith": 12,
+        "deaths_kit_supporting_team_armorsmith": 102,
+        "survived_players_kit_supporting_team_armorsmith": 1118,
+        "losses_kit_supporting_team_armorsmith": 99,
+        "assists_kit_supporting_team_armorsmith": 12,
+        "kills_kit_supporting_team_armorsmith": 51,
+        "wins_kit_supporting_team_armorsmith": 6,
+        "enderpearls_thrown": 163,
+        "items_enchanted": 64,
+        "activeCage": "cage_redstone-master-cage",
+        "soul_well_rares": 25,
+        "team_juggernaut": 0,
+        "assists_solo": 62,
+        "assists_kit_basic_solo_default": 1,
+        "soul_well_legendaries": 10,
+        "activeKit_SOLO": "kit_basic_solo_frog",
+        "losses_kit_advanced_solo_pyro": 105,
+        "survived_players_kit_advanced_solo_pyro": 471,
+        "deaths_kit_advanced_solo_pyro": 105,
+        "wins_kit_advanced_solo_pyro": 3,
+        "wins_solo_insane": 49,
+        "games_kit_advanced_solo_pyro": 10,
+        "wins_solo": 61,
+        "wins_solo_normal": 12,
+        "kills_kit_advanced_solo_pyro": 35,
+        "assists_kit_advanced_solo_pyro": 6,
+        "survived_players_kit_advanced_solo_farmer": 3609,
+        "deaths_kit_advanced_solo_farmer": 724,
+        "assists_kit_advanced_solo_farmer": 36,
+        "losses_kit_advanced_solo_farmer": 724,
+        "kills_kit_advanced_solo_farmer": 424,
+        "deaths_kit_mega_mega_default": 20,
+        "survived_players_mega": 947,
+        "deaths_mega_normal": 20,
+        "losses_mega_normal": 20,
+        "deaths_mega": 20,
+        "survived_players_kit_mega_mega_default": 947,
+        "losses_mega": 20,
+        "losses_kit_mega_mega_default": 20,
+        "games_kit_advanced_solo_farmer": 85,
+        "solo_instant_smelting": 0,
+        "wins_kit_advanced_solo_farmer": 30,
+        "losses_kit_basic_solo_armorsmith": 116,
+        "deaths_kit_basic_solo_armorsmith": 116,
+        "survived_players_kit_basic_solo_armorsmith": 669,
+        "votes_LongIsland": 1,
+        "team_resistance_boost": 0,
+        "kills_kit_basic_solo_armorsmith": 48,
+        "games_kit_basic_solo_armorsmith": 16,
+        "wins_kit_basic_solo_armorsmith": 7,
+        "mega_ender_mastery": 0,
+        "kills_kit_basic_solo_ecologist": 16,
+        "survived_players_kit_basic_solo_ecologist": 144,
+        "deaths_kit_basic_solo_ecologist": 15,
+        "losses_kit_basic_solo_ecologist": 15,
+        "team_mining_expertise": 0,
+        "assists_kit_basic_solo_armorsmith": 7,
+        "team_instant_smelting": 0,
+        "solo_mining_expertise": 0,
+        "mega_juggernaut": 0,
+        "votes_Steampunk": 1,
+        "votes_Temple": 1,
+        "votes_Dragonice": 1,
+        "losses_kit_supporting_team_healer": 32,
+        "survived_players_kit_supporting_team_healer": 381,
+        "deaths_kit_supporting_team_healer": 32,
+        "votes_Congo": 1,
+        "votes_Shire": 1,
+        "mega_mining_expertise": 0,
+        "votes_Onionring": 1,
+        "votes_Toadstool": 1,
+        "kills_kit_supporting_team_healer": 21,
+        "votes_Shattered": 1,
+        "votes_Siege": 1,
+        "votes_Elven": 1,
+        "solo_juggernaut": 1,
+        "votes_Frostbite": 1,
+        "mega_rusher": 0,
+        "solo_blazing_arrows": 0,
+        "mega_blazing_arrows": 0,
+        "votes_Dwarven": 1,
+        "votes_Atuin": 1,
+        "solo_ender_mastery": 1,
+        "votes_Overfall": 1,
+        "votes_Skychurch": 1,
+        "votes_Tribal": 1,
+        "games_kit_supporting_team_healer": 5,
+        "solo_marksmanship": 0,
+        "deaths_kit_supporting_team_ecologist": 23,
+        "losses_kit_supporting_team_ecologist": 23,
+        "survived_players_kit_supporting_team_ecologist": 308,
+        "kills_weekly_b": 433,
+        "kills_monthly_a": 155,
+        "kills_monthly_b": 476,
+        "killstreak": 120,
+        "killstreak_kit_supporting_team_armorsmith": 4,
+        "winstreak_kit_supporting_team_armorsmith": 3,
+        "killstreak_team": 38,
+        "winstreak_team": 14,
+        "winstreak": 52,
+        "activeKit_RANKED": "kit_ranked_ranked_scout",
+        "highestWinstreak": 1,
+        "highestKillstreak": 3,
+        "deaths_kit_ranked_ranked_default": 7,
+        "survived_players_kit_ranked_ranked_default": 9,
+        "losses_ranked_normal": 49,
+        "deaths_ranked": 49,
+        "losses_ranked": 49,
+        "deaths_ranked_normal": 49,
+        "survived_players_ranked": 103,
+        "losses_kit_ranked_ranked_default": 7,
+        "games_ranked": 39,
+        "games_kit_ranked_ranked_default": 4,
+        "kills_kit_ranked_ranked_default": 1,
+        "kills_ranked_normal": 29,
+        "kills_ranked": 29,
+        "kills_weekly_a": 198,
+        "winstreak_kit_basic_solo_armorsmith": 1,
+        "winstreak_solo": 26,
+        "kills_kit_mega_mega_default": 5,
+        "kills_mega": 5,
+        "kills_mega_normal": 5,
+        "assists_mega": 4,
+        "assists_kit_mega_mega_default": 4,
+        "chests_opened_kit_advanced_solo_farmer": 178,
+        "chests_opened_solo": 1080,
+        "time_played_kit_advanced_solo_farmer": 4953,
+        "time_played_solo": 29471,
+        "chests_opened": 1307,
+        "time_played": 47595,
+        "games_played_skywars": 833,
+        "lastMode": "SOLO",
+        "most_kills_game_kit_advanced_solo_farmer": 8,
+        "void_kills": 139,
+        "void_kills_kit_advanced_solo_farmer": 13,
+        "most_kills_game_solo": 40,
+        "most_kills_game": 92,
+        "void_kills_solo": 95,
+        "longest_bow_shot": 17,
+        "longest_bow_shot_solo": 17,
+        "longest_bow_shot_kit_advanced_solo_farmer": 24,
+        "arrows_hit_solo": 82,
+        "arrows_shot_kit_advanced_solo_farmer": 92,
+        "arrows_hit_kit_advanced_solo_farmer": 20,
+        "arrows_shot_solo": 286,
+        "chests_opened_kit_supporting_team_armorsmith": 20,
+        "time_played_kit_supporting_team_armorsmith": 1204,
+        "chests_opened_team": 189,
+        "time_played_team": 12023,
+        "melee_kills_solo": 132,
+        "melee_kills": 210,
+        "melee_kills_kit_advanced_solo_farmer": 23,
+        "time_played_kit_mega_mega_default": 940,
+        "chests_opened_kit_mega_mega_default": 8,
+        "chests_opened_mega": 8,
+        "time_played_mega": 940,
+        "most_kills_game_mega": 1,
+        "melee_kills_mega": 1,
+        "melee_kills_kit_mega_mega_default": 1,
+        "most_kills_game_kit_mega_mega_default": 1,
+        "chests_opened_kit_basic_solo_armorsmith": 26,
+        "time_played_kit_basic_solo_armorsmith": 776,
+        "time_played_kit_basic_solo_ecologist": 1887,
+        "chests_opened_kit_basic_solo_ecologist": 37,
+        "games_kit_basic_solo_ecologist": 10,
+        "votes_Aquarius": 1,
+        "most_kills_game_kit_basic_solo_ecologist": 3,
+        "melee_kills_kit_basic_solo_ecologist": 11,
+        "tnt_madness_explained_last": 1513714886053,
+        "tnt_madness_explained": 1,
+        "win_streak_lab": 0,
+        "survived_players_lab_solo": 736,
+        "chests_opened_lab_solo": 340,
+        "deaths_lab": 239,
+        "deaths_lab_solo": 93,
+        "chests_opened_lab_kit_advanced_solo_farmer": 286,
+        "time_played_lab_solo": 9958,
+        "time_played_lab": 25404,
+        "coins_gained_lab": 55300,
+        "survived_players_lab": 2751,
+        "time_played_lab_kit_advanced_solo_farmer": 7395,
+        "losses_lab_kit_advanced_solo_farmer": 79,
+        "losses_lab_solo": 93,
+        "chests_opened_lab": 631,
+        "losses_lab": 232,
+        "deaths_lab_kit_advanced_solo_farmer": 79,
+        "blocks_placed_lab": 1324,
+        "survived_players_lab_kit_advanced_solo_farmer": 597,
+        "quits_lab": 197,
+        "void_kills_lab": 104,
+        "souls_gathered_lab": 170,
+        "void_kills_lab_kit_advanced_solo_farmer": 34,
+        "arrows_shot_lab_solo": 35,
+        "kills_lab": 232,
+        "kills_lab_solo": 99,
+        "arrows_shot_lab_kit_advanced_solo_farmer": 21,
+        "void_kills_lab_solo": 44,
+        "arrows_shot_lab": 148,
+        "kills_lab_kit_advanced_solo_farmer": 73,
+        "souls_lab": 7,
+        "most_kills_game_lab_kit_advanced_solo_farmer": 39,
+        "most_kills_game_lab_solo": 43,
+        "most_kills_game_lab": 48,
+        "melee_kills_lab_solo": 49,
+        "melee_kills_lab_kit_advanced_solo_farmer": 38,
+        "melee_kills_lab": 112,
+        "blocks_broken_lab": 355,
+        "slime_explained_last": 1505774502390,
+        "slime_explained": 100,
+        "survived_players_lab_team": 2015,
+        "chests_opened_lab_team": 291,
+        "time_played_lab_team": 15446,
+        "time_played_lab_kit_attacking_team_default": 474,
+        "survived_players_lab_kit_attacking_team_default": 92,
+        "deaths_lab_kit_attacking_team_default": 8,
+        "losses_lab_team": 139,
+        "losses_lab_kit_attacking_team_default": 7,
+        "deaths_lab_team": 146,
+        "chests_opened_lab_kit_attacking_team_default": 12,
+        "fastest_win_lab_kit_attacking_team_default": 130,
+        "fastest_win_lab_team": 224,
+        "fastest_win_lab": 224,
+        "void_kills_lab_kit_attacking_team_default": 3,
+        "wins_lab": 33,
+        "killstreak_lab": 64,
+        "killstreak_lab_kit_attacking_team_default": 2,
+        "lab_win_slime_lab_kit_attacking_team_default": 1,
+        "games_lab": 69,
+        "most_kills_game_lab_kit_attacking_team_default": 5,
+        "kills_lab_kit_attacking_team_default": 5,
+        "winstreak_lab_kit_attacking_team_default": 1,
+        "winstreak_lab": 33,
+        "most_kills_game_lab_team": 5,
+        "melee_kills_lab_team": 63,
+        "wins_lab_kit_attacking_team_default": 1,
+        "kills_lab_team": 133,
+        "lab_win_slime_lab": 12,
+        "winstreak_lab_team": 20,
+        "lab_win_slime_lab_team": 9,
+        "games_lab_kit_attacking_team_default": 2,
+        "killstreak_lab_team": 40,
+        "games_lab_team": 36,
+        "wins_lab_team": 20,
+        "void_kills_lab_team": 60,
+        "melee_kills_lab_kit_attacking_team_default": 2,
+        "assists_lab_team": 8,
+        "assists_lab_kit_attacking_team_default": 1,
+        "assists_lab": 9,
+        "games_lab_kit_advanced_solo_farmer": 25,
+        "games_lab_solo": 33,
+        "refill_chest_destroy_lab": 1,
+        "quickjoin_uses_total": 16,
+        "quickjoin_uses_random": 16,
+        "rush_explained": 8,
+        "rush_explained_last": 1509930297442,
+        "enderpearls_thrown_lab": 107,
+        "activeKit_TEAMS": "kit_supporting_team_ecologist",
+        "void_kills_kit_supporting_team_armorsmith": 4,
+        "most_kills_game_kit_supporting_team_armorsmith": 3,
+        "most_kills_game_team": 47,
+        "void_kills_team": 33,
+        "fastest_win": 84,
+        "fastest_win_team": 273,
+        "fastest_win_kit_supporting_team_armorsmith": 228,
+        "melee_kills_team": 60,
+        "melee_kills_kit_supporting_team_armorsmith": 1,
+        "longest_bow_shot_kit_mega_mega_default": 20,
+        "longest_bow_shot_mega": 20,
+        "arrows_shot_mega": 36,
+        "arrows_hit_mega": 6,
+        "arrows_hit_kit_mega_mega_default": 6,
+        "arrows_shot_kit_mega_mega_default": 36,
+        "chests_opened_lab_kit_supporting_team_armorsmith": 39,
+        "deaths_lab_kit_supporting_team_armorsmith": 15,
+        "survived_players_lab_kit_supporting_team_armorsmith": 290,
+        "losses_lab_kit_supporting_team_armorsmith": 14,
+        "time_played_lab_kit_supporting_team_armorsmith": 1913,
+        "void_kills_lab_kit_supporting_team_armorsmith": 10,
+        "kills_lab_kit_supporting_team_armorsmith": 26,
+        "melee_kills_lab_kit_supporting_team_armorsmith": 16,
+        "longest_bow_shot_lab": 19,
+        "longest_bow_shot_lab_kit_supporting_team_armorsmith": 8,
+        "longest_bow_shot_lab_team": 19,
+        "arrows_hit_lab_team": 13,
+        "arrows_shot_lab_kit_supporting_team_armorsmith": 5,
+        "arrows_shot_lab_team": 113,
+        "games_lab_kit_supporting_team_armorsmith": 6,
+        "killstreak_lab_kit_supporting_team_armorsmith": 11,
+        "arrows_hit_lab_kit_supporting_team_armorsmith": 1,
+        "lab_win_slime_lab_kit_supporting_team_armorsmith": 4,
+        "winstreak_lab_kit_supporting_team_armorsmith": 6,
+        "wins_lab_kit_supporting_team_armorsmith": 6,
+        "arrows_hit_lab": 15,
+        "fastest_win_lab_kit_supporting_team_armorsmith": 155,
+        "assists_lab_kit_supporting_team_armorsmith": 1,
+        "lab_win_tnt_madness_lab_team": 6,
+        "lab_win_tnt_madness_lab": 12,
+        "lab_win_tnt_madness_lab_kit_supporting_team_armorsmith": 2,
+        "longest_bow_shot_team": 12,
+        "longest_bow_shot_kit_supporting_team_armorsmith": 19,
+        "arrows_shot_team": 261,
+        "arrows_hit_team": 66,
+        "arrows_hit_kit_supporting_team_armorsmith": 8,
+        "arrows_shot_kit_supporting_team_armorsmith": 27,
+        "games_kit_supporting_team_ecologist": 3,
+        "time_played_kit_supporting_team_ecologist": 2049,
+        "chests_opened_kit_supporting_team_ecologist": 35,
+        "longest_bow_shot_kit_supporting_team_ecologist": 27,
+        "fastest_win_kit_supporting_team_ecologist": 223,
+        "most_kills_game_kit_supporting_team_ecologist": 4,
+        "winstreak_kit_supporting_team_ecologist": 1,
+        "melee_kills_kit_supporting_team_ecologist": 7,
+        "arrows_hit_kit_supporting_team_ecologist": 4,
+        "kills_kit_supporting_team_ecologist": 12,
+        "killstreak_kit_supporting_team_ecologist": 4,
+        "wins_kit_supporting_team_ecologist": 1,
+        "arrows_shot_kit_supporting_team_ecologist": 24,
+        "survived_players_lab_kit_supporting_team_ecologist": 865,
+        "chests_opened_lab_kit_supporting_team_ecologist": 140,
+        "arrows_shot_lab_kit_supporting_team_ecologist": 30,
+        "losses_lab_kit_supporting_team_ecologist": 68,
+        "time_played_lab_kit_supporting_team_ecologist": 5753,
+        "kills_lab_kit_supporting_team_ecologist": 54,
+        "melee_kills_lab_kit_supporting_team_ecologist": 24,
+        "deaths_lab_kit_supporting_team_ecologist": 70,
+        "games_lab_kit_supporting_team_ecologist": 14,
+        "void_kills_lab_kit_supporting_team_ecologist": 23,
+        "fastest_win_lab_kit_supporting_team_ecologist": 151,
+        "winstreak_lab_kit_supporting_team_ecologist": 5,
+        "mob_kills_lab_team": 2,
+        "mob_kills_lab": 3,
+        "mob_kills_lab_kit_supporting_team_ecologist": 2,
+        "lab_win_slime_lab_kit_supporting_team_ecologist": 4,
+        "wins_lab_kit_supporting_team_ecologist": 5,
+        "killstreak_lab_kit_supporting_team_ecologist": 11,
+        "assists_lab_kit_supporting_team_ecologist": 4,
+        "votes_Desserted Islands": 1,
+        "arrows_hit_lab_kit_advanced_solo_farmer": 1,
+        "arrows_hit_lab_solo": 2,
+        "fastest_win_lab_solo": 172,
+        "fastest_win_lab_kit_advanced_solo_farmer": 133,
+        "winstreak_lab_kit_advanced_solo_farmer": 8,
+        "wins_lab_kit_advanced_solo_farmer": 8,
+        "lab_win_tnt_madness_lab_solo": 6,
+        "winstreak_lab_solo": 13,
+        "lab_win_tnt_madness_lab_kit_advanced_solo_farmer": 6,
+        "killstreak_lab_solo": 24,
+        "wins_lab_solo": 13,
+        "killstreak_lab_kit_advanced_solo_farmer": 15,
+        "lab_win_tnt_madness_lab_kit_supporting_team_ecologist": 1,
+        "team_savior": 0,
+        "solo_nourishment": 0,
+        "egg_thrown_lab": 32,
+        "lab_win_slime_lab_solo": 3,
+        "lab_win_slime_lab_kit_advanced_solo_farmer": 2,
+        "assists_lab_kit_advanced_solo_farmer": 1,
+        "assists_lab_solo": 1,
+        "mob_kills_lab_solo": 1,
+        "mob_kills_lab_kit_advanced_solo_farmer": 1,
+        "void_kills_kit_supporting_team_ecologist": 4,
+        "assists_kit_supporting_team_ecologist": 3,
+        "team_ender_mastery": 0,
+        "fastest_win_kit_advanced_solo_farmer": 138,
+        "fastest_win_solo": 112,
+        "killstreak_solo": 64,
+        "killstreak_kit_advanced_solo_farmer": 9,
+        "winstreak_kit_advanced_solo_farmer": 3,
+        "mega_bridger": 0,
+        "most_kills_game_kit_basic_solo_armorsmith": 1,
+        "melee_kills_kit_basic_solo_armorsmith": 1,
+        "void_kills_kit_basic_solo_ecologist": 4,
+        "fastest_win_lab_kit_basic_solo_ecologist": 172,
+        "arrows_shot_lab_kit_basic_solo_ecologist": 1,
+        "wins_lab_kit_basic_solo_ecologist": 1,
+        "chests_opened_lab_kit_basic_solo_ecologist": 9,
+        "time_played_lab_kit_basic_solo_ecologist": 328,
+        "killstreak_lab_kit_basic_solo_ecologist": 1,
+        "games_lab_kit_basic_solo_ecologist": 1,
+        "void_kills_lab_kit_basic_solo_ecologist": 2,
+        "kills_lab_kit_basic_solo_ecologist": 3,
+        "survived_players_lab_kit_basic_solo_ecologist": 21,
+        "winstreak_lab_kit_basic_solo_ecologist": 1,
+        "lab_win_slime_lab_kit_basic_solo_ecologist": 1,
+        "losses_lab_kit_basic_solo_ecologist": 2,
+        "deaths_lab_kit_basic_solo_ecologist": 2,
+        "melee_kills_lab_kit_basic_solo_ecologist": 1,
+        "time_played_kit_basic_solo_energix": 3480,
+        "survived_players_kit_basic_solo_energix": 228,
+        "chests_opened_kit_basic_solo_energix": 122,
+        "losses_kit_basic_solo_energix": 35,
+        "deaths_kit_basic_solo_energix": 35,
+        "kills_kit_basic_solo_energix": 38,
+        "void_kills_kit_basic_solo_energix": 16,
+        "most_kills_game_kit_basic_solo_energix": 7,
+        "assists_kit_basic_solo_energix": 3,
+        "games_kit_basic_solo_energix": 10,
+        "melee_kills_kit_basic_solo_energix": 21,
+        "arrows_shot_lab_kit_basic_solo_energix": 1,
+        "deaths_lab_kit_basic_solo_energix": 1,
+        "kills_lab_kit_basic_solo_energix": 3,
+        "games_lab_kit_basic_solo_energix": 1,
+        "melee_kills_lab_kit_basic_solo_energix": 1,
+        "void_kills_lab_kit_basic_solo_energix": 2,
+        "survived_players_lab_kit_basic_solo_energix": 7,
+        "chests_opened_lab_kit_basic_solo_energix": 3,
+        "time_played_lab_kit_basic_solo_energix": 112,
+        "losses_lab_kit_basic_solo_energix": 1,
+        "refill_chest_destroy": 175,
+        "fastest_win_kit_basic_solo_ecologist": 132,
+        "wins_kit_basic_solo_ecologist": 4,
+        "winstreak_kit_basic_solo_ecologist": 4,
+        "killstreak_kit_basic_solo_ecologist": 8,
+        "longest_bow_shot_kit_attacking_team_knight": 15,
+        "time_played_kit_attacking_team_knight": 1737,
+        "losses_kit_attacking_team_knight": 14,
+        "survived_players_kit_attacking_team_knight": 218,
+        "deaths_kit_attacking_team_knight": 14,
+        "arrows_hit_kit_attacking_team_knight": 2,
+        "melee_kills_kit_attacking_team_knight": 9,
+        "most_kills_game_kit_attacking_team_knight": 7,
+        "kills_kit_attacking_team_knight": 11,
+        "chests_opened_kit_attacking_team_knight": 32,
+        "arrows_shot_kit_attacking_team_knight": 15,
+        "fastest_win_kit_defending_team_guardian": 223,
+        "longest_bow_shot_kit_defending_team_guardian": 21,
+        "chests_opened_kit_defending_team_guardian": 13,
+        "killstreak_kit_defending_team_guardian": 11,
+        "most_kills_game_kit_defending_team_guardian": 6,
+        "void_kills_kit_defending_team_guardian": 2,
+        "winstreak_kit_defending_team_guardian": 2,
+        "arrows_hit_kit_defending_team_guardian": 20,
+        "games_kit_defending_team_guardian": 3,
+        "arrows_shot_kit_defending_team_guardian": 53,
+        "time_played_kit_defending_team_guardian": 1349,
+        "melee_kills_kit_defending_team_guardian": 10,
+        "survived_players_kit_defending_team_guardian": 140,
+        "wins_kit_defending_team_guardian": 2,
+        "kills_kit_defending_team_guardian": 14,
+        "losses_kit_defending_team_guardian": 8,
+        "assists_kit_defending_team_guardian": 3,
+        "deaths_kit_defending_team_guardian": 8,
+        "survived_players_kit_attacking_team_scout": 171,
+        "chests_opened_kit_attacking_team_scout": 19,
+        "losses_kit_attacking_team_scout": 9,
+        "time_played_kit_attacking_team_scout": 1907,
+        "void_kills_kit_attacking_team_scout": 7,
+        "kills_kit_attacking_team_scout": 18,
+        "deaths_kit_attacking_team_scout": 10,
+        "most_kills_game_kit_attacking_team_scout": 10,
+        "longest_bow_shot_kit_attacking_team_scout": 25,
+        "arrows_shot_kit_attacking_team_scout": 58,
+        "arrows_hit_kit_attacking_team_scout": 17,
+        "melee_kills_kit_attacking_team_scout": 10,
+        "fastest_win_kit_attacking_team_scout": 160,
+        "wins_kit_attacking_team_scout": 3,
+        "games_kit_attacking_team_scout": 4,
+        "winstreak_kit_attacking_team_scout": 3,
+        "killstreak_kit_attacking_team_scout": 7,
+        "fastest_win_lab_kit_attacking_team_scout": 112,
+        "kills_lab_kit_attacking_team_scout": 11,
+        "survived_players_lab_kit_attacking_team_scout": 255,
+        "games_lab_kit_attacking_team_scout": 4,
+        "lab_win_tnt_madness_lab_kit_attacking_team_scout": 2,
+        "winstreak_lab_kit_attacking_team_scout": 2,
+        "chests_opened_lab_kit_attacking_team_scout": 35,
+        "wins_lab_kit_attacking_team_scout": 2,
+        "killstreak_lab_kit_attacking_team_scout": 2,
+        "melee_kills_lab_kit_attacking_team_scout": 6,
+        "time_played_lab_kit_attacking_team_scout": 1533,
+        "deaths_lab_kit_attacking_team_scout": 16,
+        "losses_lab_kit_attacking_team_scout": 15,
+        "void_kills_lab_kit_attacking_team_scout": 5,
+        "votes_Railroad": 1,
+        "kills_kit_basic_solo_scout": 16,
+        "survived_players_kit_basic_solo_scout": 145,
+        "losses_kit_basic_solo_scout": 20,
+        "most_kills_game_kit_basic_solo_scout": 4,
+        "deaths_kit_basic_solo_scout": 20,
+        "melee_kills_kit_basic_solo_scout": 7,
+        "time_played_kit_basic_solo_scout": 2087,
+        "games_kit_basic_solo_scout": 6,
+        "chests_opened_kit_basic_solo_scout": 69,
+        "fastest_win_kit_basic_solo_scout": 187,
+        "wins_kit_basic_solo_scout": 2,
+        "winstreak_kit_basic_solo_scout": 2,
+        "killstreak_kit_basic_solo_scout": 5,
+        "void_kills_kit_basic_solo_scout": 7,
+        "longest_bow_shot_kit_basic_solo_scout": 25,
+        "arrows_shot_kit_basic_solo_scout": 16,
+        "arrows_hit_kit_basic_solo_scout": 6,
+        "chests_opened_kit_advanced_solo_pyro": 77,
+        "time_played_kit_advanced_solo_pyro": 1695,
+        "void_kills_kit_advanced_solo_pyro": 8,
+        "most_kills_game_kit_advanced_solo_pyro": 5,
+        "melee_kills_kit_advanced_solo_pyro": 10,
+        "longest_bow_shot_kit_advanced_solo_pyro": 33,
+        "arrows_shot_kit_advanced_solo_pyro": 14,
+        "arrows_hit_kit_advanced_solo_pyro": 5,
+        "chests_opened_kit_attacking_team_salmon": 6,
+        "losses_kit_attacking_team_salmon": 4,
+        "survived_players_kit_attacking_team_salmon": 43,
+        "deaths_kit_attacking_team_salmon": 4,
+        "time_played_kit_attacking_team_salmon": 238,
+        "games_kit_attacking_team_knight": 3,
+        "void_kills_kit_supporting_team_healer": 10,
+        "time_played_kit_supporting_team_healer": 2105,
+        "chests_opened_kit_supporting_team_healer": 44,
+        "melee_kills_kit_supporting_team_healer": 9,
+        "most_kills_game_kit_supporting_team_healer": 5,
+        "arrows_shot_kit_supporting_team_healer": 54,
+        "longest_bow_shot_kit_supporting_team_healer": 26,
+        "arrows_hit_kit_supporting_team_healer": 9,
+        "fastest_win_kit_supporting_team_healer": 176,
+        "killstreak_kit_supporting_team_healer": 1,
+        "assists_kit_supporting_team_healer": 4,
+        "winstreak_kit_supporting_team_healer": 1,
+        "wins_kit_supporting_team_healer": 1,
+        "fastest_win_kit_advanced_solo_pyro": 102,
+        "winstreak_kit_advanced_solo_pyro": 1,
+        "killstreak_kit_advanced_solo_pyro": 3,
+        "time_played_kit_basic_solo_fisherman": 47,
+        "survived_players_kit_basic_solo_fisherman": 6,
+        "chests_opened_kit_basic_solo_fisherman": 3,
+        "deaths_kit_basic_solo_fisherman": 1,
+        "losses_kit_basic_solo_fisherman": 1,
+        "survived_players_lab_kit_supporting_team_healer": 21,
+        "winstreak_lab_kit_supporting_team_healer": 1,
+        "lab_win_tnt_madness_lab_kit_supporting_team_healer": 1,
+        "wins_lab_kit_supporting_team_healer": 1,
+        "killstreak_lab_kit_supporting_team_healer": 2,
+        "time_played_lab_kit_supporting_team_healer": 323,
+        "chests_opened_lab_kit_supporting_team_healer": 1,
+        "kills_lab_kit_supporting_team_healer": 2,
+        "games_lab_kit_supporting_team_healer": 1,
+        "melee_kills_lab_kit_supporting_team_healer": 2,
+        "survived_players_kit_basic_solo_disco": 40,
+        "deaths_kit_basic_solo_disco": 4,
+        "time_played_kit_basic_solo_disco": 406,
+        "losses_kit_basic_solo_disco": 4,
+        "chests_opened_kit_basic_solo_disco": 15,
+        "longest_bow_shot_kit_basic_solo_disco": 12,
+        "void_kills_kit_basic_solo_disco": 1,
+        "most_kills_game_kit_basic_solo_disco": 3,
+        "kills_kit_basic_solo_disco": 3,
+        "arrows_hit_kit_basic_solo_disco": 5,
+        "games_kit_basic_solo_disco": 2,
+        "arrows_shot_kit_basic_solo_disco": 11,
+        "fastest_win_kit_basic_solo_disco": 77,
+        "wins_kit_basic_solo_disco": 1,
+        "winstreak_kit_basic_solo_disco": 1,
+        "assists_kit_basic_solo_disco": 1,
+        "killstreak_kit_basic_solo_disco": 2,
+        "melee_kills_kit_basic_solo_disco": 2,
+        "chests_opened_kit_defending_team_batguy": 12,
+        "deaths_kit_defending_team_batguy": 6,
+        "time_played_kit_defending_team_batguy": 815,
+        "survived_players_kit_defending_team_batguy": 108,
+        "losses_kit_defending_team_batguy": 6,
+        "fastest_win_kit_attacking_team_knight": 181,
+        "void_kills_kit_attacking_team_knight": 2,
+        "killstreak_kit_attacking_team_knight": 3,
+        "wins_kit_attacking_team_knight": 2,
+        "winstreak_kit_attacking_team_knight": 2,
+        "mega_instant_smelting": 0,
+        "time_played_kit_advanced_solo_cannoneer": 3867,
+        "losses_kit_advanced_solo_cannoneer": 63,
+        "deaths_kit_advanced_solo_cannoneer": 63,
+        "survived_players_kit_advanced_solo_cannoneer": 321,
+        "chests_opened_kit_advanced_solo_cannoneer": 157,
+        "void_kills_kit_advanced_solo_cannoneer": 5,
+        "most_kills_game_kit_advanced_solo_cannoneer": 3,
+        "kills_kit_advanced_solo_cannoneer": 15,
+        "fastest_win_kit_advanced_solo_cannoneer": 136,
+        "wins_kit_advanced_solo_cannoneer": 2,
+        "winstreak_kit_advanced_solo_cannoneer": 2,
+        "killstreak_kit_advanced_solo_cannoneer": 3,
+        "games_kit_advanced_solo_cannoneer": 10,
+        "xezbeth_luck": 2,
+        "melee_kills_kit_advanced_solo_cannoneer": 8,
+        "solo_lucky_charm": 0,
+        "melee_kills_kit_defending_team_batguy": 6,
+        "games_kit_defending_team_batguy": 2,
+        "most_kills_game_kit_defending_team_batguy": 4,
+        "kills_kit_defending_team_batguy": 6,
+        "fastest_win_kit_defending_team_batguy": 172,
+        "winstreak_kit_defending_team_batguy": 1,
+        "wins_kit_defending_team_batguy": 1,
+        "killstreak_kit_defending_team_batguy": 3,
+        "chests_opened_kit_basic_solo_baseball-player": 1,
+        "deaths_kit_basic_solo_baseball-player": 1,
+        "losses_kit_basic_solo_baseball-player": 1,
+        "survived_players_kit_basic_solo_baseball-player": 1,
+        "time_played_kit_basic_solo_baseball-player": 7,
+        "arrows_shot_kit_advanced_solo_cannoneer": 28,
+        "most_kills_game_kit_attacking_team_salmon": 3,
+        "games_kit_attacking_team_salmon": 1,
+        "kills_kit_attacking_team_salmon": 4,
+        "melee_kills_kit_attacking_team_salmon": 3,
+        "assists_kit_advanced_solo_cannoneer": 2,
+        "longest_bow_shot_kit_advanced_solo_cannoneer": 16,
+        "arrows_hit_kit_advanced_solo_cannoneer": 5,
+        "mob_kills": 1,
+        "mob_kills_solo": 1,
+        "mob_kills_kit_advanced_solo_cannoneer": 1,
+        "deaths_kit_basic_solo_frog": 109,
+        "survived_players_kit_basic_solo_frog": 759,
+        "chests_opened_kit_basic_solo_frog": 386,
+        "time_played_kit_basic_solo_frog": 9852,
+        "losses_kit_basic_solo_frog": 109,
+        "void_kills_kit_basic_solo_frog": 40,
+        "most_kills_game_kit_basic_solo_frog": 5,
+        "kills_kit_basic_solo_frog": 97,
+        "assists_kit_basic_solo_frog": 5,
+        "melee_kills_kit_basic_solo_frog": 49,
+        "games_kit_basic_solo_frog": 39,
+        "longest_bow_shot_kit_basic_solo_ecologist": 18,
+        "arrows_hit_kit_basic_solo_ecologist": 1,
+        "arrows_shot_kit_basic_solo_ecologist": 2,
+        "assists_kit_attacking_team_scout": 1,
+        "deaths_lab_kit_attacking_team_knight": 4,
+        "survived_players_lab_kit_attacking_team_knight": 48,
+        "losses_lab_kit_attacking_team_knight": 4,
+        "time_played_lab_kit_attacking_team_knight": 273,
+        "chests_opened_lab_kit_attacking_team_knight": 5,
+        "assists_lab_kit_attacking_team_knight": 1,
+        "void_kills_lab_kit_attacking_team_knight": 1,
+        "kills_lab_kit_attacking_team_knight": 1,
+        "arrows_shot_kit_basic_solo_frog": 85,
+        "longest_bow_shot_kit_basic_solo_frog": 36,
+        "arrows_hit_kit_basic_solo_frog": 32,
+        "solo_bulldozer": 2,
+        "assists_kit_basic_solo_scout": 1,
+        "fastest_win_kit_basic_solo_energix": 86,
+        "killstreak_kit_basic_solo_energix": 7,
+        "wins_kit_basic_solo_energix": 2,
+        "winstreak_kit_basic_solo_energix": 2,
+        "fastest_win_kit_basic_solo_frog": 112,
+        "winstreak_kit_basic_solo_frog": 10,
+        "killstreak_kit_basic_solo_frog": 27,
+        "wins_kit_basic_solo_frog": 10,
+        "arrows_shot_kit_defending_team_batguy": 17,
+        "longest_bow_shot_kit_defending_team_batguy": 12,
+        "arrows_hit_kit_defending_team_batguy": 3,
+        "chests_opened_ranked": 30,
+        "time_played_ranked": 5161,
+        "deaths_kit_ranked_ranked_magician": 1,
+        "time_played_kit_ranked_ranked_magician": 120,
+        "chests_opened_kit_ranked_ranked_magician": 5,
+        "losses_kit_ranked_ranked_magician": 1,
+        "survived_players_kit_ranked_ranked_magician": 1,
+        "games_kit_ranked_ranked_magician": 1,
+        "games_kit_ranked_ranked_paladin": 1,
+        "survived_players_kit_ranked_ranked_paladin": 2,
+        "losses_kit_ranked_ranked_paladin": 1,
+        "chests_opened_kit_ranked_ranked_paladin": 4,
+        "deaths_kit_ranked_ranked_paladin": 1,
+        "time_played_kit_ranked_ranked_paladin": 127,
+        "fastest_win_kit_ranked_ranked_scout": 84,
+        "fastest_win_ranked": 84,
+        "winstreak_ranked": 14,
+        "games_kit_ranked_ranked_scout": 31,
+        "survived_players_kit_ranked_ranked_scout": 86,
+        "time_played_kit_ranked_ranked_scout": 4720,
+        "most_kills_game_kit_ranked_ranked_scout": 3,
+        "wins_ranked_normal": 14,
+        "chests_opened_kit_ranked_ranked_scout": 14,
+        "killstreak_ranked": 20,
+        "melee_kills_ranked": 17,
+        "melee_kills_kit_ranked_ranked_scout": 16,
+        "winstreak_kit_ranked_ranked_scout": 13,
+        "killstreak_kit_ranked_ranked_scout": 19,
+        "kills_kit_ranked_ranked_scout": 26,
+        "wins_ranked": 14,
+        "most_kills_game_ranked": 4,
+        "wins_kit_ranked_ranked_scout": 13,
+        "assists_kit_defending_team_batguy": 1,
+        "void_kills_kit_ranked_ranked_scout": 10,
+        "void_kills_ranked": 11,
+        "deaths_kit_ranked_ranked_scout": 39,
+        "losses_kit_ranked_ranked_scout": 39,
+        "mega_notoriety": 0,
+        "arrows_shot_ranked": 5,
+        "arrows_shot_kit_ranked_ranked_scout": 5,
+        "losses_kit_blacksmith_ranked_blacksmith": 1,
+        "most_kills_game_kit_blacksmith_ranked_blacksmith": 1,
+        "games_kit_blacksmith_ranked_blacksmith": 2,
+        "deaths_kit_blacksmith_ranked_blacksmith": 1,
+        "melee_kills_kit_blacksmith_ranked_blacksmith": 1,
+        "survived_players_kit_blacksmith_ranked_blacksmith": 5,
+        "time_played_kit_blacksmith_ranked_blacksmith": 194,
+        "kills_kit_blacksmith_ranked_blacksmith": 2,
+        "chests_opened_kit_blacksmith_ranked_blacksmith": 7,
+        "fastest_win_kit_blacksmith_ranked_blacksmith": 108,
+        "void_kills_kit_blacksmith_ranked_blacksmith": 1,
+        "killstreak_kit_blacksmith_ranked_blacksmith": 1,
+        "wins_kit_blacksmith_ranked_blacksmith": 1,
+        "winstreak_kit_blacksmith_ranked_blacksmith": 1,
+        "kills_lab_kit_basic_solo_frog": 15,
+        "melee_kills_lab_kit_basic_solo_frog": 5,
+        "deaths_lab_kit_basic_solo_frog": 9,
+        "chests_opened_lab_kit_basic_solo_frog": 37,
+        "losses_lab_kit_basic_solo_frog": 9,
+        "survived_players_lab_kit_basic_solo_frog": 98,
+        "games_lab_kit_basic_solo_frog": 6,
+        "time_played_lab_kit_basic_solo_frog": 1920,
+        "mega_nourishment": 0,
+        "team_environmental_expert": 0,
+        "longest_bow_shot_kit_basic_solo_rookie": 20,
+        "most_kills_game_kit_basic_solo_rookie": 1,
+        "survived_players_kit_basic_solo_rookie": 15,
+        "games_kit_basic_solo_rookie": 1,
+        "kills_kit_basic_solo_rookie": 2,
+        "time_played_kit_basic_solo_rookie": 414,
+        "arrows_hit_kit_basic_solo_rookie": 2,
+        "arrows_shot_kit_basic_solo_rookie": 5,
+        "losses_kit_basic_solo_rookie": 4,
+        "chests_opened_kit_basic_solo_rookie": 9,
+        "deaths_kit_basic_solo_rookie": 4,
+        "solo_resistance_boost": 0,
+        "kit_basic_solo_frog_inventory": {
+          "POTION:2": "2",
+          "LEATHER_CHESTPLATE:0": "38",
+          "LEATHER_LEGGINGS:0": "37",
+          "SKULL_ITEM:3": "39",
+          "LEATHER_BOOTS:0": "36"
+        },
+        "longest_bow_shot_kit_basic_solo_energix": 26,
+        "arrows_shot_kit_basic_solo_energix": 27,
+        "arrows_hit_kit_basic_solo_energix": 5,
+        "void_kills_kit_attacking_team_salmon": 1,
+        "void_kills_kit_basic_solo_rookie": 1,
+        "longest_bow_kill": 1,
+        "longest_bow_kill_solo": 31,
+        "longest_bow_kill_kit_basic_solo_frog": 31,
+        "longest_bow_kill_team": 1,
+        "longest_bow_kill_kit_supporting_team_healer": 1,
+        "longest_bow_kill_kit_defending_team_armorer": 1,
+        "fastest_win_kit_defending_team_armorer": 273,
+        "melee_kills_kit_defending_team_armorer": 5,
+        "killstreak_kit_defending_team_armorer": 5,
+        "kills_kit_defending_team_armorer": 8,
+        "time_played_kit_defending_team_armorer": 619,
+        "games_kit_defending_team_armorer": 1,
+        "winstreak_kit_defending_team_armorer": 1,
+        "wins_kit_defending_team_armorer": 1,
+        "most_kills_game_kit_defending_team_armorer": 5,
+        "chests_opened_kit_defending_team_armorer": 8,
+        "survived_players_kit_defending_team_armorer": 70,
+        "arrows_shot_kit_defending_team_armorer": 13,
+        "void_kills_kit_defending_team_armorer": 3,
+        "longest_bow_kill_kit_ranked_ranked_scout": 4,
+        "longest_bow_kill_ranked": 4,
+        "inGamePresentsCap_2017_23": 2,
+        "assists_ranked": 1,
+        "assists_kit_ranked_ranked_scout": 1,
+        "inGamePresentsCap_2017_25": 1,
+        "inGamePresentsCap_2017_26": 1,
+        "losses_kit_defending_team_armorer": 5,
+        "deaths_kit_defending_team_armorer": 5,
+        "longest_bow_shot_kit_defending_team_armorer": 12,
+        "arrows_hit_kit_defending_team_armorer": 3,
+        "lucky_explained": 52,
+        "lucky_explained_last": 1516839489647,
+        "void_kills_lab_kit_basic_solo_frog": 6,
+        "chests_opened_lab_kit_defending_team_armorer": 59,
+        "losses_lab_kit_defending_team_armorer": 31,
+        "deaths_lab_kit_defending_team_armorer": 33,
+        "time_played_lab_kit_defending_team_armorer": 5177,
+        "survived_players_lab_kit_defending_team_armorer": 444,
+        "void_kills_lab_kit_defending_team_armorer": 18,
+        "kills_lab_kit_defending_team_armorer": 34,
+        "longest_bow_kill_lab_kit_defending_team_armorer": 1,
+        "longest_bow_kill_lab_team": 1,
+        "longest_bow_kill_lab": 3,
+        "games_lab_kit_defending_team_armorer": 9,
+        "melee_kills_lab_kit_defending_team_armorer": 13,
+        "longest_bow_shot_lab_kit_defending_team_armorer": 19,
+        "arrows_hit_lab_kit_defending_team_armorer": 12,
+        "arrows_shot_lab_kit_defending_team_armorer": 78,
+        "winstreak_lab_kit_basic_solo_frog": 4,
+        "lab_win_lucky_blocks_lab_solo": 4,
+        "killstreak_lab_kit_basic_solo_frog": 8,
+        "lab_win_lucky_blocks_lab": 9,
+        "lab_win_lucky_blocks_lab_kit_basic_solo_frog": 4,
+        "wins_lab_kit_basic_solo_frog": 4,
+        "fastest_win_lab_kit_defending_team_armorer": 224,
+        "wins_lab_kit_defending_team_armorer": 5,
+        "lab_win_lucky_blocks_lab_team": 5,
+        "winstreak_lab_kit_defending_team_armorer": 5,
+        "killstreak_lab_kit_defending_team_armorer": 12,
+        "lab_win_lucky_blocks_lab_kit_defending_team_armorer": 5,
+        "extra_wheels": 4,
+        "team_nourishment": 0,
+        "assists_lab_kit_defending_team_armorer": 1,
+        "arrows_shot_lab_kit_basic_solo_frog": 12,
+        "arrows_hit_lab_kit_basic_solo_frog": 1,
+        "active_cage": "cage_blue-cage",
+        "freeLootChestNpc": 1515948310345,
+        "skywars_chests": 0,
+        "SkyWars_openedCommons": 2,
+        "SkyWars_openedChests": 3,
+        "cosmetic_tokens": 500,
+        "skywars_chest_history": [
+          "deathcry_fireball",
+          "cage_toffee-cage"
+        ],
+        "SkyWars_openedRares": 1,
+        "longest_bow_shot_kit_basic_solo_armorsmith": 17,
+        "arrows_hit_kit_basic_solo_armorsmith": 1,
+        "arrows_shot_kit_basic_solo_armorsmith": 6,
+        "chests_opened_lab_kit_basic_solo_armorsmith": 5,
+        "kills_lab_kit_basic_solo_armorsmith": 5,
+        "survived_players_lab_kit_basic_solo_armorsmith": 13,
+        "deaths_lab_kit_basic_solo_armorsmith": 2,
+        "time_played_lab_kit_basic_solo_armorsmith": 203,
+        "losses_lab_kit_basic_solo_armorsmith": 2,
+        "longest_bow_kill_lab_solo": 3,
+        "longest_bow_kill_lab_kit_basic_solo_armorsmith": 3,
+        "most_kills_game_lab_kit_basic_solo_armorsmith": 4,
+        "melee_kills_lab_kit_basic_solo_armorsmith": 4
+      },
+      "Walls3": {
+        "chosen_class": "Spider",
+        "coins": 32321,
+        "deaths": 2,
+        "losses_Spider": 1,
+        "weeklyLosses": 1,
+        "weeklyDeaths": 2,
+        "weeklyLosses_Spider": 1,
+        "assists": 2,
+        "deaths_Spider": 2,
+        "weeklyDeaths_Spider": 2,
+        "assists_Spider": 2,
+        "losses": 1,
+        "packages": [
+          "legacy_achievement_a",
+          "achievement_fix_flag"
+        ],
+        "spider_losses": 1,
+        "spider_deaths": 2
+      },
+      "UHC": {
+        "coins": 3600,
+        "deaths": 11,
+        "kit_MAGIC_TOOLS": 1,
+        "equippedKit": "WORKING_TOOLS",
+        "clearup_achievement": true,
+        "packages": [
+          "apprentice_helmet",
+          "eight_leather",
+          "forge",
+          "prot_book",
+          "apples",
+          "iron_ingots",
+          "tarnhelm",
+          "apprentice_sword",
+          "apprentice_bow",
+          "enchant_bottles",
+          "arrows_economy"
+        ],
+        "perk_armorsmith_line_a": 0,
+        "perk_armorsmith_line_c": 1,
+        "perk_armorsmith_line_b": 1,
+        "perk_cooking_line_a": 0,
+        "perk_cooking_line_c": 1,
+        "perk_cooking_line_b": 1,
+        "perk_engineering_line_a": 0,
+        "perk_engineering_line_c": 1,
+        "perk_engineering_line_b": 1,
+        "perk_apprentice_line_a": 0,
+        "perk_apprentice_line_b": 1,
+        "perk_apprentice_line_c": 1,
+        "deaths_solo": 5,
+        "perk_enchanting_line_a": 0,
+        "perk_enchanting_line_b": 1,
+        "kit_WORKING_TOOLS": 1,
+        "kills": 1,
+        "score": 1,
+        "heads_eaten": 1
+      },
+      "MCGO": {
+        "deaths": 4,
+        "shots_fired": 44,
+        "coins": 41903,
+        "headshot_kills": 3,
+        "bombs_defused": 0,
+        "game_wins_deathmatch": 0,
+        "packages": [
+          "achievement_flag_3"
+        ],
+        "game_wins": 0,
+        "bombs_planted": 0,
+        "kills": 0,
+        "kills_deathmatch": 0
+      },
+      "GingerBread": {
+        "skin_active": "RED_KART;DEFAULT",
+        "engine_active": "{GingerbreadPart:{PartType:ENGINE,PartRarity:BASIC}}",
+        "frame_active": "{GingerbreadPart:{PartType:FRAME,PartRarity:BASIC}}",
+        "helmet_active": "HELMET_1_1",
+        "booster_active": "{GingerbreadPart:{PartType:TURBOCHARGER,PartRarity:BASIC}}",
+        "packages": [
+          "helmet_1_1_unlocked"
+        ],
+        "jacket_active": "GOLD_JACKET",
+        "pants_active": "GOLD_PANTS",
+        "shoes_active": "GOLD_SHOES",
+        "horn": "DEFAULT",
+        "box_pickups_olympus": 3,
+        "box_pickups": 9,
+        "box_pickups_weekly_b": 9,
+        "box_pickups_monthly_a": 9,
+        "coins_picked_up": 32,
+        "olympus_plays": 1,
+        "canyon_plays": 1,
+        "laps_completed": 2,
+        "banana_hits_received": 1,
+        "box_pickups_canyon": 6,
+        "coins": 13149
+      },
+      "TrueCombat": {
+        "packages": [
+          "cw_ach_flag1",
+          "cw_ach_flag2",
+          "cw_ach_flag3",
+          "cw_ach_flag4"
+        ],
+        "win_streak": 0,
+        "games": 1,
+        "crazywalls_losses_solo_chaos": 2,
+        "crazywalls_games_solo_chaos": 1,
+        "deaths": 1,
+        "losses": 2,
+        "crazywalls_deaths_solo_chaos": 1,
+        "coins": 50865
+      },
+      "SuperSmash": {
+        "lastLevel_THE_BULK": 1,
+        "win_streak": 0,
+        "deaths_2v2": 8,
+        "class_stats": {
+          "THE_BULK": {
+            "boulder": {
+              "damage_dealt": 170,
+              "damage_dealt_2v2": 60,
+              "damage_dealt_normal": 110,
+              "smasher_normal": 1,
+              "kills": 1,
+              "smasher": 1,
+              "kills_normal": 1
+            },
+            "kills": 7,
+            "monster_mash": {
+              "damage_dealt": 40,
+              "damage_dealt_2v2": 18,
+              "damage_dealt_normal": 22
+            },
+            "melee": {
+              "kills": 3,
+              "kills_2v2": 1,
+              "damage_dealt": 392,
+              "damage_dealt_2v2": 167,
+              "kills_normal": 2,
+              "smasher": 3,
+              "smasher_normal": 3,
+              "damage_dealt_normal": 225,
+              "smashed": 2,
+              "smashed_normal": 2
+            },
+            "monster_charge": {
+              "damage_dealt": 159,
+              "kills": 2,
+              "damage_dealt_2v2": 48,
+              "kills_2v2": 1,
+              "kills_normal": 1,
+              "damage_dealt_normal": 111
+            },
+            "kills_2v2": 3,
+            "games": 7,
+            "games_2v2": 3,
+            "damage_dealt_2v2": 329,
+            "damage_dealt": 851,
+            "deaths_2v2": 8,
+            "losses_2v2": 3,
+            "losses": 6,
+            "deaths": 16,
+            "smasher": 4,
+            "seismic_slam": {
+              "damage_dealt": 90,
+              "damage_dealt_normal": 54,
+              "kills_2v2": 1,
+              "kills": 1,
+              "damage_dealt_2v2": 36
+            },
+            "smasher_normal": 4,
+            "deaths_normal": 8,
+            "losses_normal": 3,
+            "kills_normal": 4,
+            "games_normal": 4,
+            "damage_dealt_normal": 522,
+            "smashed": 3,
+            "smashed_normal": 3,
+            "frostbolt": {
+              "smashed_normal": 1,
+              "smashed": 1
+            },
+            "friend_losses": 1,
+            "friend_losses_normal": 1
+          },
+          "BOTMUN": {
+            "melee": {
+              "smashed": 1,
+              "smashed_normal": 1,
+              "damage_dealt": 12,
+              "damage_dealt_normal": 12
+            },
+            "deaths": 3,
+            "cake_storm": {
+              "smashed": 2,
+              "smashed_normal": 2
+            },
+            "smashed_normal": 3,
+            "games_normal": 1,
+            "games": 1,
+            "batarang": {
+              "damage_dealt_normal": 55,
+              "damage_dealt": 55
+            },
+            "botmubile": {
+              "damage_dealt_normal": 10,
+              "damage_dealt": 10
+            },
+            "grappling_hook": {
+              "damage_dealt_normal": 6,
+              "damage_dealt": 6
+            },
+            "damage_dealt_normal": 83,
+            "smashed": 3,
+            "damage_dealt": 83,
+            "deaths_normal": 3,
+            "losses": 1,
+            "losses_normal": 1
+          }
+        },
+        "damage_dealt": 847,
+        "losses_2v2": 3,
+        "coins": 29109,
+        "losses_weekly_b": 2,
+        "losses": 7,
+        "kills_2v2": 3,
+        "games_2v2": 3,
+        "games_monthly_a": 5,
+        "kills_monthly_a": 6,
+        "damage_dealt_2v2": 329,
+        "kills": 7,
+        "losses_monthly_a": 5,
+        "games_weekly_b": 2,
+        "deaths": 19,
+        "games": 8,
+        "kills_weekly_b": 2,
+        "xp_THE_BULK": 100,
+        "active_class": "CAKE_MONSTER",
+        "lastLevel_GENERAL_CLUCK": 0,
+        "lastLevel_BOTMUN": 0,
+        "losses_weekly_a": 5,
+        "games_weekly_a": 6,
+        "smashed_normal": 5,
+        "quits": 5,
+        "deaths_normal": 11,
+        "games_normal": 5,
+        "losses_normal": 4,
+        "smashed": 5,
+        "damage_dealt_normal": 518,
+        "smasher": 3,
+        "smasher_normal": 3,
+        "kills_normal": 4,
+        "kills_weekly_a": 5,
+        "votes_Grove": 1,
+        "smash_level_total": 1,
+        "smashLevel": 1,
+        "losses_monthly_b": 2,
+        "games_monthly_b": 3,
+        "kills_monthly_b": 1,
+        "FRIENDS_firstGame": 1499614246914,
+        "FRIENDS_gamesDay": 1,
+        "lastLevel_CAKE_MONSTER": 0,
+        "friend_losses": 0,
+        "friend_wins": 0,
+        "friend_wins_normal": 0,
+        "wins": 0,
+        "assists": 0,
+        "assists_normal": 0,
+        "wins_normal": 0,
+        "wins_weekly_a": 0,
+        "wins_monthly_b": 0,
+        "friend_losses_normal": 0
+      },
+      "SpeedUHC": {
+        "firstJoinLobbyInt": 5,
+        "highestKillstreak": 1,
+        "killstreak": 0,
+        "activeMasterPerk": "mastery_wild_specialist",
+        "win_streak": 0,
+        "survived_players_normal": 128,
+        "deaths_team": 13,
+        "coins": 33282,
+        "losses": 13,
+        "kills_monthly_a": 1,
+        "deaths_normal": 12,
+        "deaths_team_normal": 12,
+        "kills_team_normal": 1,
+        "quits": 13,
+        "survived_players_team": 149,
+        "kills_mastery_wild_specialist": 1,
+        "kills_weekly_a": 1,
+        "deaths": 13,
+        "deaths_kit_basic_normal_default": 12,
+        "kills": 1,
+        "tears_gathered": 15,
+        "deaths_mastery_wild_specialist": 13,
+        "losses_mastery_wild_specialist": 13,
+        "tears": 15,
+        "blocks_broken": 3215,
+        "kills_team": 1,
+        "losses_kit_basic_normal_default": 12,
+        "survived_players_kit_basic_normal_default": 128,
+        "losses_team": 13,
+        "losses_normal": 12,
+        "survived_players": 149,
+        "kills_normal": 1,
+        "losses_team_normal": 12,
+        "kills_kit_basic_normal_default": 1,
+        "blocks_placed": 191,
+        "games_normal": 3,
+        "wins_normal": 1,
+        "wins_kit_basic_normal_default": 1,
+        "winstreak_team": 1,
+        "winstreak": 0,
+        "wins": 1,
+        "games_team": 4,
+        "wins_team": 1,
+        "winstreak_kit_basic_normal_default": 1,
+        "winstreak_normal": 1,
+        "wins_mastery_wild_specialist": 1,
+        "games_kit_basic_normal_default": 3,
+        "games": 4,
+        "wins_team_normal": 1,
+        "losses_team_insane": 1,
+        "losses_insane": 1,
+        "deaths_team_insane": 1,
+        "deaths_insane": 1,
+        "deaths_kit_basic_insane_default": 1,
+        "losses_kit_basic_insane_default": 1,
+        "survived_players_insane": 21,
+        "survived_players_kit_basic_insane_default": 21,
+        "games_insane": 1,
+        "games_kit_basic_insane_default": 1,
+        "highestWinstreak": 1,
+        "items_enchanted": 1
+      },
+      "Bedwars": {
+        "Experience": 367381,
+        "bedwars_boxes": 1,
+        "first_join_7": true,
+        "games_played_bedwars_1": 1334,
+        "final_deaths_bedwars": 631,
+        "gold_resources_collected_bedwars": 41902,
+        "void_deaths_bedwars": 3334,
+        "four_four__items_purchased_bedwars": 6117,
+        "deaths_bedwars": 5502,
+        "four_four_projectile_final_deaths_bedwars": 1,
+        "resources_collected_bedwars": 308603,
+        "four_four_permanent _items_purchased_bedwars": 492,
+        "games_played_bedwars": 1324,
+        "four_four_final_deaths_bedwars": 167,
+        "permanent _items_purchased_bedwars": 1711,
+        "four_four_deaths_bedwars": 1693,
+        "four_four_gold_resources_collected_bedwars": 10324,
+        "projectile_final_deaths_bedwars": 5,
+        "four_four_beds_lost_bedwars": 195,
+        "four_four_losses_bedwars": 189,
+        "four_four_iron_resources_collected_bedwars": 76868,
+        "beds_lost_bedwars": 716,
+        "four_four_games_played_bedwars": 381,
+        "losses_bedwars": 715,
+        "items_purchased_bedwars": 24147,
+        "four_four_resources_collected_bedwars": 92250,
+        "four_four_void_deaths_bedwars": 1014,
+        "four_four_items_purchased_bedwars": 6609,
+        "iron_resources_collected_bedwars": 245056,
+        "_items_purchased_bedwars": 22436,
+        "winstreak": 6,
+        "diamond_resources_collected_bedwars": 9571,
+        "four_four_kills_bedwars": 1257,
+        "fall_kills_bedwars": 74,
+        "four_four_diamond_resources_collected_bedwars": 2816,
+        "kills_bedwars": 3897,
+        "fall_final_deaths_bedwars": 18,
+        "four_four_fall_kills_bedwars": 27,
+        "four_four_fall_final_deaths_bedwars": 5,
+        "four_four_void_final_deaths_bedwars": 79,
+        "entity_attack_kills_bedwars": 1712,
+        "void_final_deaths_bedwars": 259,
+        "four_four_entity_attack_kills_bedwars": 525,
+        "void_kills_bedwars": 2097,
+        "four_four_void_kills_bedwars": 703,
+        "four_four_entity_attack_deaths_bedwars": 644,
+        "entity_attack_deaths_bedwars": 2035,
+        "coins": 142193,
+        "entity_attack_final_kills_bedwars": 1156,
+        "four_four_wins_bedwars": 192,
+        "four_four_entity_attack_final_kills_bedwars": 311,
+        "wins_bedwars": 609,
+        "final_kills_bedwars": 1983,
+        "four_four_final_kills_bedwars": 552,
+        "four_three_games_played_bedwars": 608,
+        "four_three_gold_resources_collected_bedwars": 19431,
+        "four_three_iron_resources_collected_bedwars": 111291,
+        "four_three_resources_collected_bedwars": 142131,
+        "four_three_losses_bedwars": 281,
+        "four_three_permanent _items_purchased_bedwars": 856,
+        "four_three__items_purchased_bedwars": 9912,
+        "four_three_diamond_resources_collected_bedwars": 4270,
+        "four_three_items_purchased_bedwars": 10768,
+        "four_three_void_kills_bedwars": 937,
+        "four_three_entity_attack_kills_bedwars": 728,
+        "emerald_resources_collected_bedwars": 3628,
+        "four_three_emerald_resources_collected_bedwars": 1683,
+        "four_three_void_deaths_bedwars": 1523,
+        "four_three_entity_attack_deaths_bedwars": 881,
+        "four_three_beds_lost_bedwars": 289,
+        "four_three_deaths_bedwars": 2467,
+        "four_three_void_final_deaths_bedwars": 95,
+        "four_three_kills_bedwars": 1710,
+        "four_three_final_deaths_bedwars": 248,
+        "four_three_fall_kills_bedwars": 37,
+        "entity_attack_final_deaths_bedwars": 344,
+        "four_three_entity_attack_final_deaths_bedwars": 141,
+        "four_four_void_final_kills_bedwars": 221,
+        "void_final_kills_bedwars": 779,
+        "packages": [
+          "tiered_achievement_flag_1",
+          "tiered_achievement_flag_2",
+          "killeffect_firework",
+          "npcskin_zombie_pigman",
+          "sprays_bed_shield",
+          "glyph_yes",
+          "glyph_iron",
+          "deathcry_bat",
+          "glyph_daisy",
+          "deathcry_deflated_toy",
+          "killeffect_head_rocket",
+          "deathcry_ding",
+          "sprays_invisibility_potion",
+          "islandtopper_treasure_chest",
+          "victorydance_wither_rider",
+          "deathcry_sad_puppy",
+          "deathcry_dinosaur",
+          "killeffect_squid_missile",
+          "victorydance_fireworks",
+          "deathcry_plop",
+          "islandtopper_gong",
+          "glyph_thumbs_up",
+          "projectiletrail_notes",
+          "killeffect_lighting_strike",
+          "npcskin_blaze",
+          "killmessages_bbq",
+          "glyph_no",
+          "npcskin_magic_vendor",
+          "killmessages_love",
+          "killeffect_burning_shoes",
+          "favoritemap_stonekeep",
+          "projectiletrail_red_dust",
+          "sprays_creeper",
+          "favoritemap_treenan",
+          "glyph_emerald",
+          "glyph_smiley_face",
+          "npcskin_wither_skeleton",
+          "sprays_bed_breaker",
+          "glyph_diamond",
+          "npcskin_bed_salesman",
+          "glyph_spectrum",
+          "deathcry_fireball",
+          "npcskin_skeleton",
+          "npcskin_witch",
+          "projectiletrail_black_smoke",
+          "islandtopper_note",
+          "glyph_gg",
+          "deathcry_bazinga",
+          "islandtopper_slime",
+          "glyph_star",
+          "victorydance_guardians",
+          "islandtopper_top_hat",
+          "sprays_tnt_drop",
+          "killeffect_smiley",
+          "islandtopper_tree",
+          "deathcry_dry_bones",
+          "projectiletrail_white_smoke",
+          "projectiletrail_purple_dust",
+          "sprays_hypixel_logo",
+          "npcskin_holiday_bartender",
+          "deathcry_grumpy_villager",
+          "tiered_achievement_flag_3",
+          "tiered_achievement_flag_4",
+          "sprays_dragon_slayer",
+          "victorydance_anvil_rain",
+          "islandtopper_smiley_face",
+          "victorydance_dragon_rider",
+          "glyph_sword",
+          "deathcry_monster_burp",
+          "glyph_spider",
+          "projectiletrail_ender",
+          "glyph_burn",
+          "npcskin_creeper",
+          "killeffect_tnt",
+          "sprays_sorry",
+          "sprays_cat_graffiti",
+          "islandtopper_pumpkin",
+          "glyph_rip",
+          "islandtopper_sword",
+          "islandtopper_heart",
+          "islandtopper_candle",
+          "islandtopper_thunder",
+          "deathcry_pig",
+          "glyph_pumpkin",
+          "glyph_storm",
+          "killeffect_heart_aura",
+          "projectiletrail_random",
+          "projectiletrail_lava",
+          "killeffect_black_mark",
+          "islandtopper_ghost",
+          "projectiletrail_blue_dust",
+          "projectiletrail_slime",
+          "glyph_silver_shield",
+          "npcskin_king_of_beds",
+          "projectiletrail_green_star",
+          "glyph_lol",
+          "victorydance_twerk_apocalypse",
+          "glyph_thumbs_down",
+          "killeffect_campfire",
+          "sprays_golem_riding",
+          "glyph_gift",
+          "islandtopper_rubix_cube",
+          "deathcry_robot_mouse",
+          "projectiletrail_water",
+          "islandtopper_bomb",
+          "npcskin_santa",
+          "killmessages_santa_workshop",
+          "npcskin_zombie",
+          "islandtopper_angel",
+          "killmessages_pirate",
+          "islandtopper_the_l",
+          "killeffect_candle",
+          "killmessages_memed",
+          "sprays_leaping_potion",
+          "projectiletrail_magic",
+          "sprays_i_love_you",
+          "glyph_candy_cane",
+          "projectiletrail_firework",
+          "sprays_santa",
+          "glyph_snowman",
+          "npcskin_snowman",
+          "deathcry_enderman",
+          "islandtopper_flame",
+          "killeffect_snow_globe",
+          "islandtopper_reindeer",
+          "victorydance_rainbow_dolly",
+          "capture_book_0",
+          "sprays_year_of_the_dog",
+          "killmessages_western",
+          "deathcry_grumble",
+          "victorydance_toy_stick",
+          "sprays_enderman",
+          "sprays_thanks",
+          "glyph_angry_face",
+          "islandtopper_christmas_hat",
+          "islandtopper_candy_cane",
+          "glyph_tnt",
+          "favoritemap_boletum",
+          "v14_book"
+        ],
+        "eight_one_beds_lost_bedwars": 40,
+        "eight_one_deaths_bedwars": 161,
+        "eight_one_void_deaths_bedwars": 101,
+        "eight_one_games_played_bedwars": 57,
+        "eight_one_losses_bedwars": 43,
+        "eight_one_iron_resources_collected_bedwars": 10707,
+        "eight_one__items_purchased_bedwars": 1222,
+        "eight_one_items_purchased_bedwars": 1273,
+        "eight_one_permanent _items_purchased_bedwars": 51,
+        "eight_one_entity_attack_kills_bedwars": 54,
+        "eight_one_kills_bedwars": 93,
+        "eight_one_resources_collected_bedwars": 13792,
+        "eight_one_gold_resources_collected_bedwars": 2422,
+        "quickjoin_uses_Lectus": 2,
+        "quickjoin_uses_total": 65,
+        "fall_deaths_bedwars": 97,
+        "four_three_fall_deaths_bedwars": 47,
+        "quickjoin_uses_random": 47,
+        "four_three_beds_broken_bedwars": 376,
+        "four_three_entity_attack_final_kills_bedwars": 531,
+        "four_three_final_kills_bedwars": 923,
+        "beds_broken_bedwars": 923,
+        "eight_two_void_deaths_bedwars": 696,
+        "eight_two_emerald_resources_collected_bedwars": 977,
+        "eight_two_permanent _items_purchased_bedwars": 312,
+        "eight_two_resources_collected_bedwars": 60430,
+        "eight_two_diamond_resources_collected_bedwars": 2038,
+        "eight_two_kills_bedwars": 837,
+        "eight_two_entity_attack_kills_bedwars": 405,
+        "eight_two_iron_resources_collected_bedwars": 46190,
+        "eight_two_void_kills_bedwars": 419,
+        "eight_two_final_deaths_bedwars": 178,
+        "eight_two_deaths_bedwars": 1181,
+        "eight_two__items_purchased_bedwars": 5185,
+        "eight_two_entity_attack_final_deaths_bedwars": 101,
+        "eight_two_games_played_bedwars": 278,
+        "eight_two_items_purchased_bedwars": 5497,
+        "eight_two_beds_lost_bedwars": 192,
+        "eight_two_entity_attack_deaths_bedwars": 455,
+        "eight_two_gold_resources_collected_bedwars": 9725,
+        "eight_two_losses_bedwars": 202,
+        "eight_two_void_final_deaths_bedwars": 70,
+        "eight_two_beds_broken_bedwars": 291,
+        "eight_two_entity_attack_final_kills_bedwars": 275,
+        "eight_two_final_kills_bedwars": 440,
+        "four_three_void_final_kills_bedwars": 371,
+        "eight_one_entity_attack_final_kills_bedwars": 39,
+        "eight_one_final_deaths_bedwars": 38,
+        "eight_one_entity_attack_deaths_bedwars": 55,
+        "eight_one_final_kills_bedwars": 68,
+        "eight_one_beds_broken_bedwars": 87,
+        "eight_one_entity_attack_final_deaths_bedwars": 23,
+        "eight_one_void_final_kills_bedwars": 28,
+        "projectile_deaths_bedwars": 23,
+        "eight_one_projectile_deaths_bedwars": 1,
+        "eight_one_emerald_resources_collected_bedwars": 200,
+        "eight_one_diamond_resources_collected_bedwars": 447,
+        "eight_one_void_kills_bedwars": 38,
+        "eight_one_wins_bedwars": 14,
+        "eight_two_fall_deaths_bedwars": 21,
+        "eight_two_void_final_kills_bedwars": 159,
+        "eight_two_projectile_deaths_bedwars": 6,
+        "entity_explosion_deaths_bedwars": 12,
+        "eight_two_entity_explosion_deaths_bedwars": 3,
+        "four_four_entity_attack_final_deaths_bedwars": 79,
+        "fall_final_kills_bedwars": 46,
+        "four_four_fall_final_kills_bedwars": 19,
+        "four_four_emerald_resources_collected_bedwars": 768,
+        "bedwars_box": 66,
+        "bedwars_box_commons": 48,
+        "bedwars_box_rares": 24,
+        "chest_history_new": [
+          "islandtopper_candy_cane",
+          "glyph_tnt",
+          "npcskin_magic_vendor",
+          "islandtopper_christmas_hat",
+          "sprays_thanks"
+        ],
+        "activeKillEffect": "killeffect_lighting_strike",
+        "spray_glyph_field": "bed_shield,creeper,invisibility_potion,tnt_drop,pumpkin,none",
+        "activeNPCSkin": "npcskin_snowman",
+        "activeDeathCry": "deathcry_monster_burp",
+        "bedwars_box_epics": 7,
+        "activeIslandTopper": "islandtopper_ghost",
+        "eight_two_wins_bedwars": 76,
+        "eight_two_fall_final_deaths_bedwars": 5,
+        "eight_two_entity_explosion_kills_bedwars": 4,
+        "entity_explosion_kills_bedwars": 6,
+        "eight_two_fall_kills_bedwars": 9,
+        "eight_two_projectile_final_deaths_bedwars": 1,
+        "four_three_wins_bedwars": 327,
+        "activeVictoryDance": "victorydance_dragon_rider",
+        "eight_one_void_final_deaths_bedwars": 15,
+        "four_three_projectile_deaths_bedwars": 13,
+        "four_four_beds_broken_bedwars": 169,
+        "eight_one_entity_explosion_deaths_bedwars": 1,
+        "eight_two_entity_explosion_final_deaths_bedwars": 1,
+        "entity_explosion_final_deaths_bedwars": 5,
+        "eight_two_fall_final_kills_bedwars": 6,
+        "four_three_fall_final_deaths_bedwars": 8,
+        "activeProjectileTrail": "projectiletrail_random",
+        "four_four_entity_explosion_final_deaths_bedwars": 3,
+        "four_four_fall_deaths_bedwars": 26,
+        "four_four_projectile_deaths_bedwars": 3,
+        "activeKillMessages": "killmessages_memed",
+        "four_four_entity_explosion_deaths_bedwars": 5,
+        "four_three_fall_final_kills_bedwars": 20,
+        "four_three_projectile_final_deaths_bedwars": 3,
+        "four_three_entity_explosion_deaths_bedwars": 3,
+        "four_three_entity_explosion_final_deaths_bedwars": 1,
+        "eight_one_fall_kills_bedwars": 1,
+        "quickjoin_uses_Stonekeep": 1,
+        "quickjoin_uses_Treenan": 9,
+        "eight_one_fall_deaths_bedwars": 3,
+        "projectile_kills_bedwars": 8,
+        "four_three_projectile_kills_bedwars": 7,
+        "bedwars_box_legendaries": 2,
+        "quickjoin_uses_Boletum": 6,
+        "bedwars_halloween_boxes": 0,
+        "free_event_key_bedwars_halloween_boxes_2017": true,
+        "Bedwars_openedCommons": 95,
+        "Bedwars_openedRares": 53,
+        "Bedwars_openedChests": 158,
+        "spooky_open_ach": 16,
+        "activeSprays": "sprays_golem_riding",
+        "Bedwars_openedLegendaries": 6,
+        "eight_one_fall_final_kills_bedwars": 1,
+        "Bedwars_openedEpics": 17,
+        "favourites_1": "wool,wooden_pickaxe,stone_sword,iron_boots,tnt,fireball,invisibility_potion_(30_seconds),jump_v_potion_(45_seconds),wooden_axe,golden_apple",
+        "activeGlyph": "glyph_gift",
+        "bedwars_christmas_boxes": 0,
+        "free_event_key_bedwars_christmas_boxes_2017": true,
+        "eight_two_wrapped_present_resources_collected_bedwars": 1500,
+        "wrapped_present_resources_collected_bedwars": 8446,
+        "four_three_wrapped_present_resources_collected_bedwars": 5456,
+        "four_four_wrapped_present_resources_collected_bedwars": 1474,
+        "eight_one_wrapped_present_resources_collected_bedwars": 16,
+        "four_three_entity_explosion_final_kills_bedwars": 1,
+        "entity_explosion_final_kills_bedwars": 2,
+        "four_four_entity_explosion_final_kills_bedwars": 1,
+        "free_event_key_bedwars_christmas_boxes_2018": true,
+        "four_three_entity_explosion_kills_bedwars": 1,
+        "four_four_entity_explosion_kills_bedwars": 1,
+        "favorite_slots": "Melee,Blocks,Tools,Tools,Utility,Potions,Ranged,null,null",
+        "seen_beta_menu": 1,
+        "four_four_projectile_kills_bedwars": 1,
+        "free_event_key_bedwars_lunar_boxes_2018": true,
+        "bedwars_lunar_boxes": 4,
+        "favourites_2": "wool,wooden_pickaxe,wooden_axe,end_stone,oak_wood_planks,fireball,golden_apple,stone_sword,iron_sword,iron_boots,shears,tnt,invisibility_potion_(30_seconds),null,null,null,null,null,null,null,null",
+        "four_four_fire_tick_deaths_bedwars": 1,
+        "fire_tick_deaths_bedwars": 1,
+        "bedwars_easter_boxes": 2,
+        "free_event_key_bedwars_easter_boxes_2018": true
+      },
+      "Walls": {
+        "coins": 18120
+      },
+      "Arena": {
+        "coins": 28120
+      },
+      "Quake": {
+        "coins": 18120,
+        "packages": [
+          "achievement_flag_3"
+        ]
+      },
+      "MurderMystery": {
+        "coins": 67744,
+        "games_MURDER_ASSASSINS": 3,
+        "knife_kills_hollywood": 17,
+        "knife_kills": 76,
+        "deaths_hollywood_MURDER_ASSASSINS": 1,
+        "kills_hollywood": 19,
+        "games_hollywood_MURDER_ASSASSINS": 1,
+        "deaths": 38,
+        "coins_pickedup_hollywood_MURDER_ASSASSINS": 3,
+        "deaths_MURDER_ASSASSINS": 2,
+        "coins_pickedup_hollywood": 81,
+        "games": 103,
+        "kills": 86,
+        "knife_kills_hollywood_MURDER_ASSASSINS": 1,
+        "deaths_hollywood": 4,
+        "kills_hollywood_MURDER_ASSASSINS": 1,
+        "games_hollywood": 16,
+        "knife_kills_MURDER_ASSASSINS": 2,
+        "coins_pickedup_MURDER_ASSASSINS": 15,
+        "coins_pickedup": 656,
+        "kills_MURDER_ASSASSINS": 2,
+        "murdermystery_books": [
+          "innocent",
+          "murderer",
+          "detective"
+        ],
+        "coins_pickedup_MURDER_CLASSIC": 603,
+        "wins": 83,
+        "coins_pickedup_cruise_ship_MURDER_CLASSIC": 155,
+        "games_cruise_ship_MURDER_CLASSIC": 20,
+        "coins_pickedup_cruise_ship": 173,
+        "games_cruise_ship": 23,
+        "wins_cruise_ship_MURDER_CLASSIC": 15,
+        "games_MURDER_CLASSIC": 93,
+        "wins_cruise_ship": 17,
+        "wins_MURDER_CLASSIC": 77,
+        "granted_chests": 1,
+        "mm_chests": 0,
+        "wins_library_MURDER_CLASSIC": 10,
+        "deaths_library_MURDER_CLASSIC": 8,
+        "wins_library": 10,
+        "deaths_library": 8,
+        "games_library_MURDER_CLASSIC": 13,
+        "coins_pickedup_library": 97,
+        "coins_pickedup_library_MURDER_CLASSIC": 97,
+        "games_library": 13,
+        "deaths_MURDER_CLASSIC": 34,
+        "wins_hollywood": 12,
+        "wins_hollywood_MURDER_CLASSIC": 11,
+        "coins_pickedup_hollywood_MURDER_CLASSIC": 68,
+        "games_hollywood_MURDER_CLASSIC": 13,
+        "games_cruise_ship_MURDER_ASSASSINS": 2,
+        "deaths_cruise_ship_MURDER_ASSASSINS": 1,
+        "deaths_cruise_ship": 8,
+        "coins_pickedup_cruise_ship_MURDER_ASSASSINS": 12,
+        "packages": [
+          "knife_skin_stick",
+          "kill_note_bowtie",
+          "gesture_goodbye"
+        ],
+        "MurderMystery_openedChests": 0,
+        "MurderMystery_openedRares": 1,
+        "mm_chest_history": [
+          "kill_note_bowtie",
+          "gesture_goodbye",
+          "knife_skin_stick"
+        ],
+        "MurderMystery_openedCommons": 2,
+        "active_knife_skin": "knife_skin_stick",
+        "active_gesture": "gesture_goodbye",
+        "kills_cruise_ship_MURDER_ASSASSINS": 1,
+        "wins_cruise_ship_MURDER_ASSASSINS": 1,
+        "kills_cruise_ship": 12,
+        "knife_kills_cruise_ship": 11,
+        "knife_kills_cruise_ship_MURDER_ASSASSINS": 1,
+        "wins_MURDER_ASSASSINS": 1,
+        "deaths_hypixel_world": 3,
+        "games_hypixel_world_MURDER_CLASSIC": 6,
+        "deaths_hypixel_world_MURDER_CLASSIC": 3,
+        "wins_hypixel_world_MURDER_CLASSIC": 5,
+        "games_hypixel_world": 6,
+        "coins_pickedup_hypixel_world_MURDER_CLASSIC": 27,
+        "coins_pickedup_hypixel_world": 27,
+        "wins_hypixel_world": 5,
+        "games_ancient_tomb": 16,
+        "games_ancient_tomb_MURDER_CLASSIC": 15,
+        "wins_ancient_tomb_MURDER_CLASSIC": 12,
+        "deaths_ancient_tomb_MURDER_CLASSIC": 6,
+        "deaths_ancient_tomb": 6,
+        "wins_ancient_tomb": 13,
+        "murderer_chance": 11,
+        "kills_as_murderer_gold_rush": 12,
+        "knife_kills_MURDER_CLASSIC": 74,
+        "games_gold_rush_MURDER_CLASSIC": 10,
+        "kills_as_murderer": 78,
+        "kills_gold_rush": 15,
+        "knife_kills_gold_rush": 12,
+        "kills_gold_rush_MURDER_CLASSIC": 15,
+        "knife_kills_gold_rush_MURDER_CLASSIC": 12,
+        "kills_as_murderer_gold_rush_MURDER_CLASSIC": 12,
+        "games_gold_rush": 10,
+        "coins_pickedup_gold_rush": 86,
+        "kills_MURDER_CLASSIC": 84,
+        "coins_pickedup_gold_rush_MURDER_CLASSIC": 86,
+        "kills_as_murderer_MURDER_CLASSIC": 78,
+        "wins_gold_rush_MURDER_CLASSIC": 9,
+        "deaths_gold_rush": 1,
+        "deaths_gold_rush_MURDER_CLASSIC": 1,
+        "wins_gold_rush": 9,
+        "detective_chance": 19,
+        "games_ancient_tomb_MURDER_HARDCORE": 1,
+        "wins_MURDER_HARDCORE": 3,
+        "games_MURDER_HARDCORE": 4,
+        "coins_pickedup_ancient_tomb_MURDER_HARDCORE": 8,
+        "coins_pickedup_ancient_tomb": 88,
+        "coins_pickedup_MURDER_HARDCORE": 38,
+        "wins_ancient_tomb_MURDER_HARDCORE": 1,
+        "deaths_towerfall_MURDER_HARDCORE": 2,
+        "coins_pickedup_towerfall": 33,
+        "deaths_MURDER_HARDCORE": 2,
+        "games_towerfall_MURDER_HARDCORE": 1,
+        "games_towerfall": 6,
+        "coins_pickedup_towerfall_MURDER_HARDCORE": 14,
+        "deaths_towerfall": 3,
+        "coins_pickedup_hollywood_MURDER_HARDCORE": 10,
+        "wins_hollywood_MURDER_HARDCORE": 1,
+        "games_hollywood_MURDER_HARDCORE": 1,
+        "coins_pickedup_cruise_ship_MURDER_HARDCORE": 6,
+        "wins_cruise_ship_MURDER_HARDCORE": 1,
+        "games_cruise_ship_MURDER_HARDCORE": 1,
+        "deaths_headquarters": 3,
+        "games_headquarters_MURDER_CLASSIC": 8,
+        "wins_headquarters_MURDER_CLASSIC": 8,
+        "deaths_headquarters_MURDER_CLASSIC": 3,
+        "coins_pickedup_headquarters": 55,
+        "wins_headquarters": 8,
+        "games_headquarters": 8,
+        "coins_pickedup_headquarters_MURDER_CLASSIC": 55,
+        "kills_as_murderer_headquarters_MURDER_CLASSIC": 9,
+        "kills_headquarters": 9,
+        "murderer_wins_headquarters": 1,
+        "knife_kills_headquarters": 9,
+        "kills_as_murderer_headquarters": 9,
+        "murderer_wins_MURDER_CLASSIC": 2,
+        "murderer_wins_headquarters_MURDER_CLASSIC": 1,
+        "knife_kills_headquarters_MURDER_CLASSIC": 9,
+        "kills_headquarters_MURDER_CLASSIC": 9,
+        "murderer_wins": 2,
+        "wasSpecialRoleLastGame": false,
+        "deaths_cruise_ship_MURDER_CLASSIC": 7,
+        "was_hero_cruise_ship_MURDER_CLASSIC": 1,
+        "bow_kills_cruise_ship": 1,
+        "detective_wins_cruise_ship": 1,
+        "was_hero": 5,
+        "bow_kills_MURDER_CLASSIC": 5,
+        "was_hero_MURDER_CLASSIC": 5,
+        "was_hero_cruise_ship": 1,
+        "bow_kills_cruise_ship_MURDER_CLASSIC": 1,
+        "bow_kills": 5,
+        "detective_wins": 5,
+        "detective_wins_cruise_ship_MURDER_CLASSIC": 1,
+        "detective_wins_MURDER_CLASSIC": 5,
+        "kills_cruise_ship_MURDER_CLASSIC": 11,
+        "kills_as_murderer_cruise_ship": 10,
+        "kills_as_murderer_cruise_ship_MURDER_CLASSIC": 10,
+        "knife_kills_cruise_ship_MURDER_CLASSIC": 10,
+        "deaths_hollywood_MURDER_CLASSIC": 3,
+        "coins_pickedup_ancient_tomb_MURDER_CLASSIC": 80,
+        "coins_pickedup_archives": 15,
+        "wins_archives_MURDER_CLASSIC": 2,
+        "games_archives_MURDER_CLASSIC": 3,
+        "coins_pickedup_archives_MURDER_CLASSIC": 15,
+        "games_archives": 3,
+        "wins_archives": 2,
+        "kills_as_murderer_ancient_tomb_MURDER_CLASSIC": 14,
+        "kills_ancient_tomb_MURDER_CLASSIC": 15,
+        "kills_ancient_tomb": 15,
+        "kills_as_murderer_ancient_tomb": 14,
+        "knife_kills_ancient_tomb_MURDER_CLASSIC": 14,
+        "knife_kills_ancient_tomb": 14,
+        "games_towerfall_MURDER_CLASSIC": 4,
+        "wins_towerfall_MURDER_CLASSIC": 4,
+        "wins_towerfall": 5,
+        "coins_pickedup_towerfall_MURDER_CLASSIC": 19,
+        "kills_library_MURDER_CLASSIC": 3,
+        "knife_kills_library_MURDER_CLASSIC": 2,
+        "thrown_knife_kills": 4,
+        "thrown_knife_kills_library": 1,
+        "thrown_knife_kills_MURDER_CLASSIC": 4,
+        "knife_kills_library": 2,
+        "kills_as_murderer_library": 3,
+        "kills_as_murderer_library_MURDER_CLASSIC": 3,
+        "thrown_knife_kills_library_MURDER_CLASSIC": 1,
+        "kills_library": 3,
+        "bow_kills_gold_rush_MURDER_CLASSIC": 3,
+        "was_hero_gold_rush_MURDER_CLASSIC": 3,
+        "detective_wins_gold_rush_MURDER_CLASSIC": 2,
+        "detective_wins_gold_rush": 2,
+        "was_hero_gold_rush": 3,
+        "bow_kills_gold_rush": 3,
+        "kills_hollywood_MURDER_CLASSIC": 18,
+        "knife_kills_hollywood_MURDER_CLASSIC": 16,
+        "kills_as_murderer_hollywood_MURDER_CLASSIC": 18,
+        "kills_as_murderer_hollywood": 18,
+        "deaths_towerfall_MURDER_CLASSIC": 1,
+        "deaths_archives_MURDER_CLASSIC": 1,
+        "deaths_archives": 1,
+        "knife_kills_hypixel_world": 11,
+        "thrown_knife_kills_hypixel_world": 1,
+        "kills_as_murderer_hypixel_world": 12,
+        "murderer_wins_hypixel_world_MURDER_CLASSIC": 1,
+        "thrown_knife_kills_hypixel_world_MURDER_CLASSIC": 1,
+        "kills_as_murderer_hypixel_world_MURDER_CLASSIC": 12,
+        "kills_hypixel_world_MURDER_CLASSIC": 12,
+        "kills_hypixel_world": 12,
+        "murderer_wins_hypixel_world": 1,
+        "knife_kills_hypixel_world_MURDER_CLASSIC": 11,
+        "wins_transport": 2,
+        "coins_pickedup_transport": 1,
+        "wins_transport_MURDER_CLASSIC": 1,
+        "deaths_transport_MURDER_CLASSIC": 1,
+        "games_transport_MURDER_CLASSIC": 1,
+        "games_transport": 2,
+        "deaths_transport": 1,
+        "coins_pickedup_transport_MURDER_CLASSIC": 1,
+        "trap_kills_MURDER_CLASSIC": 1,
+        "kills_towerfall": 1,
+        "trap_kills_towerfall_MURDER_CLASSIC": 1,
+        "trap_kills_towerfall": 1,
+        "kills_towerfall_MURDER_CLASSIC": 1,
+        "trap_kills": 1,
+        "thrown_knife_kills_hollywood": 2,
+        "thrown_knife_kills_hollywood_MURDER_CLASSIC": 2,
+        "detective_wins_library": 1,
+        "detective_wins_library_MURDER_CLASSIC": 1,
+        "detective_wins_ancient_tomb_MURDER_CLASSIC": 1,
+        "bow_kills_ancient_tomb": 1,
+        "detective_wins_ancient_tomb": 1,
+        "was_hero_ancient_tomb": 1,
+        "bow_kills_ancient_tomb_MURDER_CLASSIC": 1,
+        "was_hero_ancient_tomb_MURDER_CLASSIC": 1,
+        "total_time_survived_seconds_towerfall": 113,
+        "longest_time_as_survivor_seconds": 113,
+        "total_time_survived_seconds": 263,
+        "longest_time_as_survivor_seconds_towerfall_MURDER_INFECTION": 113,
+        "longest_time_as_survivor_seconds_MURDER_INFECTION": 113,
+        "total_time_survived_seconds_towerfall_MURDER_INFECTION": 113,
+        "longest_time_as_survivor_seconds_towerfall": 113,
+        "total_time_survived_seconds_MURDER_INFECTION": 263,
+        "games_MURDER_INFECTION": 3,
+        "wins_towerfall_MURDER_INFECTION": 1,
+        "games_towerfall_MURDER_INFECTION": 1,
+        "wins_MURDER_INFECTION": 2,
+        "total_time_survived_seconds_transport_MURDER_INFECTION": 150,
+        "total_time_survived_seconds_transport": 150,
+        "kills_as_survivor_transport_MURDER_INFECTION": 1,
+        "kills_as_infected_transport_MURDER_INFECTION": 1,
+        "kills_as_infected_MURDER_INFECTION": 1,
+        "kills_as_survivor_transport": 1,
+        "kills_as_infected": 1,
+        "kills_as_survivor_MURDER_INFECTION": 4,
+        "kills_as_survivor": 4,
+        "wins_transport_MURDER_INFECTION": 1,
+        "kills_as_infected_transport": 1,
+        "games_transport_MURDER_INFECTION": 1,
+        "total_time_survived_seconds_hollywood_MURDER_INFECTION": 263,
+        "total_time_survived_seconds_hollywood": 263,
+        "games_hollywood_MURDER_INFECTION": 1,
+        "kills_as_survivor_hollywood": 3,
+        "kills_as_survivor_hollywood_MURDER_INFECTION": 3,
+        "mm_christmas_chests": 4
+      },
+      "SkyClash": {
+        "coins": 34645,
+        "card_packs": 0,
+        "guardian_inventory": {
+          "POTION:5": "0",
+          "IRON_BOOTS:0": "36",
+          "CHAINMAIL_CHESTPLATE:0": "38",
+          "SKULL_ITEM:3": "3",
+          "SKULL_ITEM:2": "2",
+          "SKULL_ITEM:1": "1",
+          "COMPASS:0": "8"
+        },
+        "packages": [
+          "tip_play_game",
+          "tip_open_card_pack"
+        ],
+        "playstreak": 0,
+        "active_class": 1,
+        "swordsman_inventory": {
+          "SKULL_ITEM:3": "4",
+          "POTION:9": "1",
+          "SKULL_ITEM:2": "3",
+          "SKULL_ITEM:1": "2",
+          "COMPASS:0": "8",
+          "STONE_SWORD:0": "0",
+          "LEATHER_HELMET:0": "39"
+        },
+        "killstreak": 0,
+        "win_streak": 0,
+        "deaths_perk_hearty_start": 1,
+        "losses_perk_rampage": 3,
+        "losses": 3,
+        "games_played_kit_guardian": 1,
+        "deaths_solo": 3,
+        "deaths_perk_rampage": 3,
+        "losses_perk_hearty_start": 1,
+        "games_played": 3,
+        "quits": 3,
+        "losses_perk_resistant": 1,
+        "losses_solo": 3,
+        "deaths_kit_guardian": 1,
+        "deaths": 3,
+        "deaths_perk_resistant": 1,
+        "play_streak": 3,
+        "deaths_kit_swordsman": 2,
+        "losses_perk_hit_and_run": 2,
+        "deaths_perk_hit_and_run": 2,
+        "games_played_kit_swordsman": 2,
+        "deaths_perk_regeneration": 2,
+        "losses_perk_regeneration": 2,
+        "perk_pacify": 0,
+        "perk_pacify_new": true,
+        "perk_blazing_arrows": 0,
+        "perk_bigger_bangs_new": true,
+        "perk_bigger_bangs": 0,
+        "perk_blazing_arrows_new": true,
+        "highestKillstreak": 1,
+        "kills": 1,
+        "kills_kit_swordsman": 1,
+        "most_kills_game_kit_swordsman": 1,
+        "void_kills": 1,
+        "most_kills_game": 1,
+        "void_kills_kit_swordsman": 1,
+        "kills_solo": 1,
+        "kills_perk_hit_and_run": 1,
+        "kills_perk_regeneration": 1,
+        "kills_perk_rampage": 1
+      },
+      "Duels": {
+        "sw_duels_kit": "kit_ranked_ranked_scout",
+        "kit_menu_option": "on",
+        "games_played_duels": 213,
+        "show_lb_option": "on",
+        "rematch_option_1": "default",
+        "duels_recently_played": "UHC_DUEL#UHC_FOUR#UHC_DUEL",
+        "duels_winstreak_best_sw_duel": 2,
+        "duels_winstreak_sw_duel": 2,
+        "duels_winstreak_best_classic_duel": 2,
+        "duels_winstreak_best_op_duel": 1,
+        "duels_winstreak_op_duel": 1,
+        "duels_winstreak_best_uhc_four": 2,
+        "duels_winstreak_best_uhc_doubles": 2,
+        "duels_winstreak_uhc_doubles": 2,
+        "duels_winstreak_classic_duel": 2,
+        "duels_winstreak_best_uhc_duel": 1,
+        "duels_winstreak_best_potion_duel": 1,
+        "duels_winstreak_potion_duel": 1,
+        "selected_2": "skywars",
+        "selected_1": "uhc"
+      },
+      "BuildBattle": {
+        "wins": 22,
+        "packages": [
+          "bb_achieve_flag",
+          "bb_stat_flag"
+        ],
+        "wins_solo_normal": 14,
+        "wins_teams_normal": 7,
+        "games_played": 2,
+        "score": 35,
+        "coins": 364,
+        "monthly_coins_a": 364,
+        "weekly_coins_b": 364,
+        "wins_guess_the_build": 1,
+        "correct_guesses": 4
+      }
+    },
+    "uuid": "f304883626b9472fbd4c2c3776a6b1b8",
+    "lastEugeneMessage": 1452782414991,
+    "timePlaying": 784,
+    "settings": {
+      "chatVisibility": true,
+      "profanityLevel_PARTY": "OFF",
+      "profanityLevel_GUILD": "OFF",
+      "profanityLevel_PM": "OFF",
+      "profanityLevel": "WEAK_FILTER",
+      "playerVisibility": false
+    },
+    "networkExp": 3207413,
+    "karma": 331545,
+    "parkourCompletions": {
+      "MainLobby": [
+        {
+          "timeStart": 1434666635201,
+          "timeTook": 540916
+        }
+      ],
+      "NewMainLobby": [
+        {
+          "timeStart": 1443114024874,
+          "timeTook": 148748
+        },
+        {
+          "timeStart": 1443115159831,
+          "timeTook": 50290
+        }
+      ],
+      "Skywars": [
+        {
+          "timeStart": 1443629673362,
+          "timeTook": 96549
+        }
+      ],
+      "ArcadeGames": [
+        {
+          "timeStart": 1498961556197,
+          "timeTook": 382753
+        },
+        {
+          "timeStart": 1498961993729,
+          "timeTook": 436614
+        },
+        {
+          "timeStart": 1499011896480,
+          "timeTook": 312774
+        },
+        {
+          "timeStart": 1499012245112,
+          "timeTook": 152253
+        },
+        {
+          "timeStart": 1499012519958,
+          "timeTook": 183262
+        },
+        {
+          "timeStart": 1499019445680,
+          "timeTook": 171626
+        },
+        {
+          "timeStart": 1499019681846,
+          "timeTook": 167595
+        },
+        {
+          "timeStart": 1499020059635,
+          "timeTook": 134367
+        }
+      ],
+      "BlitzLobby": [
+        {
+          "timeStart": 1498962562995,
+          "timeTook": 93742
+        },
+        {
+          "timeStart": 1498962880640,
+          "timeTook": 30454
+        },
+        {
+          "timeStart": 1498962951662,
+          "timeTook": 25645
+        },
+        {
+          "timeStart": 1498963064442,
+          "timeTook": 23987
+        },
+        {
+          "timeStart": 1498963119244,
+          "timeTook": 22366
+        },
+        {
+          "timeStart": 1498963156033,
+          "timeTook": 24825
+        },
+        {
+          "timeStart": 1498963204851,
+          "timeTook": 23202
+        },
+        {
+          "timeStart": 1498963249896,
+          "timeTook": 23715
+        },
+        {
+          "timeStart": 1498963447993,
+          "timeTook": 22981
+        }
+      ],
+      "Bedwars": [
+        {
+          "timeStart": 1501286765531,
+          "timeTook": 165595
+        },
+        {
+          "timeStart": 1501952610720,
+          "timeTook": 207747
+        },
+        {
+          "timeStart": 1502493237341,
+          "timeTook": 62324
+        },
+        {
+          "timeStart": 1503256988877,
+          "timeTook": 48918
+        },
+        {
+          "timeStart": 1503257093226,
+          "timeTook": 49269
+        },
+        {
+          "timeStart": 1503851409088,
+          "timeTook": 51370
+        },
+        {
+          "timeStart": 1503852610568,
+          "timeTook": 189421
+        },
+        {
+          "timeStart": 1504044637938,
+          "timeTook": 50722
+        },
+        {
+          "timeStart": 1504128894282,
+          "timeTook": 54111
+        },
+        {
+          "timeStart": 1504217373404,
+          "timeTook": 50853
+        },
+        {
+          "timeStart": 1504228043977,
+          "timeTook": 49107
+        },
+        {
+          "timeStart": 1504296250541,
+          "timeTook": 50053
+        },
+        {
+          "timeStart": 1504404908227,
+          "timeTook": 50360
+        },
+        {
+          "timeStart": 1504459388887,
+          "timeTook": 49776
+        },
+        {
+          "timeStart": 1504650681828,
+          "timeTook": 48959
+        },
+        {
+          "timeStart": 1504733619930,
+          "timeTook": 49205
+        },
+        {
+          "timeStart": 1504741272938,
+          "timeTook": 50205
+        },
+        {
+          "timeStart": 1504799060854,
+          "timeTook": 48766
+        },
+        {
+          "timeStart": 1504801494006,
+          "timeTook": 133827
+        },
+        {
+          "timeStart": 1504823397164,
+          "timeTook": 48516
+        },
+        {
+          "timeStart": 1505246733990,
+          "timeTook": 48706
+        },
+        {
+          "timeStart": 1505342173345,
+          "timeTook": 53713
+        },
+        {
+          "timeStart": 1505427373800,
+          "timeTook": 49124
+        },
+        {
+          "timeStart": 1505514066586,
+          "timeTook": 48434
+        },
+        {
+          "timeStart": 1506126886569,
+          "timeTook": 120383
+        },
+        {
+          "timeStart": 1506727156695,
+          "timeTook": 50385
+        },
+        {
+          "timeStart": 1513890037916,
+          "timeTook": 50563
+        },
+        {
+          "timeStart": 1515017862695,
+          "timeTook": 144064
+        },
+        {
+          "timeStart": 1518571537076,
+          "timeTook": 49412
+        },
+        {
+          "timeStart": 1522186774250,
+          "timeTook": 50259
+        },
+        {
+          "timeStart": 1522187076257,
+          "timeTook": 49662
+        }
+      ],
+      "mainLobby2017": [
+        {
+          "timeStart": 1501952149081,
+          "timeTook": 88483
+        }
+      ],
+      "SkywarsAug2017": [
+        {
+          "timeStart": 1505339398784,
+          "timeTook": 53619
+        }
+      ],
+      "MurderMystery": [
+        {
+          "timeStart": 1506180096109,
+          "timeTook": 131164
+        },
+        {
+          "timeStart": 1506268432090,
+          "timeTook": 61137
+        }
+      ],
+      "Prototype": [
+        {
+          "timeStart": 1515260113629,
+          "timeTook": 103380
+        }
+      ]
+    },
+    "quests": {
+      "skywars_solo_win": {
+        "active": {
+          "started": 1515949552274,
+          "objectives": {}
+        }
+      },
+      "skywars_team_win": {
+        "active": {
+          "started": 1515949553274,
+          "objectives": {}
+        }
+      },
+      "skywars_solo_kills": {
+        "active": {
+          "started": 1515949552824,
+          "objectives": {
+            "skywars_solo_kills": 2
+          }
+        }
+      },
+      "skywars_team_kills": {
+        "completions": [
+          {
+            "time": 1465564756288
+          }
+        ],
+        "active": {
+          "started": 1515949553624,
+          "objectives": {}
+        }
+      },
+      "skywars_weekly_kills": {
+        "active": {
+          "started": 1515949554425,
+          "objectives": {
+            "skywars_weekly_kills": 20
+          }
+        }
+      },
+      "bedwars_daily_one_more": {
+        "completions": [
+          {
+            "time": 1503700496405
+          },
+          {
+            "time": 1503762523687
+          },
+          {
+            "time": 1503836805146
+          },
+          {
+            "time": 1504043868647
+          },
+          {
+            "time": 1504128793255
+          },
+          {
+            "time": 1504213071510
+          },
+          {
+            "time": 1504298875005
+          },
+          {
+            "time": 1504378486242
+          },
+          {
+            "time": 1504565822410
+          },
+          {
+            "time": 1504651828059
+          },
+          {
+            "time": 1504741238108
+          },
+          {
+            "time": 1504792790900
+          },
+          {
+            "time": 1504908835526
+          },
+          {
+            "time": 1504964598256
+          },
+          {
+            "time": 1505168029363
+          },
+          {
+            "time": 1505244397235
+          },
+          {
+            "time": 1505340943497
+          },
+          {
+            "time": 1505420407705
+          },
+          {
+            "time": 1505506479667
+          },
+          {
+            "time": 1505571075487
+          },
+          {
+            "time": 1505669607439
+          },
+          {
+            "time": 1505777867367
+          },
+          {
+            "time": 1505859167646
+          },
+          {
+            "time": 1505951418723
+          },
+          {
+            "time": 1506039730230
+          },
+          {
+            "time": 1506109977737
+          },
+          {
+            "time": 1506205560229
+          },
+          {
+            "time": 1506229030958
+          },
+          {
+            "time": 1506383177757
+          },
+          {
+            "time": 1506462616331
+          },
+          {
+            "time": 1506535660470
+          },
+          {
+            "time": 1506637304054
+          },
+          {
+            "time": 1506726253157
+          },
+          {
+            "time": 1506783736168
+          },
+          {
+            "time": 1506891048168
+          },
+          {
+            "time": 1506988614765
+          },
+          {
+            "time": 1507066448949
+          },
+          {
+            "time": 1507153564765
+          },
+          {
+            "time": 1507236073649
+          },
+          {
+            "time": 1507327804007
+          },
+          {
+            "time": 1507411030581
+          },
+          {
+            "time": 1507502337169
+          },
+          {
+            "time": 1507580091279
+          },
+          {
+            "time": 1507673103894
+          },
+          {
+            "time": 1507930111475
+          },
+          {
+            "time": 1507989096464
+          },
+          {
+            "time": 1508096059297
+          },
+          {
+            "time": 1508195637879
+          },
+          {
+            "time": 1508280874660
+          },
+          {
+            "time": 1508366159632
+          },
+          {
+            "time": 1508542134841
+          },
+          {
+            "time": 1508604090869
+          },
+          {
+            "time": 1508679205618
+          },
+          {
+            "time": 1508888556216
+          },
+          {
+            "time": 1509149747164
+          },
+          {
+            "time": 1509578765491
+          },
+          {
+            "time": 1509851379826
+          },
+          {
+            "time": 1509921223888
+          },
+          {
+            "time": 1510177365401
+          },
+          {
+            "time": 1510361067492
+          },
+          {
+            "time": 1510782573561
+          },
+          {
+            "time": 1510960551222
+          },
+          {
+            "time": 1511040692702
+          },
+          {
+            "time": 1511117325336
+          },
+          {
+            "time": 1511225405403
+          },
+          {
+            "time": 1511386484940
+          },
+          {
+            "time": 1511491051148
+          },
+          {
+            "time": 1511567773151
+          },
+          {
+            "time": 1512239411529
+          },
+          {
+            "time": 1512597520018
+          },
+          {
+            "time": 1512695383496
+          },
+          {
+            "time": 1512771861667
+          },
+          {
+            "time": 1512928035157
+          },
+          {
+            "time": 1514252915620
+          },
+          {
+            "time": 1514346637150
+          },
+          {
+            "time": 1514746271896
+          },
+          {
+            "time": 1514852511173
+          },
+          {
+            "time": 1515022753817
+          },
+          {
+            "time": 1515102207547
+          },
+          {
+            "time": 1515262134699
+          },
+          {
+            "time": 1515346977295
+          },
+          {
+            "time": 1515630216337
+          },
+          {
+            "time": 1515869434694
+          },
+          {
+            "time": 1515955825849
+          },
+          {
+            "time": 1516923190280
+          },
+          {
+            "time": 1517709753005
+          },
+          {
+            "time": 1518634377345
+          },
+          {
+            "time": 1518875654690
+          },
+          {
+            "time": 1519081007145
+          },
+          {
+            "time": 1519152298481
+          },
+          {
+            "time": 1521295911663
+          },
+          {
+            "time": 1521586805297
+          },
+          {
+            "time": 1521841998683
+          },
+          {
+            "time": 1522270339528
+          },
+          {
+            "time": 1522710431851
+          }
+        ],
+        "active": {
+          "started": 1522793585623,
+          "objectives": {}
+        }
+      },
+      "bedwars_daily_win": {
+        "completions": [
+          {
+            "time": 1503700496405
+          },
+          {
+            "time": 1503762523673
+          },
+          {
+            "time": 1503836805146
+          },
+          {
+            "time": 1504040033519
+          },
+          {
+            "time": 1504127306442
+          },
+          {
+            "time": 1504210938493
+          },
+          {
+            "time": 1504298875028
+          },
+          {
+            "time": 1504378486242
+          },
+          {
+            "time": 1504458945023
+          },
+          {
+            "time": 1504565822410
+          },
+          {
+            "time": 1504651311799
+          },
+          {
+            "time": 1504732170867
+          },
+          {
+            "time": 1504792790891
+          },
+          {
+            "time": 1504901709674
+          },
+          {
+            "time": 1504962143330
+          },
+          {
+            "time": 1505166814198
+          },
+          {
+            "time": 1505243511337
+          },
+          {
+            "time": 1505340486051
+          },
+          {
+            "time": 1505421082271
+          },
+          {
+            "time": 1505506014315
+          },
+          {
+            "time": 1505570347140
+          },
+          {
+            "time": 1505660022810
+          },
+          {
+            "time": 1505768163776
+          },
+          {
+            "time": 1505858651658
+          },
+          {
+            "time": 1505950632350
+          },
+          {
+            "time": 1506032810945
+          },
+          {
+            "time": 1506109479832
+          },
+          {
+            "time": 1506204913126
+          },
+          {
+            "time": 1506229030958
+          },
+          {
+            "time": 1506383177757
+          },
+          {
+            "time": 1506461765874
+          },
+          {
+            "time": 1506523706551
+          },
+          {
+            "time": 1506629523046
+          },
+          {
+            "time": 1506724303385
+          },
+          {
+            "time": 1506746927282
+          },
+          {
+            "time": 1506891048176
+          },
+          {
+            "time": 1506983060565
+          },
+          {
+            "time": 1507065612946
+          },
+          {
+            "time": 1507152867666
+          },
+          {
+            "time": 1507236073650
+          },
+          {
+            "time": 1507325626155
+          },
+          {
+            "time": 1507411030585
+          },
+          {
+            "time": 1507478701053
+          },
+          {
+            "time": 1507579108777
+          },
+          {
+            "time": 1507673103895
+          },
+          {
+            "time": 1507817649847
+          },
+          {
+            "time": 1507930111475
+          },
+          {
+            "time": 1507989096474
+          },
+          {
+            "time": 1508095291749
+          },
+          {
+            "time": 1508193133631
+          },
+          {
+            "time": 1508280125585
+          },
+          {
+            "time": 1508364696621
+          },
+          {
+            "time": 1508445807864
+          },
+          {
+            "time": 1508542134843
+          },
+          {
+            "time": 1508603271860
+          },
+          {
+            "time": 1508678300487
+          },
+          {
+            "time": 1508888057271
+          },
+          {
+            "time": 1509149747164
+          },
+          {
+            "time": 1509572248753
+          },
+          {
+            "time": 1509851379827
+          },
+          {
+            "time": 1509903350531
+          },
+          {
+            "time": 1510175412291
+          },
+          {
+            "time": 1510262443590
+          },
+          {
+            "time": 1510362195098
+          },
+          {
+            "time": 1510521335715
+          },
+          {
+            "time": 1510782573561
+          },
+          {
+            "time": 1510959660157
+          },
+          {
+            "time": 1511039459085
+          },
+          {
+            "time": 1511117325347
+          },
+          {
+            "time": 1511226176719
+          },
+          {
+            "time": 1511294243660
+          },
+          {
+            "time": 1511389061292
+          },
+          {
+            "time": 1511471055956
+          },
+          {
+            "time": 1512241079308
+          },
+          {
+            "time": 1512592713322
+          },
+          {
+            "time": 1512772155671
+          },
+          {
+            "time": 1512926390295
+          },
+          {
+            "time": 1513717485729
+          },
+          {
+            "time": 1514252915620
+          },
+          {
+            "time": 1514345439824
+          },
+          {
+            "time": 1514746271895
+          },
+          {
+            "time": 1514850664394
+          },
+          {
+            "time": 1515022285607
+          },
+          {
+            "time": 1515101202918
+          },
+          {
+            "time": 1515186816127
+          },
+          {
+            "time": 1515303528151
+          },
+          {
+            "time": 1515464819443
+          },
+          {
+            "time": 1515630216337
+          },
+          {
+            "time": 1515715207503
+          },
+          {
+            "time": 1515870283598
+          },
+          {
+            "time": 1515955049199
+          },
+          {
+            "time": 1516054785774
+          },
+          {
+            "time": 1518368963280
+          },
+          {
+            "time": 1518634377342
+          },
+          {
+            "time": 1518820717082
+          },
+          {
+            "time": 1518875654690
+          },
+          {
+            "time": 1518966890130
+          },
+          {
+            "time": 1519152298482
+          },
+          {
+            "time": 1519845781178
+          },
+          {
+            "time": 1521581046017
+          },
+          {
+            "time": 1521841365659
+          },
+          {
+            "time": 1522022957320
+          },
+          {
+            "time": 1522270339533
+          },
+          {
+            "time": 1522709593004
+          }
+        ],
+        "active": {
+          "started": 1522793586624,
+          "objectives": {}
+        }
+      },
+      "bedwars_weekly_bed_elims": {
+        "completions": [
+          {
+            "time": 1503803995338
+          },
+          {
+            "time": 1504378401880
+          },
+          {
+            "time": 1505248145010
+          },
+          {
+            "time": 1505583945559
+          },
+          {
+            "time": 1506197558408
+          },
+          {
+            "time": 1506901524737
+          },
+          {
+            "time": 1507417901678
+          },
+          {
+            "time": 1508194336754
+          },
+          {
+            "time": 1508616360968
+          },
+          {
+            "time": 1509582018544
+          },
+          {
+            "time": 1510181111824
+          },
+          {
+            "time": 1510960258067
+          },
+          {
+            "time": 1512694411238
+          },
+          {
+            "time": 1514343892513
+          },
+          {
+            "time": 1515111451145
+          },
+          {
+            "time": 1515952926089
+          },
+          {
+            "time": 1518916275600
+          }
+        ],
+        "active": {
+          "started": 1519845011647,
+          "objectives": {
+            "bedwars_bed_elims": 23
+          }
+        }
+      },
+      "skywars_arcade_win": {
+        "completions": [
+          {
+            "time": 1505335122982
+          },
+          {
+            "time": 1505774472100
+          },
+          {
+            "time": 1515975538315
+          }
+        ]
+      },
+      "arcade_gamer": {
+        "completions": [
+          {
+            "time": 1505596077619
+          }
+        ]
+      },
+      "arcade_winner": {
+        "completions": [
+          {
+            "time": 1505595653464
+          }
+        ]
+      },
+      "arcade_specialist": {
+        "active": {
+          "started": 1505436142933,
+          "objectives": {
+            "play": 15
+          }
+        }
+      },
+      "skywars_weekly_arcade_win_all": {
+        "completions": [
+          {
+            "time": 1515975538320
+          }
+        ]
+      },
+      "mm_weekly_wins": {
+        "completions": [
+          {
+            "time": 1506111753107
+          },
+          {
+            "time": 1506955532239
+          }
+        ]
+      },
+      "mm_weekly_murderer_kills": {
+        "completions": [
+          {
+            "time": 1506112623358
+          },
+          {
+            "time": 1506977561493
+          }
+        ]
+      },
+      "mm_daily_target_kill": {
+        "completions": [
+          {
+            "time": 1505945394980
+          }
+        ],
+        "active": {
+          "started": 1506734639859,
+          "objectives": {}
+        }
+      },
+      "mm_daily_power_play": {
+        "completions": [
+          {
+            "time": 1506038746528
+          },
+          {
+            "time": 1506735475590
+          },
+          {
+            "time": 1506975673922
+          }
+        ]
+      },
+      "mm_daily_win": {
+        "completions": [
+          {
+            "time": 1505945691773
+          },
+          {
+            "time": 1506734842142
+          },
+          {
+            "time": 1506908391114
+          }
+        ]
+      },
+      "bedwars_weekly_pumpkinator": {
+        "completions": [
+          {
+            "time": 1507937268805
+          },
+          {
+            "time": 1508608581848
+          },
+          {
+            "time": 1509583024666
+          },
+          {
+            "time": 1510007867303
+          }
+        ]
+      },
+      "bedwars_weekly_santa": {
+        "completions": [
+          {
+            "time": 1512241949685
+          },
+          {
+            "time": 1512927991783
+          },
+          {
+            "time": 1514345301779
+          },
+          {
+            "time": 1514850141123
+          },
+          {
+            "time": 1515305008355
+          }
+        ]
+      },
+      "skywars_weekly_free_loot_chest": {
+        "active": {
+          "started": 1515949561059,
+          "objectives": {}
+        }
+      },
+      "prototype_pit_daily_kills": {
+        "active": {
+          "started": 1522186076457,
+          "objectives": {
+            "kill": 6
+          }
+        }
+      },
+      "prototype_pit_daily_contract": {
+        "active": {
+          "started": 1522186079257,
+          "objectives": {}
+        }
+      },
+      "prototype_pit_weekly_gold": {
+        "active": {
+          "started": 1522186087260,
+          "objectives": {
+            "prototype_pit_weekly_gold": 257
+          }
+        }
+      }
+    },
+    "spec_night_vision": true,
+    "mostRecentlyTippedUuid": "aebb03f4108d4f50b1dc06b09a37eb9e",
+    "eugene": {
+      "dailyTwoKExp": 1522186732183
+    },
+    "mcVersionRp": "1.8.9",
+    "vanityTokens": 1741,
+    "voting": {
+      "total": 8,
+      "total_mcmp": 1,
+      "secondary_mcmp": 1,
+      "votesToday": 1,
+      "last_mcmp": 1439237050017,
+      "total_mcsorg": 3,
+      "secondary_mcsorg": 3,
+      "last_mcsorg": 1512518730905,
+      "last_vote": 1512518730905,
+      "secondary_mcsl": 4,
+      "total_mcsl": 4,
+      "last_mcsl": 1511565911396
+    },
+    "petConsumables": {
+      "CARROT_ITEM": 129,
+      "BAKED_POTATO": 132,
+      "FEATHER": 342,
+      "HAY_BLOCK": 115,
+      "ROTTEN_FLESH": 143,
+      "SLIME_BALL": 328,
+      "RAW_FISH": 95,
+      "WATER_BUCKET": 725,
+      "WOOD_SWORD": 351,
+      "MILK_BUCKET": 676,
+      "GOLD_RECORD": 333,
+      "PUMPKIN_PIE": 112,
+      "LEASH": 360,
+      "LAVA_BUCKET": 723,
+      "MAGMA_CREAM": 124,
+      "CAKE": 119,
+      "MELON": 129,
+      "STICK": 382,
+      "PORK": 128,
+      "MUSHROOM_SOUP": 105,
+      "BREAD": 128,
+      "COOKED_BEEF": 103,
+      "BONE": 124,
+      "APPLE": 104,
+      "WHEAT": 108,
+      "RED_ROSE": 128,
+      "COOKIE": 105
+    },
+    "vanityMeta": {
+      "packages": [
+        "hat_letter_o",
+        "pet_cat_red",
+        "gadget_explosive_bow",
+        "hat_astronaut",
+        "pet_cow",
+        "pet_brown_horse_baby",
+        "suit_ghost_boots",
+        "suit_flash_boots",
+        "gadget_paintball_gun",
+        "hat_letter_r",
+        "hat_elephant",
+        "pet_zombie_villager",
+        "emote_dizzy",
+        "hat_burger",
+        "hat_golem",
+        "taunt_graduation",
+        "gadget_ghosts",
+        "emote_sleepy",
+        "pet_sheep_white_baby",
+        "morph_spider",
+        "pet_wolf",
+        "hat_earth",
+        "emote_cool",
+        "suit_plumber_boots",
+        "hat_letter_n",
+        "gadget_fortune_cookie",
+        "suit_necromancer_boots",
+        "emote_smile",
+        "hat_bird",
+        "taunt_goodbye",
+        "hat_letter_u",
+        "emote_wink",
+        "hat_number_3",
+        "suit_ninja_leggings",
+        "pet_chicken",
+        "emote_grin",
+        "taunt_wave_dance",
+        "suit_mermaid_boots",
+        "suit_spiderman_boots",
+        "hat_egg_head",
+        "hat_miner",
+        "hat_number_2",
+        "suit_baker_boots",
+        "emote_sad",
+        "emote_surprised",
+        "hat_elf_princess",
+        "hat_number_9",
+        "taunt_clapping",
+        "suit_disco_boots",
+        "pet_sheep_magenta",
+        "gadget_paint_trail",
+        "suit_spiderman_leggings",
+        "pet_sheep_orange",
+        "gadget_magic_carpet",
+        "hat_number_1",
+        "pet_sheep_black",
+        "hat_doge",
+        "pet_sheep_purple",
+        "hat_number_8",
+        "suit_bumblebee_leggings",
+        "pet_sheep_lime",
+        "hat_letter_h",
+        "gadget_grappling_hook",
+        "pet_silverfish",
+        "suit_warrior_boots",
+        "hat_sandwich",
+        "hat_number_5",
+        "suit_mermaid_chestplate",
+        "pet_cat_siamese",
+        "pet_cat_black",
+        "pet_sheep_gray",
+        "hat_ferret",
+        "gadget_creeper_astronaut",
+        "gadget_exploding_sheep",
+        "hat_letter_e",
+        "morph_pig",
+        "suit_death_angel_leggings",
+        "hat_clownfish",
+        "emote_angry",
+        "hat_letter_m",
+        "pet_zombie",
+        "morph_cow",
+        "hat_joe_penguin",
+        "suit_santa_chestplate",
+        "hat_letter_plus",
+        "suit_death_angel_boots",
+        "hat_letter_v",
+        "pet_mooshroom",
+        "hat_gingerbread_man",
+        "suit_thor_boots",
+        "hat_comet_reindeer",
+        "hat_bauble",
+        "hat_wood_steve",
+        "hat_ender_dragon",
+        "gadget_advent_proof",
+        "pet_sheep_light_blue_baby",
+        "hat_letter_a",
+        "hat_letter_t",
+        "hat_letter_f",
+        "pet_villager_butcher",
+        "pet_sheep_red_baby",
+        "suit_necromancer_helmet",
+        "hat_minotaur",
+        "suit_arctic_boots",
+        "rankcolor_gold",
+        "gadget_tennis_ball",
+        "pet_horse_grey",
+        "hat_letter_question",
+        "rankcolor_green",
+        "hat_letter_j",
+        "suit_mermaid_leggings",
+        "hat_letter_p",
+        "hat_otter",
+        "hat_letter_g",
+        "hat_number_4",
+        "pet_sheep_brown",
+        "hat_beach_ball"
+      ]
+    },
+    "housingMeta": {
+      "allowedBlocks": [
+        "6:0",
+        "6:1",
+        "187:0",
+        "3:0",
+        "1:0",
+        "5:0",
+        "50:0",
+        "98:0",
+        "4:0",
+        "18:0",
+        "35:0",
+        "20:0",
+        "324:0",
+        "13:0",
+        "85:0",
+        "2:0",
+        "31:1",
+        "3:1",
+        "38:0",
+        "37:0",
+        "53:0",
+        "109:0",
+        "44:0",
+        "171:0",
+        "139:0",
+        "17:1",
+        "5:2",
+        "45:0",
+        "5:1",
+        "18:1",
+        "126:0",
+        "44:5",
+        "80:0",
+        "78:0",
+        "1:3",
+        "12:1",
+        "172:0",
+        "48:0",
+        "12:0",
+        "24:0",
+        "32:0",
+        "54:0",
+        "323:0",
+        "143:0",
+        "189:0",
+        "162:0",
+        "184:0",
+        "65:0",
+        "17:0",
+        "1:2",
+        "96:0",
+        "160:0",
+        "160:13",
+        "325:0",
+        "103:0",
+        "69:0",
+        "192:0",
+        "159:3",
+        "1:5",
+        "1:6",
+        "23:0",
+        "174:0",
+        "161:1",
+        "128:0",
+        "6:4",
+        "338:0",
+        "31:0",
+        "110:0",
+        "5:3",
+        "185:0",
+        "134:0",
+        "175:2",
+        "175:3",
+        "111:0",
+        "147:0"
+      ],
+      "visibilityDisabled": true,
+      "tutorialStep": "FINISH_FINISHED",
+      "playerSettings": {
+        "VISIBILITY": "IntegerState-2",
+        "BORDER": "BooleanState-true"
+      },
+      "packages": [
+        "housing_item_flag_1",
+        "housing_item_flag_3",
+        "specialoccasion_reward_card_skull_agility_potion",
+        "fruit_salad_theme",
+        "jungle_theme",
+        "sci_fi_theme",
+        "specialoccasion_reward_card_skull_pot_o'_gold",
+        "specialoccasion_reward_card_skull_rubik's_cube",
+        "specialoccasion_reward_card_skull_blue_treasure_chest",
+        "specialoccasion_reward_card_skull_molten_core",
+        "goldmine_theme",
+        "specialoccasion_reward_card_skull_ornamental_helmet",
+        "mushrooms_theme",
+        "specialoccasion_reward_card_skull_red_treasure_chest",
+        "specialoccasion_reward_card_skull_piggy_bank",
+        "specialoccasion_reward_card_skull_golden_chalice",
+        "specialoccasion_reward_card_skull_jewelery_box",
+        "warlords_red_theme",
+        "specialoccasion_reward_card_skull_coin_bag",
+        "basic_theme",
+        "fireplace_theme",
+        "space_dock_theme"
+      ]
+    },
+    "REWARD_FIND_VLADTOBEHERE": true,
+    "REWARD_FIND_HCHERNDON": true,
+    "REWARD_FIND_MINIKLOON": true,
+    "REWARD_FIND_SLIKEY": true,
+    "REWARD_FIND_THORLON": true,
+    "REWARD_FIND_AGENTK": true,
+    "REWARD_FIND_ZEROERRORS": true,
+    "REWARD_FIND_JAMIETHEGEEK": true,
+    "REWARD_FIND_ZUMULUS": true,
+    "friendRequestsUuid": [],
+    "last_survey": 1443714922122,
+    "REWARD_FIND_CRYPTKEEPER": true,
+    "REWARD_FIND_LYALL": true,
+    "REWARD_FIND_PIXELBAKER": true,
+    "levelingReward_0": true,
+    "lastLogout": 1523149592171,
+    "lastAdsenseGenerateTime": 1512518175085,
+    "levelingReward_1": true,
+    "levelingReward_2": true,
+    "levelingReward_3": true,
+    "levelingReward_4": true,
+    "levelingReward_5": true,
+    "levelingReward_6": true,
+    "lastClaimedReward": 1512518175082,
+    "totalRewards": 67,
+    "totalDailyRewards": 63,
+    "rewardStreak": 1,
+    "rewardScore": 1,
+    "rewardHighScore": 44,
+    "channel": "ALL",
+    "quickjoin_timestamp": 1522707664342,
+    "quickjoin_uses": 75,
+    "show_tip_holograms": true,
+    "show_tntrun_actionbar_info": false,
+    "dmcrates-8-2017": {
+      "REGULAR": true
+    },
+    "websiteSet": false,
+    "levelingReward_7": true,
+    "levelingReward_8": true,
+    "dmcrates-9-2017": {
+      "REGULAR": true
+    },
+    "levelingReward_9": true,
+    "levelingReward_10": true,
+    "levelingReward_11": true,
+    "levelingReward_12": true,
+    "levelingReward_13": true,
+    "levelingReward_14": true,
+    "adsense_tokens": 6,
+    "spec_speed": 4,
+    "show_tnttag_actionbar_info": true,
+    "network_update_book": "v0.42",
+    "dmcrates-10-2017": {
+      "REGULAR": true
+    },
+    "achievementTracking": [],
+    "dmcrates-11-2017": {
+      "REGULAR": true
+    },
+    "adventRewards2017": {
+      "day2": 1512236734134,
+      "day3": 1512332373585,
+      "day4": 1512420517220,
+      "day5": 1512518158329,
+      "day6": 1512591955744,
+      "day7": 1512691335040,
+      "day8": 1512767407318,
+      "day9": 1512839530752,
+      "day10": 1512915647784,
+      "day11": 1513050399343,
+      "day12": 1513104235588,
+      "day13": 1513197243940,
+      "day14": 1513291483181,
+      "day16": 1513480893728,
+      "day17": 1513537207263,
+      "day18": 1513643769419,
+      "day19": 1513714873296,
+      "day20": 1513811039832,
+      "day21": 1513890013082,
+      "day22": 1514000668712,
+      "day23": 1514055592714,
+      "day24": 1514115527379,
+      "day25": 1514239036547,
+      "day1": 1514329264766,
+      "day15": 1514329309104
+    },
+    "completed_christmas_quests_2017": 3,
+    "outfit": {},
+    "userLanguage": "ENGLISH",
+    "xmas2017_MAIN_LOBBY_4": true,
+    "xmas2017_MAIN_LOBBY_6": true,
+    "gifts_grinch": 84,
+    "dmcrates-12-2017": {
+      "REGULAR": true
+    },
+    "xmas2017_MAIN_LOBBY_5": true,
+    "xmas2017_MAIN_LOBBY_3": true,
+    "xmas2017_MAIN_LOBBY_29": true,
+    "xmas2017_MAIN_LOBBY_24": true,
+    "xmas2017_MAIN_LOBBY_7": true,
+    "xmas2017_MAIN_LOBBY_22": true,
+    "xmas2017_MAIN_LOBBY_38": true,
+    "xmas2017_MAIN_LOBBY_25": true,
+    "xmas2017_MAIN_LOBBY_39": true,
+    "xmas2017_MAIN_LOBBY_35": true,
+    "xmas2017_MAIN_LOBBY_26": true,
+    "xmas2017_MAIN_LOBBY_10": true,
+    "xmas2017_MAIN_LOBBY_9": true,
+    "xmas2017_MAIN_LOBBY_27": true,
+    "xmas2017_MAIN_LOBBY_8": true,
+    "xmas2017_MAIN_LOBBY_19": true,
+    "xmas2017_MAIN_LOBBY_36": true,
+    "xmas2017_MAIN_LOBBY_31": true,
+    "xmas2017_MAIN_LOBBY_33": true,
+    "xmas2017_MAIN_LOBBY_37": true,
+    "xmas2017_MAIN_LOBBY_14": true,
+    "xmas2017_MAIN_LOBBY_18": true,
+    "xmas2017_MAIN_LOBBY_40": true,
+    "xmas2017_MAIN_LOBBY_21": true,
+    "xmas2017_MAIN_LOBBY_13": true,
+    "xmas2017_MAIN_LOBBY_12": true,
+    "xmas2017_MAIN_LOBBY_17": true,
+    "xmas2017_MAIN_LOBBY_2": true,
+    "xmas2017_MAIN_LOBBY_15": true,
+    "xmas2017_MAIN_LOBBY_28": true,
+    "xmas2017_MAIN_LOBBY_23": true,
+    "xmas2017_MAIN_LOBBY_20": true,
+    "xmas2017_MAIN_LOBBY_34": true,
+    "xmas2017_MAIN_LOBBY_32": true,
+    "xmas2017_MAIN_LOBBY_16": true,
+    "xmas2017_MAIN_LOBBY_30": true,
+    "xmas2017_MAIN_LOBBY_11": true,
+    "xmas2017_MAIN_LOBBY_1": true,
+    "xmas2017_SKYWARS_1": true,
+    "xmas2017_SKYWARS_2": true,
+    "xmas2017_SKYWARS_3": true,
+    "xmas2017_ARCADE_2": true,
+    "xmas2017_ARCADE_1": true,
+    "xmas2017_ARCADE_3": true,
+    "xmas2017_TNT_1": true,
+    "xmas2017_TNT_2": true,
+    "xmas2017_TNT_3": true,
+    "xmas2017_SKYCLASH_1": true,
+    "xmas2017_SKYCLASH_3": true,
+    "xmas2017_SKYCLASH_2": true,
+    "xmas2017_MEGAWALLS_1": true,
+    "xmas2017_MEGAWALLS_3": true,
+    "xmas2017_MEGAWALLS_2": true,
+    "xmas2017_BLITZ_1": true,
+    "xmas2017_BLITZ_2": true,
+    "xmas2017_BLITZ_3": true,
+    "xmas2017_UHC_3": true,
+    "xmas2017_UHC_1": true,
+    "xmas2017_UHC_2": true,
+    "xmas2017_CVC_3": true,
+    "xmas2017_CVC_2": true,
+    "xmas2017_CVC_1": true,
+    "xmas2017_CRAZY_WALLS_2": true,
+    "xmas2017_CRAZY_WALLS_3": true,
+    "xmas2017_CRAZY_WALLS_1": true,
+    "xmas2017_WARLORDS_3": true,
+    "xmas2017_WARLORDS_2": true,
+    "xmas2017_WARLORDS_1": true,
+    "xmas2017_SPEED_UHC_3": true,
+    "xmas2017_SPEED_UHC_1": true,
+    "xmas2017_SPEED_UHC_2": true,
+    "xmas2017_SMASH_3": true,
+    "xmas2017_SMASH_2": true,
+    "xmas2017_SMASH_1": true,
+    "xmas2017_PTL_3": true,
+    "xmas2017_PTL_2": true,
+    "xmas2017_PTL_1": true,
+    "xmas2017_BEDWARS_1": true,
+    "xmas2017_BEDWARS_2": true,
+    "xmas2017_BEDWARS_3": true,
+    "xmas2017_MURDER_1": true,
+    "xmas2017_MURDER_2": true,
+    "xmas2017_MURDER_3": true,
+    "xmas2017_CLASSIC_3": true,
+    "xmas2017_CLASSIC_1": true,
+    "xmas2017_CLASSIC_2": true,
+    "completed_christmas_quests_2018": 2,
+    "achievementRewardsNew": {
+      "for_points_200": 1514851226304,
+      "for_points_400": 1514851228253,
+      "for_points_300": 1514851231403,
+      "for_points_500": 1514851233705,
+      "for_points_600": 1514851235053,
+      "for_points_700": 1514851236558,
+      "for_points_800": 1514851237854,
+      "for_points_900": 1514851239657,
+      "for_points_1000": 1514851241304,
+      "for_points_1100": 1514851244653,
+      "for_points_1200": 1514851245954,
+      "for_points_1300": 1514851248956,
+      "for_points_1400": 1514851250461
+    },
+    "dmcrates-1-2018": {
+      "REGULAR": true
+    },
+    "levelingReward_15": true,
+    "levelingReward_16": true,
+    "levelingReward_17": true,
+    "levelingReward_18": true,
+    "levelingReward_19": true,
+    "levelingReward_20": true,
+    "levelingReward_21": true,
+    "levelingReward_22": true,
+    "levelingReward_23": true,
+    "levelingReward_24": true,
+    "levelingReward_25": true,
+    "levelingReward_26": true,
+    "levelingReward_43": true,
+    "levelingReward_42": true,
+    "levelingReward_41": true,
+    "levelingReward_40": true,
+    "levelingReward_39": true,
+    "levelingReward_38": true,
+    "levelingReward_37": true,
+    "levelingReward_36": true,
+    "levelingReward_35": true,
+    "levelingReward_34": true,
+    "levelingReward_33": true,
+    "levelingReward_32": true,
+    "levelingReward_31": true,
+    "levelingReward_30": true,
+    "levelingReward_29": true,
+    "levelingReward_28": true,
+    "levelingReward_27": true,
+    "vanityFavorites": "GADGET_GRAPPLING_HOOK",
+    "currentGadget": "GRAPPLING_HOOK",
+    "challenges": {
+      "all_time": {
+        "BEDWARS__offensive": 23,
+        "BEDWARS__support": 25,
+        "SKYWARS__feeding_the_void_challenge": 5,
+        "SKYWARS__rush_challenge": 1
+      }
+    },
+    "levelingReward_44": true,
+    "levelingReward_45": true,
+    "dmcrates-2-2018": {
+      "REGULAR": true
+    },
+    "parkourCheckpointBests": {
+      "Bedwars": {
+        "0": 10601,
+        "1": 7950,
+        "2": 10500
+      }
+    },
+    "mostRecentGameType": "SKYWARS"
+  }
+}
