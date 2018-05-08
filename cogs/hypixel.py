@@ -75,8 +75,8 @@ class Hypixel:
         coins = str(bw["coins"])
         for i in range(3,len(coins),3):
             coins = coins[:-i]+","+coins[-i:]
-        lootchests = str(bw["bedwars_boxes"])
-        embed.add_field(name="Items", value=f"{coins} Coins\n{lootchests} Loot Chest"+(s if int(lootchests) > 1 else ""), inline=True)
+        lootchests = int(bw["bedwars_boxes"])
+        embed.add_field(name="Items", value=f"{coins} Coins\n{lootchests} Loot Chest"+('s' if int(lootchests) > 1 else ""), inline=True)
         await ctx.send(embed=embed)
 
     @commands.cooldown(70,60,BucketType.default)
@@ -197,6 +197,7 @@ class Hypixel:
     @commands.cooldown(70,60,BucketType.default)
     @commands.command()
     async def parkourstats(self,ctx,name,lobby="Bedwars"):
+        name = "alejandro_114"
         js = await self.get_player(name)
         if not js:
             await ctx.send("Player not found.")
