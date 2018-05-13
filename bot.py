@@ -91,7 +91,7 @@ async def embed(ctx,title,content,color):
 @bot.command()
 async def ping(ctx):
     """Tests the bot latency"""
-    await ctx.send(str(int(bot.latency*1000))+" seconds")
+    await ctx.send(str(int(bot.latency*1000))+"ms")
 
 @bot.command()
 async def spacefy(ctx,*, string: str):
