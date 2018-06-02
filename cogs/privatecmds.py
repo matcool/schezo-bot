@@ -264,5 +264,15 @@ class privateCommands:
         else:
             return
 
+    @commands.command(hidden=True)
+    @commands.is_owner()
+    async def sserverpic(self,ctx,*,Id=None):
+        if ctx.guild == None: return
+        if Id == None: g = ctx.guild
+        else: g = self.bot.get_guild(int(Id))
+        url = g.icon_url_as(format='png')
+        await ctx.send(url)
+
+
 def setup(bot):
     bot.add_cog(privateCommands(bot))
