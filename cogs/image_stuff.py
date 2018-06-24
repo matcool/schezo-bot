@@ -171,12 +171,12 @@ class ImageStuff:
     @staticmethod
     def achievementpil(text) -> io.BytesIO:    
         white = (255,255,255)
-        imgm = Image.open('stuff/achievment.png')#.convert('RGBA')
+        imgm = Image.open('stuff/achievment.png').convert('RGBA')
         txtsize = 16
         fnt = ImageFont.truetype('stuff/Minecraftia.ttf', txtsize)
         d = ImageDraw.Draw(imgm)
         d.fontmode = "1"
-        d.text((60,28), name, font=fnt, fill=white)
+        d.text((60,28), text, font=fnt, fill=white)
         
         imgobject = io.BytesIO()
         imgm.save(imgobject,format='PNG')
@@ -184,8 +184,8 @@ class ImageStuff:
         return imgobject
         
     @commands.command()
-    async def achievement(ctx,*,name):
-        p = partial(self.tenprintpil,text)
+    async def achievement(self,ctx,*,text):
+        p = partial(self.achievementpil,text)
         img = await self.bot.loop.run_in_executor(None, p)
         await ctx.send(file=discord.File(img, 'maincra.png'))
         
