@@ -273,6 +273,11 @@ class privateCommands:
         url = g.icon_url_as(format='png')
         await ctx.send(url)
 
+    @commands.command(hidden=True)
+    @commands.is_owner()
+    async def kill(self,ctx):
+        await self.bot.close()
+
 
 def setup(bot):
     bot.add_cog(privateCommands(bot))
