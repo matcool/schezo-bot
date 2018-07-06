@@ -1,0 +1,12 @@
+import discord
+import asyncio
+import time
+from discord.ext import commands    
+
+async def my_bg_task(bot):
+    await bot.wait_until_ready()   
+    while not bot.is_closed():
+        await asyncio.sleep(10)
+def setup(bot):
+    bot.loop.create_task(my_bg_task(bot))
+    
