@@ -9,8 +9,8 @@ import datetime
 import sys
 import calendar
 import re
-from os import listdir
-
+#from os import listdir
+import glob
 
 #modules
 sys.path.insert(0, "../modules")
@@ -30,20 +30,15 @@ with open('bot_config.json') as file:
     
 bot = commands.Bot(command_prefix=prefix, description=desc, owner_id=int(ownerid), pm_help=None)
 
-#useless variables
-
-allemojis = bot.emojis
-
 
 def loadCogs():
-    for i in listdir('cogs'):
-        if i[-2:] == 'py':
-            bot.load_extension('cogs.'+i[:-3])
+    for i in list(map(lambda p: p.replace("\\", ".")[:-3], glob.glob("cogs/*.py"))):
+        bot.load_extension(i)
+
 
 def unloadCogs():
-    for i in listdir('cogs'):
-        if i[-2:] == 'py':
-            bot.unload_extension('cogs.'+i[:-3])
+    for i in list(map(lambda p: p.replace("\\", ".")[:-3], glob.glob("cogs/*.py"))):
+        bot.unload_extension(i)
 
 
 #events
@@ -52,24 +47,25 @@ async def on_ready():
     print('Logged in ass')
     print(bot.user.name)
     print(bot.user.id)
-    gamename2 = gamename.replace('%numberofservers%', str(len(bot.guilds)))
-    game = discord.Game(gamename2)
+    #gamename = gamename_.replace('%numberofservers%', str(len(bot.guilds)))
+    #print(bot.guilds)
+    game = discord.Activity(name=gamename,type=discord.ActivityType.watching)
     await bot.change_presence(activity=game)
     loadCogs()
 
-@bot.event
-async def on_message(message):
-
-    #reply to dm with same
-    if not message.content.startswith("mb!") and type(message.channel) == discord.DMChannel and message.author.id != bot.user.id:
-        await message.channel.send('same')
-        return
-
-    #react nekro with gey
-    if message.author.id == 168770585306857472 and random.randint(1,13) == 1:
-        await message.add_reaction(bot.get_emoji(287402139217559552))
-        
-    await bot.process_commands(message)
+##@bot.event
+##async def on_message(message):
+##
+##    #reply to dm with same
+##    if not message.content.startswith("mb!") and type(message.channel) == discord.DMChannel and message.author.id != bot.user.id:
+##        await message.channel.send('same')
+##        return
+##
+##    #react nekro with gey
+##    #if message.author.id == 168770585306857472 and random.randint(1,13) == 1:
+##    #    await message.add_reaction(bot.get_emoji(287402139217559552))
+##        
+##    await bot.process_commands(message)
       
 #--my commands
 
@@ -91,7 +87,7 @@ async def embed(ctx,title,content,color):
 @bot.command()
 async def ping(ctx):
     """Tests the bot latency"""
-    await ctx.send(str(int(bot.latency*1000))+"ms")
+    await ctx.send(str(int(bot.latency*10000))+"ms")
 
 @bot.command()
 async def spacefy(ctx,*, string: str):

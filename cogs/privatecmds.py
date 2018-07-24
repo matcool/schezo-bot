@@ -12,14 +12,15 @@ class privateCommands:
         
     @commands.command(hidden=True)
     @commands.is_owner()
-    async def statusc(self,ctx,*, string=None):
-        if string is None:
-            with open('../bot_config.json') as file:
-                jsonf = json.load(file)
-                gamename = jsonf['game']
-            await self.bot.change_presence(activity=discord.Game(gamename.replace('%numberofservers%', str(len(self.bot.guilds)))))
-        else:
-            await self.bot.change_presence(activity=discord.Game(string))
+    async def statusc(self,ctx,*args):
+        if len(args) != 0:
+            acttype = 0
+            if args[0] == "!watching":
+                acttype = 3
+                args = args[1:]
+            act = discord.Activity(name=" ".join(args),type=acttype)
+            await self.bot.change_presence(activity=act)
+
 
     @commands.command(hidden=True)
     @commands.is_owner()
@@ -38,6 +39,7 @@ class privateCommands:
                 msgs[current] += str(emojis[i - 1])
         for msg in msgs:
             await ctx.send(msg)
+            await asyncio.sleep(2)
                 
 
     @commands.command(hidden=True)
@@ -284,6 +286,19 @@ class privateCommands:
     async def kill(self,ctx):
         await self.bot.close()
 
+    @commands.command(hidden=True)
+    @commands.is_owner()
+    async def getemoji(self,ctx,n):
+        for i in self.bot.emojis:
+            if i.name == n:
+                await ctx.send(i)
+                return
+
+    @commands.command(hidden=True)
+    @commands.is_owner()
+    async def mycommand(self,ctx):
+        await ctx.send(self.bot.emojis[0])
+    
 
 def setup(bot):
     bot.add_cog(privateCommands(bot))
