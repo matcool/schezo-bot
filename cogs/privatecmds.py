@@ -190,7 +190,9 @@ class privateCommands:
                     if grid[x][y] == 1: c += '\N{Nauseated Face}'
                     elif grid[x][y] == 2: c += '\N{Red Apple}'
                     elif grid[x][y] == 3: c += arrows[key]
-                    else: c += '\N{Medium White Circle}' #'\N{White Large Square}'
+                    else: 
+                        #c += '\N{Medium White Circle}' 
+                        c += '\N{White Large Square}'
                 c += '\n'
                 f += c
             f += '\n'
@@ -201,6 +203,7 @@ class privateCommands:
         point(food[0], food[1], 2)   
         frameC = 0
         inputFrameC = 0
+        #idleframes = 0
         diemsg = 'GAME OVER'
         while True:
             reamsg = await ctx.get_message(msg.id)
@@ -236,6 +239,8 @@ class privateCommands:
                 await show()
                 infoo = 'last key : '+arrows[key]+'\n'
                 infoo += 'score : '+str(score)
+                infoo += '\ninputframeC '+str(inputFrameC)
+                infoo += '\nprevkey :'+arrows[prevKey]
                 await scor.edit(content=infoo)
                 if key == prevKey: inputFrameC += 1
                 else: inputFrameC = 0
@@ -243,6 +248,7 @@ class privateCommands:
             await asyncio.sleep(1/30)
             frameC += 1
             prevKey = key
+
             if inputFrameC > h + (w/2):
                 diemsg = 'too much time idle'
                 break
