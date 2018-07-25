@@ -3,6 +3,7 @@ import discord
 import asyncio
 import random
 from mcstatus import MinecraftServer
+import aiohttp
 
 class privateCommands:
     def __init__(self, bot):
@@ -324,6 +325,25 @@ class privateCommands:
         embed.add_field(name="ZNekro zNekro: zNekro/zNekro", value=s_players)
         await ctx.send(embed=embed)
 
+
+    @commands.command(hidden=True)
+    async def optifine(self,ctx):
+        async with aiohttp.ClientSession() as session:
+            async with session.get('https://optifine.net/downloads') as r:
+                txt = await r.text()
+                n = txt.find("OptiFine 1.13")
+                if n != -1:
+                    await ctx.send("IT OUT!!!")
+                else:
+                    await ctx.send("not out :(")
+            async with session.get('https://optifine.net/home') as r:
+                txt = await r.text()
+                start = txt.find("Update to Minecraft 1.13")
+                end = txt.find("\r\n",start)
+                update = txt[start:end]
+                update = update.replace("</b>","").replace("</p>","")
+                await ctx.send(update)
+             
 
     @commands.command(hidden=True)
     async def bigdiki(self,ctx):
