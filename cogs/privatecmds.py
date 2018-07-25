@@ -2,6 +2,7 @@ from discord.ext import commands
 import discord
 import asyncio
 import random
+from mcstatus import MinecraftServer
 
 class privateCommands:
     def __init__(self, bot):
@@ -298,6 +299,43 @@ class privateCommands:
     @commands.is_owner()
     async def mycommand(self,ctx):
         await ctx.send(self.bot.emojis[0])
+
+
+    @commands.command(hidden=True)
+    @commands.check(lambda x: x.message.channel.id in (418209286905135107,418245919872516096,418213017847857160))
+    async def dhlcra(self,ctx):
+        """shows server info for the unofficial dhlcra 5"""
+        serverip = "64.52.84.242"
+        server = MinecraftServer(serverip)
+        query = server.query()
+        n_players = query.players.online
+        l_players = query.players.names
+        # s_players = "- "+"\n- ".join(l_players) if n_players else "No one :("
+        # embed = discord.Embed(title="Dhlcra Season 5 *(unofficial)*", colour=discord.Colour(0x339c31))
+        # embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/418209286905135107/470307115215618078/server-icon.png")
+        # embed.add_field(name="Server IP", value=serverip)
+        # embed.add_field(name="Online Players: {}".format(n_players), value=s_players)
+        # await ctx.send(embed=embed)
+        l_players = ["zNekro" for i in l_players]
+        s_players = "- "+"\n- ".join(l_players) if n_players else "zNekro :("
+        embed = discord.Embed(title="zNekro 5 *(zNekro)*", colour=discord.Colour(0x339c31))
+        embed.set_thumbnail(url="https://cdn.discordapp.com/avatars/168770585306857472/bf1db0de05c78eae90fdbeb352c390c4.png")
+        embed.add_field(name="zNekro", value="zN.ek.ro")
+        embed.add_field(name="ZNekro zNekro: zNekro/zNekro", value=s_players)
+        await ctx.send(embed=embed)
+
+
+    @commands.command(hidden=True)
+    async def bigdiki(self,ctx):
+        gen = random.Random()
+        gen.seed(ctx.author.id+16)
+        size = gen.randint(1,10)
+        pp = "8{}D".format("="*size)
+        # mat's id
+        if ctx.author.id == 191233808601841665:
+            pp = "8D"
+        await ctx.send(pp)
+
     
 
 def setup(bot):
