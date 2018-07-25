@@ -30,14 +30,17 @@ with open('bot_config.json') as file:
     
 bot = commands.Bot(command_prefix=prefix, description=desc, owner_id=int(ownerid), pm_help=None)
 
+def getCogs():
+    for i in list(map(lambda p: p.replace('\\','.').replace('/','.')[:-3], glob.glob("cogs/*.py"))):
+        yield i
 
 def loadCogs():
-    for i in list(map(lambda p: p.replace("\\", ".")[:-3], glob.glob("cogs/*.py"))):
+    for i in getCogs():
         bot.load_extension(i)
 
 
 def unloadCogs():
-    for i in list(map(lambda p: p.replace("\\", ".")[:-3], glob.glob("cogs/*.py"))):
+    for i in getCogs():
         bot.unload_extension(i)
 
 
