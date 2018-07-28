@@ -6,18 +6,10 @@ import json
 import asyncio
 import aiohttp
 import datetime
-import sys
 import calendar
 import re
 #from os import listdir
 import glob
-
-#modules
-sys.path.insert(0, "../modules")
-
-import MatStuff
-
-sys.path.pop(0)
 
 #config file :P
 with open('bot_config.json') as file:
@@ -120,19 +112,27 @@ async def pfp(ctx,uid=None):
         await ctx.send(m.avatar_url_as(format="png"))
 
 @bot.command()
-async def serverpic(ctx):
+async def serverpic(ctx,*,Id=None):
     """Sends pic of server icon"""
-    await ctx.send(ctx.message.guild.icon_url)
+    if not ctx.guild and not Id: return
+    if Id == None: g = ctx.guild
+    else: g = bot.get_guild(int(Id))
+    url = g.icon_url_as(format='png')
+    await ctx.send(url)
 
 @bot.command()
-async def mock(ctx,*,msg="ok guys"):
+async def mock(ctx,*,msg=None):
     """dOeS thIS To yOuR meSsaGE"""
-    await ctx.send("wOw mEsSaGE :\n"+MatStuff.uppLetters(msg))
+    if not msg:
+        return
+    await ctx.send("wOw mEsSaGE :\n"+"".join(list(map(lambda x: x if random.random() < 0.5 else x.upper(),msg.lower()))))
 
 @bot.command()
-async def scramble(ctx,*,msg="ok guys"):
+async def scramble(ctx,*,msg=None):
     """Scramble the given word"""
-    await ctx.send("Scrambled message :\n"+MatStuff.scrambleW(msg))
+    if not msg:
+        return
+    await ctx.send("Scrambled message :\n"+"".join(sorted(list(msg),key = lambda x: random.random())))
 
 @bot.command()
 async def createdat(ctx):

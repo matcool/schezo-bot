@@ -3,8 +3,6 @@ import traceback
 #import sys
 from discord.ext import commands
 
-# MysterialPy on github
-# https://gist.github.com/MysterialPy/7822af90858ef65012ea500bcecf1612
 
 class ErrorHandlerCog:
     def __init__(self, bot):
