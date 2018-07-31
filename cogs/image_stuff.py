@@ -224,6 +224,11 @@ class ImageStuff:
         img = await self.bot.loop.run_in_executor(None, p)
         await ctx.send(file=discord.File(img, 'quote.jpg'))
         
+    @commands.command()
+    async def inspirobot(self,ctx):
+        url = await self.get_page("https://inspirobot.me/api?generate=true")
+        url = str(url,encoding='utf-8')
+        await ctx.send(url)
 
         
 
