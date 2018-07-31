@@ -10,12 +10,12 @@ import aiohttp
 class ImageStuff:
     def __init__(self,bot):
         self.bot = bot
-        self.session = aiohttp.ClientSession()
 
 
     async def get_page(self,url):
-        async with self.session.get(url) as response:
-            result = await response.read()
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as response:
+                result = await response.read()
 
         return result
 
@@ -23,8 +23,9 @@ class ImageStuff:
     async def get_avatar(self, user) -> bytes:
         avatar_url = user.avatar_url_as(format="png")
 
-        async with self.session.get(avatar_url) as response:
-            avatar_bytes = await response.read()
+        async with aiohttp.ClientSession() as session:
+            async with self.session.get(avatar_url) as response:
+                avatar_bytes = await response.read()
 
         return avatar_bytes
 
