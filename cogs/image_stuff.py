@@ -11,6 +11,15 @@ class ImageStuff:
     def __init__(self,bot):
         self.bot = bot
         self.session = aiohttp.ClientSession()
+
+
+    async def get_page(self,url):
+        async with self.session.get(url) as response:
+            result = await response.read()
+
+        return result
+
+
     async def get_avatar(self, user) -> bytes:
         avatar_url = user.avatar_url_as(format="png")
 
@@ -162,6 +171,8 @@ class ImageStuff:
                 break
         if not download:
             return
+
+        print(img)
         image = io.BytesIO()
         await img.save(image)
         p = partial(self.cvoltonpil,image)
@@ -188,6 +199,29 @@ class ImageStuff:
         p = partial(self.achievementpil,text)
         img = await self.bot.loop.run_in_executor(None, p)
         await ctx.send(file=discord.File(img, 'maincra.png'))
+
+    @staticmethod
+    def inspquotepil(image) -> io.BytesIO:    
+        over = Image.open("stuff/dhl.png")
+        over = over.convert("RGBA")
+        bg = Image.open(io.BytesIO(image))
+        bg = bg.convert("RGBA")
+        bg = bg.resize(over.size, Image.ANTIALIAS)
+        bg.paste(over,(0,0),mask=over.getchannel("A"))
+        
+        bg = bg.convert("RGB")
+        tmp = io.BytesIO()
+        bg.save(tmp,format='JPEG', quality=20)
+        tmp.seek(0)
+        return tmp
+        
+    @commands.command(aliases=['inspirationalquote','inspirational'])
+    async def inspquote(self,ctx):
+        """Sends a inspirational quote."""
+        tmp = await self.get_page("https://source.unsplash.com/random")
+        p = partial(self.inspquotepil,tmp)
+        img = await self.bot.loop.run_in_executor(None, p)
+        await ctx.send(file=discord.File(img, 'quote.jpg'))
         
 
         

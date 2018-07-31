@@ -182,7 +182,7 @@ class privateCommands:
         await self.bot.close()
 
     @commands.command(hidden=True)
-    @commands.is_owner()
+    #@commands.is_owner()
     async def getemoji(self,ctx,n):
         for i in self.bot.emojis:
             if i.name == n:

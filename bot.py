@@ -64,7 +64,7 @@ async def on_ready():
       
 #--my commands
 
-@bot.command(hidden=True)
+@bot.command(hidden=True,aliases=['rc'])
 @commands.is_owner()
 async def reloadcogs(ctx):
     unloadCogs()

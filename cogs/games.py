@@ -40,8 +40,8 @@ class games:
 					elif grid[x][y] == 2: c += '\N{Red Apple}'
 					elif grid[x][y] == 3: c += arrows[key]
 					else: 
-						#c += '\N{Medium White Circle}' 
-						c += '\N{White Large Square}'
+						c += '\N{Medium White Circle}' 
+						#c += '\N{White Large Square}'
 				c += '\n'
 				f += c
 			f += '\n'
