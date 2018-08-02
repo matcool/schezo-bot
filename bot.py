@@ -61,6 +61,10 @@ async def on_ready():
 ##    #    await message.add_reaction(bot.get_emoji(287402139217559552))
 ##        
 ##    await bot.process_commands(message)
+
+@bot.event
+async def on_command(ctx):
+    print("mb!"+ctx.command.name)
       
 #--my commands
 
