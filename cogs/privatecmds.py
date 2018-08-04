@@ -1,9 +1,11 @@
 from discord.ext import commands
+from discord.ext.commands.cooldowns import BucketType
 import discord
 import asyncio
 import random
 from mcstatus import MinecraftServer
 import aiohttp
+import psutil
 
 class privateCommands:
     def __init__(self, bot):
@@ -251,6 +253,18 @@ class privateCommands:
         if ctx.author.id == 191233808601841665:
             pp = "8D"
         await ctx.send(pp)
+
+    @commands.cooldown(1,5,BucketType.default)
+    @commands.command(hidden=True)
+    async def matstats(self,ctx):
+        gb = 1/(1024 ** 3)
+        cpu = int(psutil.cpu_percent())
+        mem = psutil.virtual_memory()
+        used = "{0:.2f}".format(mem.used*gb)
+        total = "{0:.2f}".format(mem.total*gb)
+        await ctx.send("CPU Usage: {}%\nRAM Usage: {}G/{}G".format(cpu,used,total))
+
+
 
     
 
