@@ -6,7 +6,7 @@ import aiohttp
 import json
 import datetime
 import re
-import upsidedown
+#import upsidedown
 
 class Hypixel:
     def __init__(self, bot):
@@ -178,8 +178,8 @@ class Hypixel:
 
         
         displayname = f"[{rank}] {name}" if rank else name
-        if name == "Dinnerbone":
-            displayname = upsidedown.transform(displayname)
+        #if name == "Dinnerbone":
+        #    displayname = upsidedown.transform(displayname)
         embed = discord.Embed(title=displayname, colour=int(color, 16))
         embed.set_thumbnail(url="https://minotar.net/helm/{}/256.png".format(name))
 
@@ -198,7 +198,7 @@ class Hypixel:
     @commands.cooldown(70,60,BucketType.default)
     @commands.command()
     async def parkourstats(self,ctx,name,lobby="Bedwars"):
-        name = "alejandro_114"
+        #name = "alejandro_114"
         js = await self.get_player(name)
         if not js:
             await ctx.send("Player not found.")
