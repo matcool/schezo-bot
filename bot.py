@@ -21,6 +21,7 @@ with open('bot_config.json') as file:
     token = jsonf['token']
     
 bot = commands.Bot(command_prefix=prefix, description=desc, owner_id=int(ownerid), pm_help=None)
+bot.remove_command("help")
 
 def getCogs():
     for i in list(map(lambda p: p.replace('\\','.').replace('/','.')[:-3], glob.glob("cogs/*.py"))):
@@ -77,6 +78,7 @@ async def reloadcogs(ctx):
 
 
 #--every1 commands
+
 @bot.command()
 async def embed(ctx,title,content,color):
     """Makes a embed message with the args given."""

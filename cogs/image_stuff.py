@@ -237,7 +237,12 @@ class ImageStuff:
     async def inspirobot(self,ctx):
         url = await self.get_page("https://inspirobot.me/api?generate=true")
         url = str(url,encoding='utf-8')
-        await ctx.send(url)
+        #img = await self.get_page(url)
+        #img = io.BytesIO(img)
+        #await ctx.send(file=discord.File(img, 'inspirobot.jpg'))
+        embed = discord.Embed(colour=int("f0f0f0", 16))
+        embed.set_image(url=url)
+        await ctx.send(embed=embed)
 
         
 

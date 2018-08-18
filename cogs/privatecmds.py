@@ -10,6 +10,27 @@ import psutil
 class privateCommands:
     def __init__(self, bot):
         self.bot = bot
+
+    @commands.command()
+    async def help(self,ctx):
+        cmds = {}
+        for cmd in self.bot.commands:
+            if not cmds.get(cmd.cog_name):
+                cmds[cmd.cog_name] = []
+            if not cmd.hidden:
+                cmds[cmd.cog_name].append(cmd)
+        cmds = {key: value for key, value in cmds.items() if value != []}
+        embed = discord.Embed(title="Matbot help",colour=int("f0f0f0", 16))
+        for cog in cmds:
+            final = ""
+            hadHelp = True
+            for cmd in cmds[cog]:
+                if not hadHelp:
+                    final = final[0:len(final)-1] + " "
+                final += f"**{cmd.name}**" + (f" - {cmd.help}" if cmd.help else "") + "\n"
+                hadHelp = bool(cmd.help)
+            embed.add_field(name=cog, value=final, inline=True)
+        await ctx.send(embed=embed)
        
     @commands.command(hidden=True)
     @commands.is_owner()
@@ -213,7 +234,7 @@ class privateCommands:
     @commands.check(lambda x: x.message.channel.id in (418209286905135107,418245919872516096,418213017847857160))
     async def dhlcra(self,ctx):
         """shows server info for the unofficial dhlcra 5"""
-        serverip = "64.52.108.212"
+        serverip = "64.52.87.37"
         result = await self.bot.loop.run_in_executor(None, self.sync_dhlcra, serverip)
         if not result:
             await ctx.send("Error while trying to connect")
