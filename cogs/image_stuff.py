@@ -6,6 +6,7 @@ import random
 import io
 from functools import partial
 import aiohttp
+import re
 
 class ImageStuff:
     def __init__(self,bot):
@@ -24,7 +25,7 @@ class ImageStuff:
         avatar_url = user.avatar_url_as(format="png")
 
         async with aiohttp.ClientSession() as session:
-            async with self.session.get(avatar_url) as response:
+            async with session.get(avatar_url) as response:
                 avatar_bytes = await response.read()
 
         return avatar_bytes
@@ -103,23 +104,31 @@ class ImageStuff:
         return tmp
 
     @commands.command()
-    async def nicehacks(self,ctx,*,msg):
+    async def nicehacks(self,ctx,*args):
         async with ctx.typing():
-            if msg.find(" ") != -1:
-                uid = msg.split(" ")[0]
+            if len(args) == 0:
+                return
+
+
+            match = re.match(r"<@!(\d+)>",args[0])
+            if args[0].isdecimal():
+                uid = int(args[0])
+                msg = " ".join(args[1:])
+            elif match:
+                uid = int(match.groups()[0])
+                msg = " ".join(args[1:])
             else:
                 uid = None
-                
-            try:
-                uid = int(uid)
-                msg = msg[msg.find(" ")+1:]
-            except (ValueError,TypeError):
-                uid = None
-                pass
+                msg = " ".join(args)
+            print(uid)
 
             if uid:
-                if ctx.guild: m = ctx.guild.get_member(uid)
-                else: m = bot.get_user(uid)
+                if ctx.guild: 
+                    m = ctx.guild.get_member(uid)
+                    if not m:
+                        m = self.bot.get_user(uid)
+                else:
+                    m = self.bot.get_user(uid)
             else:
                 m = ctx.author
 
