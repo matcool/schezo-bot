@@ -196,14 +196,17 @@ class privateCommands:
     async def mycommand(self,ctx):
         await ctx.send(self.bot.emojis[0])
 
-
     @commands.command(hidden=True)
     @commands.check(lambda x: x.message.channel.id in (418209286905135107,418245919872516096,418213017847857160))
     async def dhlcra(self,ctx):
         """shows server info for the unofficial dhlcra 5"""
-        serverip = "64.52.84.242"
-        server = MinecraftServer(serverip)
-        query = server.query()
+        serverip = "64.52.108.212"
+        try:
+            server = MinecraftServer(serverip)
+            query = server.query()
+        except Exception:
+            await ctx.send("Error while trying to connect")
+            return
         n_players = query.players.online
         l_players = query.players.names
         s_players = "- "+"\n- ".join(l_players) if n_players else "No one :("
@@ -220,27 +223,9 @@ class privateCommands:
         # embed.add_field(name="ZNekro zNekro: zNekro/zNekro", value=s_players)
         # await ctx.send(embed=embed)
 
-
     @commands.command(hidden=True)
     async def optifine(self,ctx):
-        msg = ""
-        async with aiohttp.ClientSession() as session:
-            async with session.get('https://optifine.net/downloads') as r:
-                txt = await r.text()
-                n = txt.find("OptiFine 1.13")
-                if n != -1:
-                    msg += "IT OUT!!!"
-                    return
-                else:
-                    msg += "not out :(\n"
-            async with session.get('https://optifine.net/home') as r:
-                txt = await r.text()
-                start = txt.find("Update to Minecraft 1.13")
-                end = txt.find("\r\n",start)
-                update = txt[start:end]
-                update = update.replace("</b>","").replace("</p>","")
-                msg += update
-        await ctx.send(msg)
+        await ctx.send("IT OUT!!! (preview tho but who cares)\n"+"https://optifine.net/adloadx?f=preview_OptiFine_1.13_HD_U_E3_alpha8.jar")
              
 
     @commands.command(hidden=True)
@@ -263,6 +248,15 @@ class privateCommands:
         used = "{0:.2f}".format(mem.used*gb)
         total = "{0:.2f}".format(mem.total*gb)
         await ctx.send("CPU Usage: {}%\nRAM Usage: {}G/{}G".format(cpu,used,total))
+
+    @commands.cooldown(50,3600,BucketType.default)
+    @commands.command(hidden=True)
+    async def dollar(self,ctx):
+        # https://free.currencyconverterapi.com/api/v6/convert?q=USD_BRL&compact=y
+        async with aiohttp.ClientSession() as session:
+            async with session.get('https://free.currencyconverterapi.com/api/v6/convert?q=USD_BRL&compact=y') as r:
+                js = await r.json()
+                await ctx.send(js["USD_BRL"]["val"])
 
 
 

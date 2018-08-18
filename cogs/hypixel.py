@@ -36,6 +36,36 @@ class Hypixel:
             return None
         return js
 
+    def get_rank(self, player):
+
+        rank = None
+        rank = player.get("packageRank") or rank
+        rank = player.get("newPackageRank") or rank
+        rank = player.get("monthlyPackageRank") or rank
+        rank = player.get("rank") or rank
+        rank_ = player.get("prefix")
+        if rank_: rank = re.findall(r"§\w\[(.+)\]",rank_)[0]
+        
+        color = "9e9e9e"
+        if rank:
+            rank = rank.replace("_PLUS","+")
+            if rank.startswith("VIP"):
+                color = "3cff2b"
+            elif rank.startswith("MVP"):
+                color = "0cfaff"
+            if rank == "SUPERSTAR":
+                rank = "MVP++"
+                color = "FFAA00"
+            if rank in ("ADMIN","YOUTUBER","MOJANG","SLOTH","OWNER"):
+                color = "FF5555"
+            if rank == "HELPER":
+                color = "4949DA"
+            if rank == "MOD":
+                color = "59B330"
+
+        return (rank,color)
+        
+
     @commands.cooldown(70,60,BucketType.default)
     @commands.command()
     async def bwstats(self,ctx,name):
@@ -44,38 +74,37 @@ class Hypixel:
             await ctx.send("Player not found.")
             return
         
-        try:
-            lo = js["player"]["stats"]["Bedwars"]
-            del lo
-        except KeyError:
+        bw = js["player"].get("stats").get("Bedwars")
+        ach = js["player"]["achievements"]
+
+        name = js["player"]["displayname"]
+
+        if bw == None:
             await ctx.send("No bedwars stats found for that player.")
             return
-        embed = discord.Embed(title=name+"'s Hypixel Bedwars stats", colour=int("ff7575", 16))
-        embed.set_thumbnail(url="https://minotar.net/helm/{}/256.png".format(name))
 
-        ach = js["player"]["achievements"]
-        bw = js["player"]["stats"]["Bedwars"]
-
+        prefix = self.get_rank(js["player"])[0] or ''
+        if prefix: prefix = f"[{prefix}] "
         
         bwstar = str(ach["bedwars_level"])
-        embed.add_field(name="Bedwars Level", value=bwstar+"\N{WHITE MEDIUM STAR}", inline=False)
-
         wins = str(ach["bedwars_wins"])
         winstreak = str(bw["winstreak"])
-        embed.add_field(name="Wins", value=wins+" Total wins\nCurrent winstreak : "+winstreak, inline=True)
-
-        try: kills = str(bw["kills_bedwars"])
-        except KeyError: kills = "0"
-        try: fkills = str(bw["final_kills_bedwars"])
-        except KeyError: fkills = "0"
+        kills = str(bw.get("kills_bedwars", 0))
+        fkills = str(bw.get("final_kills_bedwars", 0))
         tkills = str(int(kills) + int(fkills))
-        embed.add_field(name=tkills+" Total kills", value=kills+" Kills\n"+fkills+" Final kills", inline=True)
+        lootchests = int(bw["bedwars_boxes"])
 
         
         coins = str(bw["coins"])
-        for i in range(3,len(coins),3):
-            coins = coins[:-i]+","+coins[-i:]
-        lootchests = int(bw["bedwars_boxes"])
+        for i in range(3,len(coins),3): coins = coins[:-i]+","+coins[-i:]
+
+        
+        embed = discord.Embed(title=prefix+name+"'s Hypixel Bedwars stats", colour=int("ff7575", 16))
+        embed.set_thumbnail(url="https://minotar.net/helm/{}/256.png".format(name))
+        
+        embed.add_field(name="Bedwars Level", value=bwstar+"\N{WHITE MEDIUM STAR}", inline=False)
+        embed.add_field(name="Wins", value=wins+" Total wins\nCurrent winstreak : "+winstreak, inline=True)
+        embed.add_field(name=tkills+" Total kills", value=kills+" Kills\n"+fkills+" Final kills", inline=True)
         embed.add_field(name="Items", value=f"{coins} Coins\n{lootchests} Loot Chest"+('s' if int(lootchests) > 1 else ""), inline=True)
         await ctx.send(embed=embed)
 
@@ -93,22 +122,23 @@ class Hypixel:
             return
         
         name = js["player"]["displayname"]
-        solokills = sw.get("kills_solo")
-        solowins = sw.get("wins_solo")
-        teamkills = sw.get("kills_team")
-        teamwins = sw.get("wins_team")
-        coins = sw.get("coins")
-        souls = sw.get("souls")
-        tokens = sw.get("cosmetic_tokens")
-        lootchests = sw.get("skywars_chests")
+        prefix = self.get_rank(js["player"])[0] or ''
+        if prefix: prefix = f"[{prefix}] "
+
+        solokills = sw.get("kills_solo","No")
+        solowins = sw.get("wins_solo","No")
+        teamkills = sw.get("kills_team","No")
+        teamwins = sw.get("wins_team","No")
+        coins = sw.get("coins","No")
+        souls = sw.get("souls","No")
+        tokens = sw.get("cosmetic_tokens","No")
+        lootchests = sw.get("skywars_chests","No")
         #winstreak = sw.get("winstreak")
-        tokens = "No" if not tokens else tokens
-        lootchests = "No" if not lootchests else lootchests
 
         coins = str(coins)
         for i in range(3,len(coins),3): coins = coins[:-i]+","+coins[-i:]
         
-        embed = discord.Embed(title=f"{name}'s Hypixel Skywars Stats", colour=int("f4e842",16))
+        embed = discord.Embed(title=f"{prefix+name}'s Hypixel Skywars Stats", colour=int("f4e842",16))
         embed.set_thumbnail(url="https://minotar.net/helm/{}/256.png".format(name))
         
         embed.add_field(name="Solo",value=f"{solokills} Kills\n{solowins} Wins",inline=True)
@@ -132,36 +162,7 @@ class Hypixel:
         name = player["displayname"]
         uuid = player["uuid"]
 
-        #getting rank
-        rank = None
-        rank_ = player.get("packageRank")
-        if rank_: rank = rank_
-        rank_ = player.get("newPackageRank")
-        if rank_: rank = rank_
-        rank_ = player.get("monthlyPackageRank")
-        if rank_: rank = rank_
-        rank_ = player.get("rank")
-        if rank_: rank = rank_
-        rank_ = player.get("prefix")
-        if rank_:
-            rank = re.findall(r"§\w\[(.+)\]",rank_)[0]
-        
-        if rank: rank = rank.replace("_PLUS","+")
-        color = "9e9e9e"
-        if rank:
-            if rank.startswith("VIP"):
-                color = "3cff2b"
-            elif rank.startswith("MVP"):
-                color = "0cfaff"
-            if rank == "SUPERSTAR":
-                rank = "MVP++"
-                color = "FFAA00"
-            if rank in ("ADMIN","YOUTUBER","MOJANG","SLOTH","OWNER"):
-                color = "FF5555"
-            if rank == "HELPER":
-                color = "4949DA"
-            if rank == "MOD":
-                color = "59B330"
+        rank, color = self.get_rank(player)
                 
         #achievements points
         achpoints = 0
@@ -191,7 +192,7 @@ class Hypixel:
 
         embed.add_field(name="karma", value=karma, inline=False)
         embed.add_field(name="friends", value=nfriends, inline=False)
-        embed.add_field(name="ach points", value=str(achpoints)+" (not acurate at all", inline=False)
+        embed.add_field(name="ach points", value=str(achpoints)+" (not acurate at all)", inline=False)
         await ctx.send(embed=embed)
 
     @commands.cooldown(70,60,BucketType.default)
