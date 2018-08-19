@@ -221,11 +221,12 @@ class privateCommands:
     def sync_dhlcra(self,serverip):
         try:
             server = MinecraftServer(serverip)
-            query = server.query(retries=1)
+            #query = server.query(retries=1)
+            status = server.status(retries=1)
         except Exception:
             return False
-        n_players = query.players.online
-        l_players = query.players.names
+        n_players = status.players.online
+        l_players = ["query","isn_t","on_LOL","joaozinho123"]#query.players.names
         s_players = "- "+"\n- ".join(l_players) if n_players else "No one :("
         return (n_players,l_players,s_players)
 
