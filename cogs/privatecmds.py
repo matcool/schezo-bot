@@ -234,14 +234,14 @@ class privateCommands:
     @commands.command(hidden=True)
     @commands.check(lambda x: x.message.channel.id in (418209286905135107,418245919872516096,418213017847857160))
     async def dhlcra(self,ctx):
-        """shows server info for the unofficial dhlcra 5"""
+        """shows server info for the dhlcra 6"""
         serverip = "64.52.87.37"
         result = await self.bot.loop.run_in_executor(None, self.sync_dhlcra, serverip)
         if not result:
             await ctx.send("Error while trying to connect")
             return
         n_players,l_players,s_players = result
-        embed = discord.Embed(title="Dhlcra Season 5 *(unofficial)*", colour=discord.Colour(0x339c31))
+        embed = discord.Embed(title="Dhlcra Season 6", colour=discord.Colour(0x339c31))
         embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/418209286905135107/470307115215618078/server-icon.png")
         embed.add_field(name="Server IP", value=serverip)
         embed.add_field(name="Online Players: {}".format(n_players), value=s_players)
