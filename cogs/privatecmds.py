@@ -241,10 +241,12 @@ class privateCommands:
         if not result:
             await ctx.send("Error while trying to connect")
             return
-        serverip = "64.52.87.37"
+        #serverip = "64.52.87.37"
+        serverip = "dhlcra.us.to"
         n_players,l_players,s_players = result
         embed = discord.Embed(title="Dhlcra Season 6", colour=discord.Colour(0x339c31))
-        embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/418209286905135107/470307115215618078/server-icon.png")
+        #embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/418209286905135107/470307115215618078/server-icon.png")
+        embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/418209286905135107/482244469211791360/dhlcra.png")
         embed.add_field(name="Server IP", value=serverip)
         embed.add_field(name="Online Players: {}".format(n_players), value=s_players)
         await ctx.send(embed=embed)
