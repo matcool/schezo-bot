@@ -12,25 +12,43 @@ class privateCommands:
         self.bot = bot
 
     @commands.command()
-    async def help(self,ctx):
-        cmds = {}
-        for cmd in self.bot.commands:
-            if not cmds.get(cmd.cog_name):
-                cmds[cmd.cog_name] = []
-            if not cmd.hidden:
-                cmds[cmd.cog_name].append(cmd)
-        cmds = {key: value for key, value in cmds.items() if value != []}
-        embed = discord.Embed(title="Matbot help",colour=int("f0f0f0", 16))
-        for cog in cmds:
-            final = ""
-            hadHelp = True
-            for cmd in cmds[cog]:
-                if not hadHelp:
-                    final = final[0:len(final)-1] + " "
-                final += f"**{cmd.name}**" + (f" - {cmd.help}" if cmd.help else "") + "\n"
-                hadHelp = bool(cmd.help)
-            embed.add_field(name=cog, value=final, inline=True)
-        await ctx.send(embed=embed)
+    async def help(self,ctx,cmd=None):
+        if not cmd:
+            cmds = {}
+            for cmd in self.bot.commands:
+                if not cmds.get(cmd.cog_name):
+                    cmds[cmd.cog_name] = []
+                if not cmd.hidden:
+                    cmds[cmd.cog_name].append(cmd)
+            cmds = {key: value for key, value in cmds.items() if value != []}
+            for k in cmds:
+                cmds[k].sort(key = lambda c: not bool(c.help))
+            cmds["Miscellaneous"] = cmds.pop(None)
+            embed = discord.Embed(title="Matbot help",colour=int("f0f0f0", 16))
+            for cog in cmds:
+                final = ""
+                hadHelp = True
+                for cmd in cmds[cog]:
+                    if not hadHelp:
+                        final = final[0:len(final)-1] + " "
+                    final += f"**{cmd.name}**" + (f" - {cmd.short_doc}" if cmd.short_doc else "") + "\n"
+                    hadHelp = bool(cmd.help)
+                embed.add_field(name=cog, value=final, inline=True)
+            await ctx.send(embed=embed)
+        else:
+            cmd = self.bot.get_command(cmd)
+            if cmd:
+                if cmd.help:
+                    embed = discord.Embed(
+                        title=f"{cmd.name.capitalize()} help",
+                        description=cmd.help,
+                        colour=int("d0d0d0", 16)
+                        )
+                    await ctx.send(embed=embed)
+                else:
+                    return
+            else:
+                await ctx.send("Command not found.")
        
     @commands.command(hidden=True)
     @commands.is_owner()
@@ -278,13 +296,44 @@ class privateCommands:
         await ctx.send("CPU Usage: {}%\nRAM Usage: {}G/{}G".format(cpu,used,total))
 
     @commands.cooldown(50,3600,BucketType.default)
-    @commands.command(hidden=True)
-    async def dollar(self,ctx):
-        # https://free.currencyconverterapi.com/api/v6/convert?q=USD_BRL&compact=y
+    @commands.command()
+    async def money(self,ctx,curFrom,curTo=None,amount=None):
+        """
+        Converts an amount from one currency to another.
+
+        **Usage**:
+        *mb!money (x currency) (y currency) [amount]*
+        will convert from x amount to y. default amount is 1
+        """
+
+        curFrom = curFrom.upper()
+        if curTo:
+            curTo = curTo.upper()
+
+        if amount:
+            try:
+                amount = float(amount)
+            except ValueError:
+                await ctx.send("Invalid amount.")
+                return
+        else: amount = 1
+
         async with aiohttp.ClientSession() as session:
-            async with session.get('https://free.currencyconverterapi.com/api/v6/convert?q=USD_BRL&compact=y') as r:
+            async with session.get('https://free.currencyconverterapi.com/api/v6/currencies') as r:
                 js = await r.json()
-                await ctx.send(js["USD_BRL"]["val"])
+                js = js["results"]
+                if not curTo and curFrom in js:
+                    await ctx.send(js[curFrom]["currencyName"])
+                    return
+                if curTo:
+                    if curFrom not in js or curTo not in js:
+                        await ctx.send("List of all avaliable currencies :```{}```".format(" ".join([i for i in js])))
+                        return
+            async with session.get(f'https://free.currencyconverterapi.com/api/v6/convert?q={curFrom}_{curTo}&compact=y') as r:
+                js = await r.json()
+                value = float(js[f"{curFrom}_{curTo}"]["val"])*amount
+
+                await ctx.send("{0} {1} is about {2:.2f} {3}".format(amount,curFrom,value,curTo))
 
 
 
