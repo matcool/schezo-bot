@@ -110,7 +110,7 @@ class ImageStuff:
                 return
 
 
-            match = re.match(r"<@!(\d+)>",args[0])
+            match = re.match(r"<@!?(\d+)>",args[0])
             if args[0].isdecimal():
                 uid = int(args[0])
                 msg = " ".join(args[1:])
