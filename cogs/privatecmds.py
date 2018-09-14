@@ -232,9 +232,11 @@ class privateCommands:
 
     @commands.command(hidden=True)
     @commands.is_owner()
-    async def mycommand(self,ctx):
-        await ctx.send(self.bot.emojis[0])
-
+    async def eval(self,ctx,*,test):
+        try:
+            await ctx.send('`{}`'.format(eval(test)))
+        except Exception as e:
+            await ctx.send(f'`{e}`')
 
     def sync_dhlcra(self,serverip):
         try:
