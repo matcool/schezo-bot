@@ -337,7 +337,12 @@ class privateCommands:
 
                 await ctx.send("{0} {1} is about {2:.2f} {3}".format(amount,curFrom,value,curTo))
 
-
+    @commands.command(hidden=True)
+    async def reply(self,ctx,msgId,*,msg):
+        msgr = await ctx.get_message(msgId)
+        embed = discord.Embed(description=msgr.content)
+        embed.set_author(name=msgr.author.display_name,icon_url=msgr.author.avatar_url)
+        await ctx.send(msg,embed=embed)
 
     
 
