@@ -75,7 +75,7 @@ class Hypixel:
             return
         
         bw = js["player"].get("stats").get("Bedwars")
-        ach = js["player"]["achievements"]
+        ach = js["player"].get("achievements",{})
 
         name = js["player"]["displayname"]
 
@@ -86,16 +86,16 @@ class Hypixel:
         prefix = self.get_rank(js["player"])[0] or ''
         if prefix: prefix = f"[{prefix}] "
         
-        bwstar = str(ach["bedwars_level"])
-        wins = str(ach["bedwars_wins"])
-        winstreak = str(bw["winstreak"])
+        bwstar = str(ach.get("bedwars_level"))
+        wins = str(ach.get("bedwars_wins"))
+        winstreak = str(bw.get("winstreak"))
         kills = str(bw.get("kills_bedwars", 0))
         fkills = str(bw.get("final_kills_bedwars", 0))
         tkills = str(int(kills) + int(fkills))
-        lootchests = int(bw["bedwars_boxes"])
+        lootchests = int(bw.get("bedwars_boxes"))
 
         
-        coins = str(bw["coins"])
+        coins = str(bw.get("coins",0))
         for i in range(3,len(coins),3): coins = coins[:-i]+","+coins[-i:]
 
         
