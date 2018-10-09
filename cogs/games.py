@@ -9,7 +9,6 @@ class games:
 
 	#variables
 	snakeBool = False
-	tetrisBool = False
 
 	@commands.command()
 	async def snake(self,ctx):
