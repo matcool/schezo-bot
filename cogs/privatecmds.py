@@ -10,45 +10,6 @@ import psutil
 class privateCommands:
     def __init__(self, bot):
         self.bot = bot
-
-    @commands.command()
-    async def help(self,ctx,cmd=None):
-        if not cmd:
-            cmds = {}
-            for cmd in self.bot.commands:
-                if not cmds.get(cmd.cog_name):
-                    cmds[cmd.cog_name] = []
-                if not cmd.hidden:
-                    cmds[cmd.cog_name].append(cmd)
-            cmds = {key: value for key, value in cmds.items() if value != []}
-            for k in cmds:
-                cmds[k].sort(key = lambda c: not bool(c.help))
-            cmds["Miscellaneous"] = cmds.pop(None)
-            embed = discord.Embed(title="Matbot help",colour=int("f0f0f0", 16))
-            for cog in cmds:
-                final = ""
-                hadHelp = True
-                for cmd in cmds[cog]:
-                    if not hadHelp:
-                        final = final[0:len(final)-1] + " "
-                    final += f"**{cmd.name}**" + (f" - {cmd.short_doc}" if cmd.short_doc else "") + "\n"
-                    hadHelp = bool(cmd.help)
-                embed.add_field(name=cog, value=final, inline=True)
-            await ctx.send(embed=embed)
-        else:
-            cmd = self.bot.get_command(cmd)
-            if cmd:
-                if cmd.help:
-                    embed = discord.Embed(
-                        title=f"{cmd.name.capitalize()} help",
-                        description=cmd.help,
-                        colour=int("d0d0d0", 16)
-                        )
-                    await ctx.send(embed=embed)
-                else:
-                    return
-            else:
-                await ctx.send("Command not found.")
        
     @commands.command(hidden=True)
     @commands.is_owner()
@@ -89,21 +50,6 @@ class privateCommands:
 
     @commands.command(hidden=True)
     @commands.is_owner()
-    async def scrolltext(self,ctx,*, string="text"):
-        """dhl dhld hldmade thx"""
-        string = "          "+string+"          "
-        idk = 0
-        msg = await ctx.send("`>|"+string[idk:idk+10]+"|<`")
-        while idk+10 < len(string):
-            idk += 1
-            furry = "`>|{}|<`".format(string[idk:idk+10])
-            await msg.edit(content=furry)
-            await asyncio.sleep(0.9)
-        await msg.add_reaction('\U00002705')
-        #thx dhl <3
-
-    @commands.command(hidden=True)
-    @commands.is_owner()
     async def hiddencommands(self,ctx):
         c = self.bot.commands
         h = []
@@ -117,20 +63,6 @@ class privateCommands:
         f = f[:-1]
         f += "```"
 
-        await ctx.send(f)
-
-    @commands.command(hidden=True)
-    @commands.is_owner()
-    async def botservers(self,ctx):
-        g = self.bot.guilds
-        h = []
-        for i in g:
-            h.append(i.name)
-        f = "```"
-        for i in h:
-            f += i+"\n"
-        f = f[:-1]
-        f += "```"
         await ctx.send(f)
 
     @commands.command(hidden=True)
@@ -189,17 +121,6 @@ class privateCommands:
 
     @commands.command(hidden=True)
     @commands.is_owner()
-    async def reactmsg(self,ctx,msgid,emoji):
-        emo = re.findall(r"<:.+:([0-9]+)>",emoji)
-        msgtor = await ctx.get_message(int(msgid))
-        if emo != []:
-            await msgtor.add_reaction(self.bot.get_emoji(int(emo[0])))
-        else:
-            await msgtor.add_reaction(emoji)
-        await ctx.message.delete()
-
-    @commands.command(hidden=True)
-    @commands.is_owner()
     async def nickname(self,ctx,*,nickname):
         me = ctx.guild.me
         await me.edit(nick=nickname)
@@ -223,18 +144,14 @@ class privateCommands:
         await self.bot.close()
 
     @commands.command(hidden=True)
-    #@commands.is_owner()
-    async def getemoji(self,ctx,n):
-        for i in self.bot.emojis:
-            if i.name == n:
-                await ctx.send(i)
-                return
-
-    @commands.command(hidden=True)
     @commands.is_owner()
-    async def eval(self,ctx,*,test):
+    async def eval(self,ctx,*,text):
         try:
-            await ctx.send('`{}`'.format(eval(test)))
+            if text.split()[0] == 'await':
+                ev = await eval(' '.join(text.split()[1:]))
+            else:
+                ev = eval(text)
+            await ctx.send('`{}`'.format(ev))
         except Exception as e:
             await ctx.send(f'`{e}`')
 
@@ -265,27 +182,10 @@ class privateCommands:
         serverip = "dhlcra.us.to"
         n_players,l_players,s_players = result
         embed = discord.Embed(title="Dhlcra Season 6", colour=discord.Colour(0x339c31))
-        #embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/418209286905135107/470307115215618078/server-icon.png")
         embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/418209286905135107/482244469211791360/dhlcra.png")
         embed.add_field(name="Server IP", value=serverip)
         embed.add_field(name="Online Players: {}".format(n_players), value=s_players)
-        await ctx.send(embed=embed)
-
-    @commands.command(hidden=True)
-    async def optifine(self,ctx):
-        await ctx.send("IT OUT!!! (preview tho but who cares)\n"+"https://optifine.net/adloadx?f=preview_OptiFine_1.13_HD_U_E3_alpha8.jar")
-             
-
-    @commands.command(hidden=True)
-    async def bigdiki(self,ctx):
-        gen = random.Random()
-        gen.seed(ctx.author.id+16)
-        size = gen.randint(1,10)
-        pp = "8{}D".format("="*size)
-        # mat's id
-        if ctx.author.id == 191233808601841665:
-            pp = "8D"
-        await ctx.send(pp)
+        await ctx.send(embed=embed)  
 
     @commands.cooldown(1,5,BucketType.default)
     @commands.command(hidden=True)
@@ -296,46 +196,6 @@ class privateCommands:
         used = "{0:.2f}".format(mem.used*gb)
         total = "{0:.2f}".format(mem.total*gb)
         await ctx.send("CPU Usage: {}%\nRAM Usage: {}G/{}G".format(cpu,used,total))
-
-    @commands.cooldown(50,3600,BucketType.default)
-    @commands.command()
-    async def money(self,ctx,curFrom,curTo=None,amount=None):
-        """
-        Converts an amount from one currency to another.
-
-        **Usage**:
-        *mb!money (x currency) (y currency) [amount]*
-        will convert from x amount to y. default amount is 1
-        """
-
-        curFrom = curFrom.upper()
-        if curTo:
-            curTo = curTo.upper()
-
-        if amount:
-            try:
-                amount = float(amount)
-            except ValueError:
-                await ctx.send("Invalid amount.")
-                return
-        else: amount = 1
-
-        async with aiohttp.ClientSession() as session:
-            async with session.get('https://free.currencyconverterapi.com/api/v6/currencies') as r:
-                js = await r.json()
-                js = js["results"]
-                if not curTo and curFrom in js:
-                    await ctx.send(js[curFrom]["currencyName"])
-                    return
-                if curTo:
-                    if curFrom not in js or curTo not in js:
-                        await ctx.send("List of all avaliable currencies :```{}```".format(" ".join([i for i in js])))
-                        return
-            async with session.get(f'https://free.currencyconverterapi.com/api/v6/convert?q={curFrom}_{curTo}&compact=y') as r:
-                js = await r.json()
-                value = float(js[f"{curFrom}_{curTo}"]["val"])*amount
-
-                await ctx.send("{0} {1} is about {2:.2f} {3}".format(amount,curFrom,value,curTo))
 
     @commands.command(hidden=True)
     async def reply(self,ctx,msgId,*,msg):
