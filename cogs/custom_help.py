@@ -4,48 +4,70 @@ import discord
 class customHelp:
     def __init__(self, bot):
         self.bot = bot
-        self.hidden = True
 
-    @commands.command()
-    async def help(self,ctx,cmd=None):
-        if not cmd:
+    @commands.command(hidden=True)
+    async def help(self,ctx,cmdOrCog=None,type=None):
+        # Show all cogs and their commands WITHOUT short doc
+        if cmdOrCog is None:
             cmds = {}
             for cmd in self.bot.commands:
-                if not cmd.hidden and cmd.name != 'help':
+                if not cmd.hidden:
                     if cmds.get(cmd.cog_name) is None:
                         cmds[cmd.cog_name] = []
                     cmds[cmd.cog_name].append(cmd)
 
-            # Sort whether the command has a help string or not
+            # Sort by name
             for k in cmds:
-                cmds[k].sort(key = lambda c: not bool(c.help))
+                cmds[k].sort(key = lambda c: c.name)
 
-            embed = discord.Embed(title="Matbot help",colour=0x36393F)
+            embed = discord.Embed(colour=0x3498db)
             for cog in cmds:
                 final = ""
-                hadHelp = True
                 for cmd in cmds[cog]:
-                    if not hadHelp:
-                        # replace last char with space
-                        final = final[:-1] + " "
-                    final += f"**{cmd.name}**" + (f" - {cmd.short_doc}" if cmd.short_doc else "") + "\n"
-                    hadHelp = bool(cmd.help)
-                embed.add_field(name=cog, value=final, inline=True)
+                    final += f"`{cmd.name}` "
+                embed.add_field(name=cog, value=final, inline=False)
             await ctx.send(embed=embed)
+
+        # Look up command or cog
         else:
-            cmd = self.bot.get_command(cmd)
-            if cmd:
+            cmd = self.bot.get_command(cmdOrCog)
+            if cmd and type != 'cog':
                 if cmd.help:
                     embed = discord.Embed(
-                        title=f"{cmd.name.capitalize()} help",
+                        title=cmd.name.capitalize(),
                         description=cmd.help,
-                        colour=int("d0d0d0", 16)
+                        colour=0xd0d0d0
                         )
                     await ctx.send(embed=embed)
                 else:
+                    await ctx.send('No help found for that command (blame mat)')
                     return
             else:
-                await ctx.send("Command not found.")
+                cmds = {}
+                for cmd in self.bot.commands:
+                    if not cmd.hidden:
+                        if cmds.get(cmd.cog_name) is None:
+                            cmds[cmd.cog_name] = []
+                        cmds[cmd.cog_name].append(cmd)
+
+                if cmds.get(cmdOrCog) is None:
+                    await ctx.send('No command or category found with that name')
+
+                for k in cmds:
+                    cmds[k].sort(key = lambda c: not bool(c.help))
+
+                else:
+                    final = ""
+                    for cmd in cmds[cmdOrCog]:
+                        final += f"**{cmd.name}**" + (f" - {cmd.short_doc}" if cmd.short_doc else "") + "\n"
+                    embed = discord.Embed(title=cmdOrCog,description=final,colour=0x3498db)
+                    await ctx.send(embed=embed)
+
+
+
+
+
+                
 
 def setup(bot):
     bot.add_cog(customHelp(bot))
