@@ -1,5 +1,5 @@
-﻿cogs/__pycache__/*
-gen/*
+cogs/__pycache__/*
+gen/
 
 bot_messageslog.txt
 bot_ext_evaluate.py
