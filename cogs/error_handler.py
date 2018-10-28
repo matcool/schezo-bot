@@ -14,7 +14,6 @@ class ErrorHandlerCog:
         if isinstance(error,self.ignored):
             return
 
-        
         if isinstance(error,discord.errors.Forbidden):
             try:
                 await ctx.message.add_reaction(self.noperm)

@@ -2,6 +2,8 @@ import discord
 from discord.ext import commands
 import json
 import glob
+from hashlib import sha1
+import aiohttp
 
 #config file :P
 with open('bot_config.json') as file:
@@ -41,19 +43,31 @@ async def on_ready():
     await bot.change_presence(activity=game)
     loadCogs()
 
-##@bot.event
-##async def on_message(message):
-##
-##    #reply to dm with same
-##    if not message.content.startswith("mb!") and type(message.channel) == discord.DMChannel and message.author.id != bot.user.id:
-##        await message.channel.send('same')
-##        return
-##
-##    #react nekro with gey
-##    #if message.author.id == 168770585306857472 and random.randint(1,13) == 1:
-##    #    await message.add_reaction(bot.get_emoji(287402139217559552))
-##        
-##    await bot.process_commands(message)
+@bot.event
+async def on_message(message):
+    if message.channel.id == 418209286905135107 and len(message.attachments) > 0:
+        bad = '4758f1600d62c7363e789ad6902a62eb398823e0'
+        async with aiohttp.ClientSession() as session:
+            async with session.get(message.attachments[0].url) as response:
+                result = await response.read()
+
+        if sha1(result).hexdigest() == bad:
+            await message.channel.send('ew :puke:')
+    await bot.process_commands(message)
+
+# @bot.event
+# async def on_message(message):
+
+    # #reply to dm with same
+    # if not message.content.startswith("mb!") and type(message.channel) == discord.DMChannel and message.author.id != bot.user.id:
+    #     await message.channel.send('same')
+    #     return
+
+    # #react nekro with gey
+    # #if message.author.id == 168770585306857472 and random.randint(1,13) == 1:
+    # #    await message.add_reaction(bot.get_emoji(287402139217559552))
+
+    #await bot.process_commands(message)
 
 @bot.event
 async def on_command(ctx):
