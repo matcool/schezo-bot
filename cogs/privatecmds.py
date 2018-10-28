@@ -143,18 +143,6 @@ class privateCommands:
     async def kill(self,ctx):
         await self.bot.close()
 
-    @commands.command(hidden=True)
-    @commands.is_owner()
-    async def eval(self,ctx,*,text):
-        try:
-            if text.split()[0] == 'await':
-                ev = await eval(' '.join(text.split()[1:]))
-            else:
-                ev = eval(text)
-            await ctx.send('`{}`'.format(ev))
-        except Exception as e:
-            await ctx.send(f'`{e}`')
-
     def sync_dhlcra(self,serverip):
         try:
             server = MinecraftServer(serverip)
