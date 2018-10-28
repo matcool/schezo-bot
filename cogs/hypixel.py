@@ -12,6 +12,9 @@ class Hypixel:
     def __init__(self, bot):
         self.bot = bot
         self.achievements = None
+        with open('bot_config.json') as file:
+            jsonf = json.load(file)
+            self.apikey = jsonf['hypixelkey']
 
     async def get_achievements(self):
         async with aiohttp.ClientSession() as session:
@@ -19,7 +22,6 @@ class Hypixel:
                 self.achievements = json.loads(await r.read())
                 self.achievements = self.achievements["achievements"]
         
-    apikey = "3dac2378-53fb-4d5e-992d-e260f2512960"
     async def get_player(self,player):
         async with aiohttp.ClientSession() as session:
             async with session.get('https://api.hypixel.net/player?key='+self.apikey+'&name='+player) as r:
@@ -37,7 +39,6 @@ class Hypixel:
         return js
 
     def get_rank(self, player):
-
         rank = None
         rank = player.get("packageRank") or rank
         rank = player.get("newPackageRank") or rank
@@ -95,8 +96,8 @@ class Hypixel:
         lootchests = int(bw.get("bedwars_boxes"))
 
         
-        coins = str(bw.get("coins",0))
-        for i in range(3,len(coins),3): coins = coins[:-i]+","+coins[-i:]
+        coins = bw.get("coins",0)
+        coins = "{:,}".format(coins)
 
         
         embed = discord.Embed(title=prefix+name+"'s Hypixel Bedwars stats", colour=int("ff7575", 16))
