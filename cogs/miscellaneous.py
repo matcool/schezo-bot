@@ -151,6 +151,15 @@ class Miscellaneous:
             embed.add_field(name=name,value=link,inline=True)
         
         await ctx.send(embed=embed)
+
+    @commands.command()
+    async def rate(self,ctx,*,ratee):
+        """rates something"""
+        total = sum([ord(i) for i in ratee])
+        rnd = random.Random(total)
+        await ctx.send("I'd give {} a {}/10".format(ratee,rnd.randint(0,10)))
+
+
          
 
 
