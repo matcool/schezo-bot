@@ -59,7 +59,7 @@ class Conversion:
     async def fahrenheit(self, ctx, temperature):
         """Converts from celsius to fahrenheit"""
         t = float(temperature)
-        await ctx.send("{}°F".format(round(9*(t+32)/5,1)))
+        await ctx.send("{}°F".format(round((9*t/5)+32,1)))
 
 def setup(bot):
     bot.add_cog(Conversion(bot))
