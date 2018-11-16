@@ -50,7 +50,6 @@ async def on_message(message):
         async with aiohttp.ClientSession() as session:
             async with session.get(message.attachments[0].url) as response:
                 result = await response.read()
-
         if sha1(result).hexdigest() == bad:
             await message.channel.send('ew :puke:')
     await bot.process_commands(message)

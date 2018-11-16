@@ -22,7 +22,6 @@ class privateCommands:
             act = discord.Activity(name=" ".join(args),type=acttype)
             await self.bot.change_presence(activity=act)
 
-
     @commands.command(hidden=True)
     @commands.is_owner()
     async def sendemojis(self,ctx):
