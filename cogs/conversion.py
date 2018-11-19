@@ -61,5 +61,56 @@ class Conversion:
         t = float(temperature)
         await ctx.send("{}°F".format(round((9*t/5)+32,1)))
 
+    @commands.command(aliases=['lbs'])
+    async def pounds(self, ctx, kg):
+        """Converts from kilograms to pounds"""
+        t = float(kg) * 2.204623
+        await ctx.send("{}lb".format(round(t,1)))
+
+    @commands.command(aliases=['kg','kilogram'])
+    async def kilograms(self, ctx, pounds):
+        """Converts from pounds to kilograms"""
+        t = float(pounds) * 0.4535924
+        await ctx.send("{}kg".format(round(t,1)))
+
+    @commands.command(aliases=['cm'])
+    async def metric(self, ctx, *, x):
+        """
+        Converts from inches (default) to cm
+        
+        Can also convert from feet (and inches) like so:
+        mb!metric 5'4"
+        = 162.56cm
+        """
+        ft = x.find('\'')
+        ic = x.find('"')
+        inches = 0
+        feet = 0
+        if ft == ic == -1:
+            inches = float(x)
+        else:
+            if ic != -1:
+                inches = float(x[(ft+1 if ft != -1 else 0):ic])
+            if ft != -1:
+                feet = float(x[0:ft])
+        inches += feet * 12
+        await ctx.send("{}cm".format(round(inches*2.54,2)))
+
+    @commands.command(aliases=['inches','feet','inch','foot'])
+    async def imperial(self, ctx, cm):
+        """
+        Converts from cm to inches (and feet)
+
+        mb!imperial 162.56
+        = 5'4"
+        """
+        inches = float(cm) / 2.54
+        feet, inches = divmod(inches, 12)
+        final = ""
+        if feet != 0:
+            final += str(int(feet)) + '\''
+        final += str(round(inches,2)) + '"'
+        await ctx.send(final)
+
 def setup(bot):
     bot.add_cog(Conversion(bot))
