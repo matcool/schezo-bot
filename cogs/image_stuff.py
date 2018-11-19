@@ -244,6 +244,17 @@ class ImageStuff:
         embed.set_image(url=url)
         await ctx.send(embed=embed)
 
+    @commands.command()
+    async def unsplash(self,ctx,search=None):
+        url = "https://source.unsplash.com/featured"
+        if search:
+            url += "/?"+search
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as response:
+                embed = discord.Embed(colour=int("f0f0f0", 16))
+                embed.set_image(url=response.url)
+                await ctx.send(embed=embed)
+
         
 
     
