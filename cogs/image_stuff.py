@@ -7,6 +7,7 @@ import io
 from functools import partial
 import aiohttp
 import re
+import textwrap
 
 class ImageStuff:
     def __init__(self,bot):
@@ -254,6 +255,28 @@ class ImageStuff:
                 embed = discord.Embed(colour=int("f0f0f0", 16))
                 embed.set_image(url=response.url)
                 await ctx.send(embed=embed)
+
+    @staticmethod
+    def explainjokepil(text) -> io.BytesIO:    
+        img = Image.open("stuff/petergriffin.png")
+        draw = ImageDraw.Draw(img)
+        arial = ImageFont.truetype('arial.ttf', 30)
+
+        text = textwrap.fill(text, width=35)
+        draw.text((250,30), text, font=arial, fill=0)
+
+        img = img.convert("RGB")
+        tmp = io.BytesIO()
+        img.save(tmp,format='JPEG', quality=50)
+        tmp.seek(0)
+        return tmp
+        
+    @commands.command(aliases=['explainjoke','peter'])
+    async def oksothejokeis(self,ctx,*,text):
+        """explains the joke because it is so epic"""
+        p = partial(self.explainjokepil, text)
+        img = await self.bot.loop.run_in_executor(None, p)
+        await ctx.send(file=discord.File(img, 'peter.jpg'))
 
         
 
