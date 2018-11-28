@@ -1,3 +1,3 @@
-<h1 align="center">MatBot</h1>
+<h1 align="center">Schezo</h1>
 
-This repo mostly exists so everyone can make fun of my code
+<p align="center">Miscellaneous discord bot</p>
