@@ -1,10 +1,7 @@
 cogs/__pycache__/*
 gen/
 
-bot_messageslog.txt
-bot_ext_evaluate.py
-bot_beemovie.txt
 bot_config.json
 
-matbot.sublime-workspace
-matbot.sublime-project
+*.sublime-workspace
+*.sublime-project
