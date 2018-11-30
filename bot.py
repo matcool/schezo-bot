@@ -6,16 +6,14 @@ from hashlib import sha1
 import aiohttp
 import re
 
-#config file :P
 with open('bot_config.json') as file:
     jsonf = json.load(file)
     gamename = jsonf['game']
     ownerid = jsonf['ownerid']
-    desc = jsonf['desc']
     prefix = jsonf['prefix']
     token = jsonf['token']
     
-bot = commands.Bot(command_prefix=prefix, description=desc, owner_id=int(ownerid), pm_help=None)
+bot = commands.Bot(command_prefix=prefix, owner_id=int(ownerid), pm_help=None)
 
 #Custom help command is in cogs/miscellaneous
 bot.remove_command("help")

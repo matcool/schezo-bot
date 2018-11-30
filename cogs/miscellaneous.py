@@ -24,26 +24,15 @@ class Miscellaneous:
         await ctx.send(str(int(self.bot.latency*1000))+"ms")
 
     @commands.command()
-    async def spacefy(self,ctx,*, string: str):
-        """a e s t h e t i c 'fy the given string."""
-        await ctx.send(" ".join(string))
-
-    @commands.command()
     async def invite(self,ctx):
         """Sends this bot invite link."""
-        part1 = 'https://discordapp.com/oauth2/authorize?'
-        part2 = 'client_id=317323392992935946&scope=bot&permissions=270400'
-        await ctx.send(part1+part2)
-
+        await ctx.send('https://discordapp.com/oauth2/authorize?client_id=317323392992935946&scope=bot&permissions=270400')
 
     @commands.command()
     async def pfp(self,ctx,uid=None):
-        """Gets a profile pic from id or from msg author"""
-        if uid is None:
-            await ctx.send(ctx.message.author.avatar_url_as(format="png"))
-        else:
-            m = self.bot.get_user(int(uid))
-            await ctx.send(m.avatar_url_as(format="png"))
+        """Gets a profile pic from mention (or userid) or from msg author"""
+        user = self.bot.getUserOrMentioned(ctx,uid)
+        await ctx.send(user.avatar_url_as(format="png"))
 
     @commands.command()
     async def serverpic(self,ctx,*,Id=None):
@@ -57,23 +46,23 @@ class Miscellaneous:
     @commands.command()
     async def mock(self,ctx,*,msg):
         """dOeS thIS To yOuR meSsaGE"""
-        await ctx.send(""+"".join(list(map(lambda x: x if random.random() < 0.5 else x.upper(),msg.lower()))))
+        await ctx.send("".join(list(map(lambda x: x if random.random() < 0.5 else x.upper(),msg.lower()))))
 
     @commands.command()
     async def scramble(self,ctx,*,msg):
-        """Scramble the given word"""
-        await ctx.send(""+"".join(sorted(list(msg),key = lambda x: random.random())))
+        """Scramble the given message"""
+        await ctx.send("".join(sorted(list(msg),key = lambda x: random.random())))
     
     @commands.command()
-    async def joinedat(self,ctx):
-        """Says when you joined the server"""
-        a = ctx.message.author.joined_at
+    async def joinedat(self,ctx,uid=None):
+        """Says when you (or mentioned) joined the server"""
+        a = self.bot.getUserOrMentioned(ctx,uid).joined_at
         await ctx.send("{0} {1.day} {1.year}".format(calendar.month_name[a.month], a))
 
     @commands.command()
-    async def createdat(self,ctx):
-        """Says when you created your discord account"""
-        a = ctx.message.author.created_at
+    async def createdat(self,ctx,uid=None):
+        """Says when you (or mentioned) created your discord account"""
+        a = self.bot.getUserOrMentioned(ctx,uid).created_at
         await ctx.send("{0} {1.day} {1.year}".format(calendar.month_name[a.month], a))
 
     @commands.cooldown(5,600,BucketType.default)

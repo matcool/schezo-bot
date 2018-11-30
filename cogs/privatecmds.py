@@ -189,9 +189,7 @@ class privateCommands:
         msgr = await ctx.get_message(msgId)
         embed = discord.Embed(description=msgr.content)
         embed.set_author(name=msgr.author.display_name,icon_url=msgr.author.avatar_url)
-        await ctx.send(msg,embed=embed)
-
-    
+        await ctx.send(msg,embed=embed)   
 
 def setup(bot):
     bot.add_cog(privateCommands(bot))
