@@ -112,5 +112,16 @@ class Conversion:
         final += str(round(inches,2)) + '"'
         await ctx.send(final)
 
+    @commands.command()
+    async def mbps(self, ctx, mbs):
+        """Converts from MB/s to Mbps"""
+        await ctx.send('{}Mbps'.format(float(mbs)*8))
+
+    @commands.command()
+    async def mbs(self, ctx, mbps):
+        """Converts from Mbps to MB/s"""
+        await ctx.send('{}MB/s'.format(round(float(mbps)/8,1)))
+
+
 def setup(bot):
     bot.add_cog(Conversion(bot))

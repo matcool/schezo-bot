@@ -26,7 +26,6 @@ def loadCogs():
     for i in getCogs():
         bot.load_extension(i)
 
-
 def unloadCogs():
     for i in getCogs():
         bot.unload_extension(i)
@@ -37,7 +36,6 @@ def _getUserOrMention(ctx,uid):
     else: return ctx.author
 
 bot.getUserOrMentioned = _getUserOrMention
-
 
 #events
 @bot.event
