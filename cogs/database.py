@@ -15,6 +15,7 @@ class PlayedTracker:
         self.conn = sql.connect('playing.db')
         self.getTrackList()
         while not self.bot.is_closed():
+            await asyncio.sleep(60)
             for n in self.toTrack:
                 try:
                     mem = self.bot.get_guild(n[1]).get_member(n[0])
@@ -27,10 +28,7 @@ class PlayedTracker:
                     continue
                 act = mem.activities[0]
                 self.updateGame(n[0],act.name,act.type.value)
-                print(f'Updated {n[0]} who was playing {mem.activities[0].name}')
             self.conn.commit()
-            print('Done!')
-            await asyncio.sleep(60)
 
     def getTrackList(self):
         c = self.conn.cursor()
