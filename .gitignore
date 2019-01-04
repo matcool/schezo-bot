@@ -5,3 +5,5 @@ bot_config.json
 
 *.sublime-workspace
 *.sublime-project
+
+*.db
