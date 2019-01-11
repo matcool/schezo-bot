@@ -77,16 +77,39 @@ class PlayedTracker:
         time += f'{minutes}m' if minutes > 0 else ''
         return f'{verb} for {time}'
 
+    def stopTracking(self,uid,delete):
+        self.toTrack.pop([j for j,i in enumerate(self.toTrack) if i[0] == uid][0])
+        c = self.conn.cursor()
+        try:
+            c.execute('DELETE FROM tracklist WHERE uid=?',(uid,))
+        except sql.OperationalError:
+            pass
+        if delete:
+            uid = 'u'+str(uid)
+            try:
+                c.execute(f'DROP TABLE {uid}')
+            except sql.OperationalError:
+                pass
+        self.conn.commit()
+
     @commands.command()
-    async def played(self,ctx,join=None):
-        if (ctx.author.id,ctx.guild.id) not in self.toTrack:
-            if join is None:
-                await ctx.send(f'I\'m currently not tracking your games, do `{self.bot.command_prefix}played yes` to join')
+    async def played(self,ctx,*args):
+        if not any(map(lambda x: x[0]==ctx.author.id,self.toTrack)):
+            if ctx.guild is None:
+                await ctx.send('You can only enable the played command within a guild')
+                return
+            elif len(args) == 0 or args[0] != 'enable':
+                await ctx.send(f'I\'m currently not tracking your games, do `{self.bot.command_prefix}played enable` to enable')
                 return
             else:
                 self.track(ctx.author.id,ctx.guild.id)
-                await ctx.send('Your games will now be tracked forever!!! >:) :smiling_imp:')
+                await ctx.send(f'Your games will now be tracked forever!!! >:) :smiling_imp:\ndo `{self.bot.command_prefix}played disable` to opt out *or `delete` to disable and delete all data*')
                 return
+
+        if len(args) > 0 and args[0] in ('disable','delete'):
+            self.stopTracking(ctx.author.id,args[0]=='delete')
+            await ctx.send('Game tracking is now disabled')
+            return
 
         games = self.getUserPlayed(ctx.author.id)
         if games is None or len(games) < 1:
