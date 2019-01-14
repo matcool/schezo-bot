@@ -189,7 +189,45 @@ class privateCommands:
         msgr = await ctx.get_message(msgId)
         embed = discord.Embed(description=msgr.content)
         embed.set_author(name=msgr.author.display_name,icon_url=msgr.author.avatar_url)
-        await ctx.send(msg,embed=embed)   
+        await ctx.send(msg,embed=embed)
+
+    @commands.command(hidden=True)
+    @commands.is_owner()
+    async def countthing(self,ctx,limit):
+        count = {}
+        total = 0
+        if limit == 'None':
+            limit = None
+        else:
+            limit = int(limit)
+        async for msg in ctx.channel.history(limit=limit):
+            name = msg.author.display_name
+            if count.get(name) is None:
+                count[name] = 0
+            count[name] += 1
+            total+=1
+
+        percent = list((i,j/total*100) for i,j in count.items())
+        percent.sort(key=lambda x: x[1],reverse=True)
+        t = '\n'.join("{} has {}%".format(*i) for i in percent)
+        print(t)
+        await ctx.send(t)
+
+    @commands.command(hidden=True)
+    @commands.is_owner()
+    async def getlogofself(self,ctx,limit):
+        if limit == 'None':
+            limit = None
+        else:
+            limit = int(limit)
+        final = ''
+        async for msg in ctx.channel.history(limit=limit):
+            if msg.author.id == ctx.author.id and len(msg.clean_content) > 0:
+                final += msg.clean_content + '\n'
+
+        with open('epiclog.txt','w',encoding='utf-8') as f:
+            f.write(final)
+        await ctx.send('done')
 
 def setup(bot):
     bot.add_cog(privateCommands(bot))

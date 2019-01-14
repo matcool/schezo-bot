@@ -1,13 +1,15 @@
 from discord.ext import commands
+from discord.ext.commands.cooldowns import BucketType
 import discord
 import asyncio
-from PIL import Image, ImageDraw, ImageColor, ImageFont
+from PIL import Image, ImageDraw, ImageColor, ImageFont, ImageFilter
 import random
 import io
 from functools import partial
 import aiohttp
 import re
 import textwrap
+import subprocess
 
 class ImageStuff:
     def __init__(self,bot):
@@ -278,9 +280,41 @@ class ImageStuff:
         img = await self.bot.loop.run_in_executor(None, p)
         await ctx.send(file=discord.File(img, 'peter.jpg'))
 
+    @staticmethod
+    def inspirational(bgimg,text) -> io.BytesIO:
+        text = '\n'.join(textwrap.wrap(text,width=40))
+        bgimg = Image.open(io.BytesIO(bgimg))
+        bgimg = bgimg.filter(ImageFilter.GaussianBlur(8))
+        fnt = ImageFont.truetype('stuff/Signatra.ttf', 60)
+        draw = ImageDraw.Draw(bgimg)
+        size = draw.multiline_textsize(text,font=fnt)
+        draw.multiline_text((bgimg.width/2-size[0]/2,bgimg.height/2-size[1]/2),text,fill=(255,255,255),font=fnt,align='center')
         
+        img = io.BytesIO()
+        bgimg.save(img,format='PNG')
+        img.seek(0)
+        return img
 
-    
-            
+    @commands.cooldown(1,3,BucketType.default)
+    @commands.command()
+    async def mataigen(self,ctx,temp=0.5,yes=None):
+        try:
+            temp = float(temp)
+        except ValueError:
+            await ctx.send('invalid float')
+            return
+        if ctx.author.id != self.bot.owner_id and (temp < 0.2 or temp > 1):
+            await ctx.send('temp must be between 0.2 and 1')
+            return
+        txt = subprocess.Popen('python ../ml/gen.py matlog.hdf5 '+str(temp),stdout=subprocess.PIPE,encoding='utf-8').stdout.read()[:-1]
+        if yes is None:
+            bgimg = await self.get_page("https://source.unsplash.com/featured/800x600")   
+            img = await self.bot.loop.run_in_executor(None, self.inspirational, bgimg, txt)
+        else:
+            avatar = await self.get_avatar(self.bot.get_user(self.bot.owner_id))
+            img = await self.bot.loop.run_in_executor(None, self.nicehackspil, avatar, 'mat', '#00a8ff', txt)
+        await ctx.send(file=discord.File(img, 'sotrue.jpg'))
+
+      
 def setup(bot):
     bot.add_cog(ImageStuff(bot))
