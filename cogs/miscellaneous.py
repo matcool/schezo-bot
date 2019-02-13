@@ -29,9 +29,9 @@ class Miscellaneous:
         await ctx.send('https://discordapp.com/oauth2/authorize?client_id=317323392992935946&scope=bot&permissions=270400')
 
     @commands.command()
-    async def pfp(self,ctx,uid=None):
+    async def pfp(self,ctx,user:discord.Member=None):
         """Gets a profile pic from mention (or userid) or from msg author"""
-        user = self.bot.getUserOrMentioned(ctx,uid)
+        if user == None: user = ctx.author
         await ctx.send(user.avatar_url_as(format="png"))
 
     @commands.command()
@@ -54,15 +54,17 @@ class Miscellaneous:
         await ctx.send("".join(sorted(list(msg),key = lambda x: random.random())))
     
     @commands.command()
-    async def joinedat(self,ctx,uid=None):
+    async def joinedat(self,ctx,user:discord.Member=None):
         """Says when you (or mentioned) joined the server"""
-        a = self.bot.getUserOrMentioned(ctx,uid).joined_at
+        if user == None: user = ctx.author
+        a = user.joined_at
         await ctx.send("{0} {1.day} {1.year}".format(calendar.month_name[a.month], a))
 
     @commands.command()
-    async def createdat(self,ctx,uid=None):
+    async def createdat(self,ctx,user:discord.Member=None):
         """Says when you (or mentioned) created your discord account"""
-        a = self.bot.getUserOrMentioned(ctx,uid).created_at
+        if user == None: user = ctx.author
+        a = user.created_at
         await ctx.send("{0} {1.day} {1.year}".format(calendar.month_name[a.month], a))
 
     @commands.cooldown(5,600,BucketType.default)

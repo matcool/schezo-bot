@@ -30,13 +30,6 @@ def unloadCogs():
     for i in getCogs():
         bot.unload_extension(i)
 
-def _getUserOrMention(ctx,uid):
-    if len(ctx.message.mentions) > 0 and re.match(r'<@!?(\d+)>',uid): return ctx.message.mentions[0]
-    elif uid != None: return bot.get_user(int(uid))
-    else: return ctx.author
-
-bot.getUserOrMentioned = _getUserOrMention
-
 #events
 @bot.event
 async def on_ready():
