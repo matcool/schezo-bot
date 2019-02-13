@@ -1,15 +1,19 @@
 from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
 import aiohttp
+import json
 
 
 class Conversion:
     def __init__(self, bot):
         self.bot = bot
+        with open('bot_config.json') as file:
+            jsonf = json.load(file)
+            self.currencyapikey = jsonf['currencyapikey']
 
     @commands.cooldown(50,3600,BucketType.default)
     @commands.command()
-    async def money(self,ctx,curFrom,curTo=None,amount=None):
+    async def money(self,ctx,curFrom=None,curTo=None,amount=None):
         """
         Converts an amount from one currency to another.
 
@@ -18,9 +22,8 @@ class Conversion:
         will convert from x amount to y. default amount is 1
         """
 
-        curFrom = curFrom.upper()
-        if curTo:
-            curTo = curTo.upper()
+        if curFrom: curFrom = curFrom.upper()
+        if curTo: curTo = curTo.upper()
 
         if amount:
             try:
@@ -33,17 +36,21 @@ class Conversion:
         amount = abs(amount)
 
         async with aiohttp.ClientSession() as session:
-            async with session.get('https://free.currencyconverterapi.com/api/v6/currencies') as r:
+            async with session.get(f'https://free.currencyconverterapi.com/api/v6/currencies?apiKey={self.currencyapikey}') as r:
                 js = await r.json()
                 js = js["results"]
-                if not curTo and curFrom in js:
-                    await ctx.send(js[curFrom]["currencyName"])
+                if curTo == None and curFrom != None and curFrom in js:
+                    await ctx.send(js[curFrom]["currencyName"]+' - '+js[curFrom]['currencySymbol'])
                     return
-                if curTo:
-                    if curFrom not in js or curTo not in js:
-                        await ctx.send("List of all avaliable currencies :```{}```".format(" ".join([i for i in js])))
-                        return
-            async with session.get(f'https://free.currencyconverterapi.com/api/v6/convert?q={curFrom}_{curTo}&compact=y') as r:
+
+                if curTo == None and curFrom == None:
+                    await ctx.send("List of all avaliable currencies :```{}```".format(" ".join([i for i in js])))
+                    return
+
+                if curFrom not in js or curTo not in js:
+                    await ctx.send('Unknown currency! do `s.money` to see a list of all available ones.')
+                    return
+            async with session.get(f'https://free.currencyconverterapi.com/api/v6/convert?q={curFrom}_{curTo}&compact=y&apiKey={self.currencyapikey}') as r:
                 js = await r.json()
                 value = float(js[f"{curFrom}_{curTo}"]["val"])*amount
 
