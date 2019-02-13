@@ -60,7 +60,7 @@ class ImageStuff:
             await ctx.send(file=discord.File(img, 'tenprint.png'))
 
     @staticmethod
-    def nicehackspil(avatar,name,color,msg) -> io.BytesIO:
+    def fakemsgpil(avatar,name,color,msg) -> io.BytesIO:
         l = Image.new('RGB', (219,64), (54,57,62))
         
         im = Image.open(io.BytesIO(avatar))
@@ -107,7 +107,7 @@ class ImageStuff:
         return tmp
 
     @commands.command()
-    async def nicehacks(self,ctx,*args):
+    async def fakemsg(self,ctx,*args):
         async with ctx.typing():
             if len(args) == 0:
                 return
