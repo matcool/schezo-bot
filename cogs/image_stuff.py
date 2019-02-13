@@ -149,7 +149,7 @@ class ImageStuff:
                 c = (255,255,255)
             
 
-            p = partial(self.nicehackspil,av,m.display_name,c,msg)
+            p = partial(self.fakemsgpil,av,m.display_name,c,msg)
             img = await self.bot.loop.run_in_executor(None, p)
             await ctx.send(file=discord.File(img, 'notme.png'))
 
