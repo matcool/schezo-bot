@@ -10,7 +10,7 @@ class games:
 	#variables
 	snakeBool = False
 
-	@commands.command(hidden=True)
+	@commands.command(hidden=True,enabled=False)
 	async def snake(self,ctx):
 		if self.snakeBool:
 			await ctx.send('Someone is playing this already')
