@@ -23,7 +23,7 @@ class ErrorHandlerCog:
         self.bot = bot
         self.noperm = bot.get_emoji(321784861595664385)
 
-    ignored = (commands.NotOwner)
+    ignored = (commands.NotOwner,commands.DisabledCommand)
     async def on_command_error(self,ctx,error):
         if isinstance(error,self.ignored):
             return
@@ -39,13 +39,19 @@ class ErrorHandlerCog:
                 await ctx.message.add_reaction(self.noperm)
             except discord.errors.Forbidden:
                 return
-        elif isinstance(error,commands.MissingRequiredArgument):
+
+        if isinstance(error,commands.MissingRequiredArgument):
             await ctx.send('{} is a required argument that is missing.'.format(error.param))
-        else:
-            print('Ignoring exception in command {}:'.format(ctx.command))
-            traceback.print_exception(type(error), error, error.__traceback__)
-            #print(error)
-            #print("error line {}".format(sys.exc_info()[-1].tb_lineno))
+            return
+
+        if isinstance(error,commands.CommandOnCooldown):
+            await ctx.send(f'Command on cooldown! Please wait {round(error.retry_after,1)} seconds.')
+            return
+        
+        print('Ignoring exception in command {}:'.format(ctx.command))
+        traceback.print_exception(type(error), error, error.__traceback__)
+        #print(error)
+        #print("error line {}".format(sys.exc_info()[-1].tb_lineno))
 
 def setup(bot):
     bot.add_cog(ErrorHandlerCog(bot))
