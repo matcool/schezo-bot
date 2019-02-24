@@ -140,7 +140,7 @@ class privateCommands(commands.Cog, name='Private Commands', command_attrs=dict(
     @commands.command(hidden=True)
     @commands.is_owner()
     async def kill(self,ctx):
-        await self.bot.close()
+        await self.bot.logout()
 
     def sync_dhlcra(self,serverip):
         try:
