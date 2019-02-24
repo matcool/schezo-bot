@@ -70,30 +70,31 @@ class Miscellaneous(commands.Cog):
     @commands.cooldown(5,600,BucketType.default)
     @commands.command()
     async def optifine(self,ctx,version):
+        """Get OptiFine download links for given version"""
         async with aiohttp.ClientSession() as session:
             async with session.get('https://optifine.net/downloads') as r:
                 rawhtml = await r.read()
         
         bs = BeautifulSoup(rawhtml,features="html.parser")
-        tmp = bs.find(text="Minecraft "+version)
-        if tmp is None:
-            tmp = bs.find(text=re.compile(version))
-            if tmp is None:
-                await ctx.send("No OptiFine found for that verison.")
-                return
-            else:
-                link = tmp.parent.nextSibling.nextSibling.nextSibling.nextSibling.a.get('href')
-                embed = discord.Embed(title='Only one OptiFine found for that version')
-                embed.add_field(name=tmp,value=link,inline=True)
-                await ctx.send(embed=embed)
-                return
-
-        tmp = tmp.parent.nextSibling.nextSibling.nextSibling.nextSibling
-
         maxversions = 3
+        if version != 'all':
+            tmp = bs.find(text='Minecraft '+version)
+            if tmp is None:
+                tmp = bs.find(text=re.compile(version+' '))
+                if tmp is None:
+                    await ctx.send("No OptiFine found for that verison.")
+                    return
+                else:
+                    embed = discord.Embed(title='Only one OptiFine found for that version')
+                    embed.add_field(name=tmp.string,value=tmp.findNext(class_='downloadLineDownload').a.get('href'),inline=True)
+                    await ctx.send(embed=embed)
+                    return
+            tmp = tmp.findNext(class_='downloadTable')
+        else:
+            tmp = bs
 
-        names = [i.string for i in tmp.find_all('td',class_=re.compile('downloadLineFile'),limit=maxversions)]
-        links = [i.a.get('href') for i in tmp.find_all('td',class_='downloadLineMirror',limit=maxversions)]
+        names = [i.string for i in tmp.findAll('td',class_=re.compile('downloadLineFile'),limit=maxversions)]
+        links = [i.a.get('href') for i in tmp.findAll('td',class_='downloadLineMirror',limit=maxversions)]
 
         embed = discord.Embed(title='Optifine '+version)
         for name,link in zip(names,links):
