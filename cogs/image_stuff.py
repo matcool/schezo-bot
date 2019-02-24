@@ -123,7 +123,6 @@ class ImageStuff(commands.Cog, name='Image Stuff'):
             else:
                 uid = None
                 msg = " ".join(args)
-            print(uid)
 
             if uid:
                 if ctx.guild: 
