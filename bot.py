@@ -27,7 +27,8 @@ def loadCogs():
         bot.load_extension(i)
 
 def unloadCogs():
-    for i in getCogs():
+    extensions = bot.extensions.copy().keys()
+    for i in extensions:
         bot.unload_extension(i)
 
 #events
