@@ -11,7 +11,7 @@ class privateCommands(commands.Cog, name='Private Commands', command_attrs=dict(
     def __init__(self, bot):
         self.bot = bot
        
-    @commands.command(hidden=True)
+    @commands.command()
     @commands.is_owner()
     async def statusc(self,ctx,*args):
         if len(args) != 0:
@@ -22,7 +22,7 @@ class privateCommands(commands.Cog, name='Private Commands', command_attrs=dict(
             act = discord.Activity(name=" ".join(args),type=acttype)
             await self.bot.change_presence(activity=act)
 
-    @commands.command(hidden=True)
+    @commands.command()
     @commands.is_owner()
     async def sendemojis(self,ctx):
         emojis = self.bot.emojis
@@ -42,12 +42,12 @@ class privateCommands(commands.Cog, name='Private Commands', command_attrs=dict(
             await asyncio.sleep(2)
                 
 
-    @commands.command(hidden=True)
+    @commands.command()
     @commands.is_owner()
     async def say(self,ctx, *, string: str):
         await ctx.send(string)
 
-    @commands.command(hidden=True)
+    @commands.command()
     @commands.is_owner()
     async def hiddencommands(self,ctx):
         c = self.bot.commands
@@ -64,7 +64,7 @@ class privateCommands(commands.Cog, name='Private Commands', command_attrs=dict(
 
         await ctx.send(f)
 
-    @commands.command(hidden=True)
+    @commands.command()
     @commands.is_owner()
     async def memberlist(self,ctx):
         txt = open("gen/bot_memberlist.txt","w+",encoding="utf-8")
@@ -80,7 +80,7 @@ class privateCommands(commands.Cog, name='Private Commands', command_attrs=dict(
         txt.close()
         await ctx.send("done lol")
 
-    @commands.command(hidden=True)
+    @commands.command()
     @commands.is_owner()
     async def rolelist(self,ctx):
         txt = open("gen/bot_rolelist.txt","w+",encoding="utf-8")
@@ -92,7 +92,7 @@ class privateCommands(commands.Cog, name='Private Commands', command_attrs=dict(
         txt.close()
         await ctx.send("done")
 
-    @commands.command(hidden=True)
+    @commands.command()
     @commands.is_owner()
     async def channellist(self,ctx):
         txt = open("gen/bot_channellist.txt","w+",encoding="utf-8")
@@ -113,18 +113,18 @@ class privateCommands(commands.Cog, name='Private Commands', command_attrs=dict(
         txt.close()
         await ctx.send("done")
 
-    @commands.command(hidden=True)
+    @commands.command()
     @commands.is_owner()
     async def burn(self,ctx):
         await self.bot.change_presence(activity=discord.Activity(name="the world burn",type=discord.ActivityType.watching))
 
-    @commands.command(hidden=True)
+    @commands.command()
     @commands.is_owner()
     async def nickname(self,ctx,*,nickname):
         me = ctx.guild.me
         await me.edit(nick=nickname)
 
-    @commands.command(hidden=True)
+    @commands.command()
     async def spacename(self,ctx,*,name):
         if not ctx.guild: return
         mem = ctx.author
@@ -137,7 +137,7 @@ class privateCommands(commands.Cog, name='Private Commands', command_attrs=dict(
         else:
             return
 
-    @commands.command(hidden=True)
+    @commands.command()
     @commands.is_owner()
     async def kill(self,ctx):
         await self.bot.logout()
@@ -155,7 +155,7 @@ class privateCommands(commands.Cog, name='Private Commands', command_attrs=dict(
         return (n_players,l_players,s_players)
 
 
-    @commands.command(hidden=True)
+    @commands.command()
     @commands.check(lambda x: x.message.channel.id in (418209286905135107,418245919872516096,418213017847857160))
     async def dhlcra(self,ctx):
         """shows server info for the dhlcra 6"""
@@ -175,7 +175,7 @@ class privateCommands(commands.Cog, name='Private Commands', command_attrs=dict(
         await ctx.send(embed=embed)  
 
     @commands.cooldown(1,5,BucketType.default)
-    @commands.command(hidden=True)
+    @commands.command()
     async def matstats(self,ctx):
         gb = 1/(1024 ** 3)
         cpu = int(psutil.cpu_percent())
@@ -184,14 +184,14 @@ class privateCommands(commands.Cog, name='Private Commands', command_attrs=dict(
         total = "{0:.2f}".format(mem.total*gb)
         await ctx.send("CPU Usage: {}%\nRAM Usage: {}G/{}G".format(cpu,used,total))
 
-    @commands.command(hidden=True)
+    @commands.command()
     async def reply(self,ctx,msgId,*,msg):
         msgr = await ctx.get_message(msgId)
         embed = discord.Embed(description=msgr.content)
         embed.set_author(name=msgr.author.display_name,icon_url=msgr.author.avatar_url)
         await ctx.send(msg,embed=embed)
 
-    @commands.command(hidden=True)
+    @commands.command()
     @commands.is_owner()
     async def countthing(self,ctx,limit):
         count = {}
@@ -213,7 +213,7 @@ class privateCommands(commands.Cog, name='Private Commands', command_attrs=dict(
         print(t)
         await ctx.send(t)
 
-    @commands.command(hidden=True)
+    @commands.command()
     @commands.is_owner()
     async def getlogofself(self,ctx,limit):
         if limit == 'None':
