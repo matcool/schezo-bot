@@ -3,7 +3,7 @@ import sqlite3 as sql
 import asyncio
 from functools import partial
 
-class PlayedTracker:
+class PlayedTracker(commands.Cog, name='Played Tracker'):
     def __init__(self, bot):
         self.bot = bot
         self.bot.loop.create_task(self.checkPlaying())

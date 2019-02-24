@@ -11,7 +11,7 @@ import re
 import textwrap
 import subprocess
 
-class ImageStuff:
+class ImageStuff(commands.Cog, name='Image Stuff'):
     def __init__(self,bot):
         self.bot = bot
 

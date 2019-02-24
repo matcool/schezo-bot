@@ -4,7 +4,7 @@ import discord
 import aiohttp
 import random
 
-class Reddit:
+class Reddit(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 

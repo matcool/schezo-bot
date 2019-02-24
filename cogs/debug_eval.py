@@ -8,9 +8,8 @@ import textwrap
 ## DISCLAIMER:::!!!
 ## THIS EPIC CODE IS A COPY PASTE OF THIS
 ## https://github.com/Rapptz/RoboDanny/blob/rewrite/cogs/admin.py
-## THIS REPO IS PRIVATE WHO CARES ANYWAY
 
-class debugEval:
+class debugEval(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self._last_result = None

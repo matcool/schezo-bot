@@ -4,7 +4,7 @@ import aiohttp
 import json
 
 
-class Conversion:
+class Conversion(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         with open('bot_config.json') as file:

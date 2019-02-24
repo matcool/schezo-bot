@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 import re
 
 
-class Miscellaneous:
+class Miscellaneous(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 

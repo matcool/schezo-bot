@@ -3,7 +3,7 @@ import discord
 import asyncio
 import random
 
-class games:
+class games(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 

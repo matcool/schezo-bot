@@ -7,7 +7,7 @@ from mcstatus import MinecraftServer
 import aiohttp
 import psutil
 
-class privateCommands:
+class privateCommands(commands.Cog, name='Private Commands', command_attrs=dict(hidden=True)):
     def __init__(self, bot):
         self.bot = bot
        

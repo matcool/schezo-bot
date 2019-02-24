@@ -1,7 +1,7 @@
 from discord.ext import commands
 import discord
 
-class customHelp:
+class customHelp(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 

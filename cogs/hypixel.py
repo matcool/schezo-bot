@@ -8,7 +8,7 @@ import datetime
 import re
 #import upsidedown
 
-class Hypixel:
+class Hypixel(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.achievements = None

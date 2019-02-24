@@ -18,12 +18,13 @@ def string_distance(a, b):
         prow = crow
     return prow[-1]
 
-class ErrorHandlerCog:
+class ErrorHandlerCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.noperm = bot.get_emoji(321784861595664385)
 
     ignored = (commands.NotOwner,commands.DisabledCommand)
+    @commands.Cog.listener()
     async def on_command_error(self,ctx,error):
         if isinstance(error,self.ignored):
             return
