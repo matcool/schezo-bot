@@ -40,7 +40,8 @@ class Conversion(commands.Cog):
                 js = await r.json()
                 js = js["results"]
                 if curTo == None and curFrom != None and curFrom in js:
-                    await ctx.send(js[curFrom]["currencyName"]+' - '+js[curFrom]['currencySymbol'])
+                    symbol = js[curFrom].get('currencySymbol')
+                    await ctx.send(js[curFrom]["currencyName"]+(' - '+symbol if symbol != None else ''))
                     return
 
                 if curTo == None and curFrom == None:
