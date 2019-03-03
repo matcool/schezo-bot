@@ -155,7 +155,7 @@ class privateCommands(commands.Cog, name='Private Commands', command_attrs=dict(
         return (n_players,l_players,s_players)
 
 
-    @commands.command()
+    @commands.command(enabled=False)
     @commands.check(lambda x: x.message.channel.id in (418209286905135107,418245919872516096,418213017847857160))
     async def dhlcra(self,ctx):
         """shows server info for the dhlcra 6"""
