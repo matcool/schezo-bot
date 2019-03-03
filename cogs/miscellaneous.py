@@ -109,6 +109,14 @@ class Miscellaneous(commands.Cog):
         rnd = random.Random(total)
         await ctx.send("I'd give {} a {}/10".format(ratee,rnd.randint(0,10)))
 
+    @commands.command()
+    async def party(self,ctx,*,partee=None):
+        partyEmoji = self.bot.get_emoji(469665762496217088)
+        if partee == None:
+            await ctx.send(str(partyEmoji)*3)
+        else:
+            await ctx.send(f':crab::tada:{partyEmoji} {partee} {partyEmoji}:tada::crab:')
+
 
          
 
