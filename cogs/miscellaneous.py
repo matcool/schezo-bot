@@ -6,7 +6,7 @@ import calendar
 import aiohttp
 from bs4 import BeautifulSoup
 import re
-
+from mcstatus import MinecraftServer
 
 class Miscellaneous(commands.Cog):
     def __init__(self, bot):
@@ -117,9 +117,33 @@ class Miscellaneous(commands.Cog):
         else:
             await ctx.send(f':crab::tada:{partyEmoji} {partee} {partyEmoji}:tada::crab:')
 
+    def sync_mcserver(self, serverip):
+        server = MinecraftServer(serverip)
+        try:
+            query = server.query(retries=1)
+        except Exception:
+            # Either query is disabled or failed to connect
+            try:
+                status = server.status(retries=1)
+            except Exception:
+                return False
+            else:
+                return (status.players.online, list(map(lambda x: x.name, status.players.sample)), status.players.max, status.version.name)
+        else:
+            return (query.players.online, query.players.names, query.players.max, query.software.version) 
 
-         
-
+    @commands.command()
+    async def mcserver(self, ctx, serverip):
+        """Shows info for a minecraft server"""
+        result = await self.bot.loop.run_in_executor(None, self.sync_mcserver, serverip)
+        if not result:
+            await ctx.send('Error while trying to connect')
+            return
+        online, players, maxplayers, version = result
+        embed = discord.Embed(title=f'**{serverip}**\'s status', colour=discord.Colour(0x339c31))
+        embed.add_field(name='Version', value=version)
+        embed.add_field(name=f'Players: {online}/{maxplayers}', value='- '+'\n- '.join(players) if online > 0 else 'No one')
+        await ctx.send(embed=embed)
 
 
 def setup(bot):

@@ -3,7 +3,6 @@ from discord.ext.commands.cooldowns import BucketType
 import discord
 import asyncio
 import random
-from mcstatus import MinecraftServer
 import aiohttp
 import psutil
 
@@ -141,38 +140,6 @@ class privateCommands(commands.Cog, name='Private Commands', command_attrs=dict(
     @commands.is_owner()
     async def kill(self,ctx):
         await self.bot.logout()
-
-    def sync_dhlcra(self,serverip):
-        try:
-            server = MinecraftServer(serverip)
-            query = server.query(retries=1)
-            #status = server.status(retries=1)
-        except Exception:
-            return False
-        n_players = query.players.online
-        l_players = query.players.names
-        s_players = "- "+"\n- ".join(l_players) if n_players else "No one :("
-        return (n_players,l_players,s_players)
-
-
-    @commands.command(enabled=False)
-    @commands.check(lambda x: x.message.channel.id in (418209286905135107,418245919872516096,418213017847857160))
-    async def dhlcra(self,ctx):
-        """shows server info for the dhlcra 6"""
-        #serverip = "64.52.87.37"
-        serverip = "0.0.0.0"
-        result = await self.bot.loop.run_in_executor(None, self.sync_dhlcra, serverip)
-        if not result:
-            await ctx.send("Error while trying to connect")
-            return
-        #serverip = "64.52.87.37"
-        serverip = "dhlcra.us.to"
-        n_players,l_players,s_players = result
-        embed = discord.Embed(title="Dhlcra Season 6", colour=discord.Colour(0x339c31))
-        embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/418209286905135107/482244469211791360/dhlcra.png")
-        embed.add_field(name="Server IP", value=serverip)
-        embed.add_field(name="Online Players: {}".format(n_players), value=s_players)
-        await ctx.send(embed=embed)  
 
     @commands.cooldown(1,5,BucketType.default)
     @commands.command()
