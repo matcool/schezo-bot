@@ -18,7 +18,7 @@ class Conversion(commands.Cog):
         Converts an amount from one currency to another.
 
         **Usage**:
-        *mb!money (x currency) (y currency) [amount]*
+        *s.money (x currency) (y currency) [amount]*
         will convert from x amount to y. default amount is 1
         """
 
@@ -36,7 +36,7 @@ class Conversion(commands.Cog):
         amount = abs(amount)
 
         async with aiohttp.ClientSession() as session:
-            async with session.get(f'https://free.currencyconverterapi.com/api/v6/currencies?apiKey={self.currencyapikey}') as r:
+            async with session.get(f'https://free.currconv.com/api/v7/currencies?apiKey={self.currencyapikey}') as r:
                 js = await r.json()
                 js = js["results"]
                 if curTo == None and curFrom != None and curFrom in js:
@@ -51,7 +51,7 @@ class Conversion(commands.Cog):
                 if curFrom not in js or curTo not in js:
                     await ctx.send('Unknown currency! do `s.money` to see a list of all available ones.')
                     return
-            async with session.get(f'https://free.currencyconverterapi.com/api/v6/convert?q={curFrom}_{curTo}&compact=y&apiKey={self.currencyapikey}') as r:
+            async with session.get(f'https://free.currconv.com/api/v7/convert?q={curFrom}_{curTo}&compact=y&apiKey={self.currencyapikey}') as r:
                 js = await r.json()
                 value = float(js[f"{curFrom}_{curTo}"]["val"])*amount
 
