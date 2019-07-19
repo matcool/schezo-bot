@@ -5,6 +5,7 @@ import glob
 from hashlib import sha1
 import aiohttp
 import re
+import asyncio
 
 with open('bot_config.json') as file:
     jsonf = json.load(file)
@@ -31,6 +32,13 @@ def unloadCogs():
     for i in extensions:
         bot.unload_extension(i)
 
+async def uptime(bot):
+    await bot.wait_until_ready()
+    bot.uptime = 0 
+    while not bot.is_closed():
+        await asyncio.sleep(10)
+        bot.uptime += 10
+
 #events
 @bot.event
 async def on_ready():
@@ -39,6 +47,7 @@ async def on_ready():
     print(bot.user.id)
     game = discord.Activity(name=gamename,type=discord.ActivityType.watching)
     await bot.change_presence(activity=game)
+    bot.loop.create_task(uptime(bot))
     loadCogs()
 
 @bot.event
