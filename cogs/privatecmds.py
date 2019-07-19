@@ -5,6 +5,7 @@ import asyncio
 import random
 import aiohttp
 import psutil
+import datetime
 
 class privateCommands(commands.Cog, name='Private Commands', command_attrs=dict(hidden=True)):
     def __init__(self, bot):
@@ -195,6 +196,10 @@ class privateCommands(commands.Cog, name='Private Commands', command_attrs=dict(
         with open('epiclog.txt','w',encoding='utf-8') as f:
             f.write(final)
         await ctx.send('done')
+
+    @commands.command()
+    async def uptime(self, ctx):
+        await ctx.send("{:0>8}".format(str(datetime.timedelta(seconds=self.bot.uptime))))
 
 def setup(bot):
     bot.add_cog(privateCommands(bot))
