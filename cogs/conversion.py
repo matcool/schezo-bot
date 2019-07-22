@@ -79,28 +79,24 @@ class Conversion(commands.Cog):
                         await ctx.send("{0} {1} is about {2:.2f} {3}".format(amount,curFrom,value,curTo))
 
     @commands.command()
-    async def celsius(self, ctx, temperature):
+    async def celsius(self, ctx, temperature: float):
         """Converts from fahrenheit to celsius"""
-        t = float(temperature)
         await ctx.send("{}°C".format(round(5*(t-32)/9,1)))
 
     @commands.command()
-    async def fahrenheit(self, ctx, temperature):
+    async def fahrenheit(self, ctx, temperature: float):
         """Converts from celsius to fahrenheit"""
-        t = float(temperature)
         await ctx.send("{}°F".format(round((9*t/5)+32,1)))
 
     @commands.command(aliases=['lbs'])
-    async def pounds(self, ctx, kg):
+    async def pounds(self, ctx, kg: float):
         """Converts from kilograms to pounds"""
-        t = float(kg) * 2.204623
-        await ctx.send("{}lb".format(round(t,1)))
+        await ctx.send("{}lb".format(round(kg * 2.204623,1)))
 
     @commands.command(aliases=['kg','kilogram'])
-    async def kilograms(self, ctx, pounds):
+    async def kilograms(self, ctx, pounds: float):
         """Converts from pounds to kilograms"""
-        t = float(pounds) * 0.4535924
-        await ctx.send("{}kg".format(round(t,1)))
+        await ctx.send("{}kg".format(round(pounds * 0.4535924,1)))
 
     @commands.command(aliases=['cm'])
     async def metric(self, ctx, *, x):
@@ -126,14 +122,14 @@ class Conversion(commands.Cog):
         await ctx.send("{}cm".format(round(inches*2.54,2)))
 
     @commands.command(aliases=['inches','feet','inch','foot'])
-    async def imperial(self, ctx, cm):
+    async def imperial(self, ctx, cm: float):
         """
         Converts from cm to inches (and feet)
 
         s.imperial 162.56
         = 5'4"
         """
-        inches = float(cm) / 2.54
+        inches = cm / 2.54
         feet, inches = divmod(inches, 12)
         final = ""
         if feet != 0:
@@ -142,15 +138,14 @@ class Conversion(commands.Cog):
         await ctx.send(final)
 
     @commands.command()
-    async def mbps(self, ctx, mbs):
+    async def mbps(self, ctx, mbs: float):
         """Converts from MB/s to Mbps"""
-        await ctx.send('{}Mbps'.format(float(mbs)*8))
+        await ctx.send('{}Mbps'.format(mbs*8))
 
     @commands.command()
-    async def mbs(self, ctx, mbps):
+    async def mbs(self, ctx, mbps: float):
         """Converts from Mbps to MB/s"""
-        await ctx.send('{}MB/s'.format(round(float(mbps)/8,1)))
-
+        await ctx.send('{}MB/s'.format(round(mbps/8,1)))
 
 def setup(bot):
     bot.add_cog(Conversion(bot))

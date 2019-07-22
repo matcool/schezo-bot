@@ -30,7 +30,7 @@ class ErrorHandlerCog(commands.Cog):
             return
 
         if isinstance(error,commands.CommandNotFound):
-            cmds = list(map(lambda x: x.name, self.bot.commands))
+            cmds = [cmd.name for cmd in self.bot.commands if not cmd.hidden]
             cmds.sort(key=lambda x: string_distance(x,ctx.invoked_with))
             await ctx.send(f'Unknown command! Did you mean {cmds[0]}?')
             return

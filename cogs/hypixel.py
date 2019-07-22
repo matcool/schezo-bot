@@ -69,7 +69,7 @@ class Hypixel(commands.Cog):
 
     @commands.cooldown(70,60,BucketType.default)
     @commands.command()
-    async def bwstats(self,ctx,name):
+    async def bwstats(self, ctx, name):
         js = await self.get_player(name)
         if not js:
             await ctx.send("Player not found.")
