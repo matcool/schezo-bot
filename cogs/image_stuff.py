@@ -2,7 +2,7 @@ from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
 import discord
 import asyncio
-from PIL import Image, ImageDraw, ImageColor, ImageFont, ImageFilter
+from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import random
 import io
 from functools import partial

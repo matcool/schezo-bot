@@ -1,5 +1,7 @@
+discord.py
 mcstatus
 psutil
 pillow
-git+https://github.com/Rapptz/discord.py@rewrite
 bs4
+pendulum
+buttons

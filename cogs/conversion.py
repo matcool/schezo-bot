@@ -1,8 +1,8 @@
 from discord.ext import commands
+from discord.ext import buttons
 from discord.ext.commands.cooldowns import BucketType
 import aiohttp
 import json
-
 
 class Conversion(commands.Cog):
     def __init__(self, bot):
@@ -45,17 +45,38 @@ class Conversion(commands.Cog):
                     return
 
                 if curTo == None and curFrom == None:
-                    await ctx.send("List of all avaliable currencies :```{}```".format(" ".join([i for i in js])))
-                    return
-
-                if curFrom not in js or curTo not in js:
+                    if ctx.guild == None:
+                        return await ctx.send('Sorry but this command does not work on DMs (i cant remove your reactions)\nPlease use this in a server')
+                    keys = list(js.keys())
+                    keys.sort()
+                    formatted = []
+                    for key in keys:
+                        c = js[key]
+                        final = f"{key} - {c['currencyName']}"
+                        formatted.append(final)
+                    
+                    nperpage = 30
+                    pages = []
+                    while len(formatted):
+                        msg = ''
+                        for _ in range(nperpage):
+                            if len(formatted) == 0: break
+                            msg += formatted[0]+'\n'
+                            formatted.pop(0)
+                        pages.append(msg)
+                    
+                    p = buttons.Paginator(title='List of available currencies', colour=0x8BF488, embed=True, timeout=30, use_defaults=True,
+                        entries=pages, length=1, format='```')
+                    await p.start(ctx)
+                elif curFrom not in js or curTo not in js:
                     await ctx.send('Unknown currency! do `s.money` to see a list of all available ones.')
                     return
-            async with session.get(f'https://free.currconv.com/api/v7/convert?q={curFrom}_{curTo}&compact=y&apiKey={self.currencyapikey}') as r:
-                js = await r.json()
-                value = float(js[f"{curFrom}_{curTo}"]["val"])*amount
+                else:
+                    async with session.get(f'https://free.currconv.com/api/v7/convert?q={curFrom}_{curTo}&compact=y&apiKey={self.currencyapikey}') as r:
+                        js = await r.json()
+                        value = float(js[f"{curFrom}_{curTo}"]["val"])*amount
 
-                await ctx.send("{0} {1} is about {2:.2f} {3}".format(amount,curFrom,value,curTo))
+                        await ctx.send("{0} {1} is about {2:.2f} {3}".format(amount,curFrom,value,curTo))
 
     @commands.command()
     async def celsius(self, ctx, temperature):
@@ -87,7 +108,7 @@ class Conversion(commands.Cog):
         Converts from inches (default) to cm
         
         Can also convert from feet (and inches) like so:
-        mb!metric 5'4"
+        s.metric 5'4"
         = 162.56cm
         """
         ft = x.find('\'')
@@ -109,7 +130,7 @@ class Conversion(commands.Cog):
         """
         Converts from cm to inches (and feet)
 
-        mb!imperial 162.56
+        s.imperial 162.56
         = 5'4"
         """
         inches = float(cm) / 2.54
