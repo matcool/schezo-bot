@@ -48,6 +48,9 @@ class ErrorHandlerCog(commands.Cog):
         if isinstance(error,commands.CommandOnCooldown):
             await ctx.send(f'Command on cooldown! Please wait {round(error.retry_after,1)} seconds.')
             return
+
+        if isinstance(error, commands.BadArgument):
+            return await ctx.send(error.args[0])
         
         print('Ignoring exception in command {}:'.format(ctx.command))
         traceback.print_exception(type(error), error, error.__traceback__)
