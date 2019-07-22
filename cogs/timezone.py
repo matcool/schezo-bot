@@ -2,7 +2,7 @@ from discord.ext import commands
 import discord
 import sqlite3 as sql
 import asyncio
-from datetime import datetime, timedelta
+import pendulum
 
 class Timezone(commands.Cog):
     def __init__(self, bot):
@@ -13,36 +13,48 @@ class Timezone(commands.Cog):
     def ensureTable(self, c):
         """Makes sure the table exists by creating it, and ignoring errors if it already exists"""
         try:
-            c.execute('CREATE TABLE timezones (uid int, offset tinyint)')
+            c.execute('CREATE TABLE timezones (uid int, timezone text)')
         except Exception:
             pass
 
-    def getUserOffset(self, uid):
+    def getUserTimezone(self, uid):
         c = self.conn.cursor()
         self.ensureTable(c)
-        return c.execute('SELECT offset FROM timezones where uid=?', (uid,)).fetchone()
+        r = c.execute('SELECT timezone FROM timezones where uid=?', (uid,)).fetchone()
+        return r[0] if r else None
 
-    def setUserOffset(self, uid, offset):
+    def setUserTimezone(self, uid, timezone):
         c = self.conn.cursor()
         self.ensureTable(c)
-        r = c.execute('SELECT offset FROM timezones where uid=?', (uid,)).fetchone()
+        r = c.execute('SELECT timezone FROM timezones where uid=?', (uid,)).fetchone()
         if r == None:
-            c.execute('INSERT INTO timezones VALUES (?, ?)', (uid, offset))
+            c.execute('INSERT INTO timezones VALUES (?, ?)', (uid, timezone))
         else:
-            c.execute('UPDATE timezones SET offset=? WHERE uid=?', (offset, uid))
+            c.execute('UPDATE timezones SET timezone=? WHERE uid=?', (timezone, uid))
         self.conn.commit()
 
+    def formatTime(self, dt):
+        return dt.strftime('%Y-%m-%d %H:%M')
+
+    def tzDiff(self, a, b):
+        """oh god this is a mess"""
+        n = pendulum.now()
+        a = pendulum.datetime(n.year, n.month, n.day, tz=a)
+        b = pendulum.datetime(n.year, n.month, n.day, tz=b)
+        return a.diff(b, False).in_hours()
+
     @commands.command()
-    async def mytimeis(self, ctx, offset: int):
+    async def mytimeis(self, ctx, *, timezone):
         """
-        Sets your UTC offset, so it can be used with other commands
-        
-        Usage: s.mytimeis (offset)
+        Sets your timezone, so it can be used with other commands
+        List of available timezones: https://gist.github.com/heyalexej/8bf688fd67d7199be4a1682b3eec7568
+
+        Usage: s.mytimeis (timezone)
         """
-        if offset <= -12 or offset >= 12:
-            return await ctx.send('Offset should be between -12 and 12')
-        self.setUserOffset(ctx.author.id, offset)
-        await ctx.send('Your offset is now set to UTC{}'.format(offset if offset < 0 else '+'+str(offset)))
+        if timezone not in pendulum.timezones:
+            return await ctx.send('Invalid timezone, please use one of these: https://gist.github.com/heyalexej/8bf688fd67d7199be4a1682b3eec7568')
+        self.setUserTimezone(ctx.author.id, timezone)
+        await ctx.send(f'Your timezone is now set to {timezone}\nYour local time should be: {self.formatTime(pendulum.now(timezone))}')
 
     @commands.command(aliases=['whattimeisitfor'])
     async def timefor(self, ctx, other: discord.User):
@@ -53,16 +65,14 @@ class Timezone(commands.Cog):
         
         s.timefor Mat
         """
-        otherOffset = self.getUserOffset(other.id)
-        if otherOffset == None:
-            return await ctx.send('Could not get that user\'s offset')
-        otherOffset = otherOffset[0]
-        myOffset = self.getUserOffset(ctx.author.id)
-        if myOffset != None: myOffset = myOffset[0]
-        otherTime = (datetime.utcnow() + timedelta(hours=otherOffset)).strftime("%Y-%m-%d %H:%M")
-        extra = f'You are {abs(myOffset - otherOffset)} hours {"ahead" if myOffset - otherOffset > 0 else "behind"} them.' if myOffset != None and myOffset != otherOffset else ''
-        await ctx.send(f'It\'s {otherTime} for {other.display_name}\n'+extra)
-        
+        otherTz = self.getUserTimezone(other.id)
+        if otherTz == None: return await ctx.send('Could not get that user\'s timezone')
+        myTz = self.getUserTimezone(ctx.author.id)
+        if myTz != None:
+            diff = self.tzDiff(otherTz, myTz)
+            extra = f'You are {abs(diff)} hour{"s" if abs(diff) > 1 else ""} {"ahead of" if diff < 0 else "behind"} them' if diff != 0 else ''
+        else: extra = ''
+        await ctx.send(f'It\'s {self.formatTime(pendulum.now(otherTz))} for {other.display_name}\n{extra}')
 
 def setup(bot):
     bot.add_cog(Timezone(bot))
