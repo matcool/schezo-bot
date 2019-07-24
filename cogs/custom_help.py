@@ -36,7 +36,7 @@ class customHelp(commands.Cog):
         # Look up command or cog
         else:
             cmd = self.bot.get_command(lookup)
-            if cmd and type != 'cog':
+            if cmd and not cmd.hidden and type != 'cog':
                 if cmd.help:
                     embed = discord.Embed(
                         title=cmd.name.capitalize(),
