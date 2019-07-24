@@ -44,7 +44,7 @@ class privateCommands(commands.Cog, name='Private Commands', command_attrs=dict(
 
     @commands.command()
     @commands.is_owner()
-    async def say(self,ctx, *, string: commands.clean_content(fix_channel_mentions=True)):
+    async def say(self,ctx, *, string: commands.clean_content):
         await ctx.send(string)
 
     @commands.command()
@@ -151,12 +151,6 @@ class privateCommands(commands.Cog, name='Private Commands', command_attrs=dict(
         used = "{0:.2f}".format(mem.used*gb)
         total = "{0:.2f}".format(mem.total*gb)
         await ctx.send("CPU Usage: {}%\nRAM Usage: {}G/{}G".format(cpu,used,total))
-
-    @commands.command()
-    async def reply(self, ctx, msgr: discord.Message, *, msg: commands.clean_content(fix_channel_mentions=True)):
-        embed = discord.Embed(description=msgr.content)
-        embed.set_author(name=msgr.author.display_name,icon_url=msgr.author.avatar_url)
-        await ctx.send(msg,embed=embed)
 
     @commands.command()
     @commands.is_owner()

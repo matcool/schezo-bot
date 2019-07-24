@@ -13,23 +13,6 @@ class Miscellaneous(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def embed(self, ctx, title, content, color=None):
-        """
-        Makes a embed message with the args given.
-        
-        Usage: s.embed (title) (content) [color (in hex)]
-        """
-        if color:
-            try:
-                color = int(color, 16)
-            except ValueError:
-                return await ctx.send('Invalid color')
-        else:
-            color = 0xcccccc
-        embed = discord.Embed(title=title, description=content, colour=color)
-        await ctx.send(embed=embed)
-
-    @commands.command()
     async def ping(self, ctx):
         """Tests the bot latency"""
         await ctx.send(str(int(self.bot.latency*1000))+"ms")
@@ -55,12 +38,12 @@ class Miscellaneous(commands.Cog):
         await ctx.send(url)
 
     @commands.command()
-    async def mock(self, ctx, *, msg: commands.clean_content(fix_channel_mentions=True)):
+    async def mock(self, ctx, *, msg: commands.clean_content):
         """dOeS thIS To yOuR meSsaGE"""
         await ctx.send("".join(list(map(lambda x: x if random.random() < 0.5 else x.upper(),msg.lower()))))
 
     @commands.command()
-    async def scramble(self, ctx, *, msg: commands.clean_content(fix_channel_mentions=True)):
+    async def scramble(self, ctx, *, msg: commands.clean_content):
         """Scramble the given message"""
         await ctx.send("".join(sorted(list(msg),key = lambda x: random.random())))
     
@@ -114,14 +97,14 @@ class Miscellaneous(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command()
-    async def rate(self, ctx, *, ratee: commands.clean_content(fix_channel_mentions=True)):
+    async def rate(self, ctx, *, ratee: commands.clean_content):
         """rates something"""
         total = sum([ord(i) for i in ratee])
         rnd = random.Random(total)
         await ctx.send("I'd give {} a {}/10".format(ratee,rnd.randint(0,10)))
 
     @commands.command()
-    async def party(self, ctx, *, partee: commands.clean_content(fix_channel_mentions=True)=None):
+    async def party(self, ctx, *, partee: commands.clean_content=None):
         partyEmoji = self.bot.get_emoji(469665762496217088)
         if partee == None:
             await ctx.send(str(partyEmoji)*3)
@@ -155,6 +138,29 @@ class Miscellaneous(commands.Cog):
         embed.add_field(name='Version', value=version)
         embed.add_field(name=f'Players: {online}/{maxplayers}', value='- '+'\n- '.join(players) if online > 0 else 'No one')
         await ctx.send(embed=embed)
+
+    @commands.command()
+    async def reply(self, ctx, msg: discord.Message):
+        """
+        Sends message in a embed so you can reply to it
+
+        Usage: s.reply <message>
+        message can either be the message id or a message URL
+        """
+        embed = discord.Embed(description=msg.content)
+        embed.set_author(name=msg.author.display_name,icon_url=msg.author.avatar_url)
+        def is_image(url: str):
+            extensions = {'png','jpeg','jpg','gif','bmp'}
+            for ext in extensions:
+                if url.endswith('.'+ext): return True
+            return False
+        if len(msg.attachments):
+            if is_image(msg.attachments[0].url): embed.set_image(url=msg.attachments[0].url)
+            else:
+                embed.add_field(name='Attachment',value=msg.attachments[0].url)
+        await ctx.send(embed=embed)
+        if ctx.guild and ctx.guild.me.permissions_in(ctx.channel).manage_messages:
+            await ctx.message.delete()
 
 def setup(bot):
     bot.add_cog(Miscellaneous(bot))

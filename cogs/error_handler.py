@@ -42,7 +42,7 @@ class ErrorHandlerCog(commands.Cog):
                 return
 
         if isinstance(error,commands.MissingRequiredArgument):
-            await ctx.send('{} is a required argument that is missing.'.format(error.param))
+            await ctx.send('{} is a required argument that is missing.'.format(error.param.name))
             return
 
         if isinstance(error,commands.CommandOnCooldown):
