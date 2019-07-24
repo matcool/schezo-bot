@@ -44,20 +44,30 @@ class Timezone(commands.Cog):
         return a.diff(b, False).in_hours()
 
     @commands.command()
-    async def mytimeis(self, ctx, *, timezone):
+    async def mytimeis(self, ctx, *, timezone: str=None):
         """
         Sets your timezone, so it can be used with other commands
-        List of available timezones: https://gist.github.com/heyalexej/8bf688fd67d7199be4a1682b3eec7568
+        Timezone picker: http://scratch.andrewl.in/timezone-picker/example_site/openlayers_example.html
 
         Usage: s.mytimeis (timezone)
         """
-        if timezone not in pendulum.timezones:
-            return await ctx.send('Invalid timezone, please use one of these: https://gist.github.com/heyalexej/8bf688fd67d7199be4a1682b3eec7568')
+        if timezone == None:
+            timezone = self.getUserTimezone(ctx.author.id)
+            if timezone: await ctx.send(f'Your current timezone is: {timezone}')
+            else: await ctx.send('You currently don\'t have a timezone set')
+            return
+        timezone = timezone.lower()
+        for tz in pendulum.timezones:
+            if tz.lower() == timezone:
+                timezone = tz
+                break
+        else:
+            return await ctx.send('Invalid timezone, please use one of these: http://scratch.andrewl.in/timezone-picker/example_site/openlayers_example.html')
         self.setUserTimezone(ctx.author.id, timezone)
         await ctx.send(f'Your timezone is now set to {timezone}\nYour local time should be: {self.formatTime(pendulum.now(timezone))}')
 
     @commands.command(aliases=['whattimeisitfor'])
-    async def timefor(self, ctx, other: discord.User):
+    async def timefor(self, ctx, other: discord.Member):
         """
         Shows what time it is for other
 
