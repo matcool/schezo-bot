@@ -81,12 +81,12 @@ class Conversion(commands.Cog):
     @commands.command()
     async def celsius(self, ctx, temperature: float):
         """Converts from fahrenheit to celsius"""
-        await ctx.send("{}°C".format(round(5*(t-32)/9,1)))
+        await ctx.send("{}°C".format(round(5*(temperature-32)/9,1)))
 
     @commands.command()
     async def fahrenheit(self, ctx, temperature: float):
         """Converts from celsius to fahrenheit"""
-        await ctx.send("{}°F".format(round((9*t/5)+32,1)))
+        await ctx.send("{}°F".format(round((9*temperature/5)+32,1)))
 
     @commands.command(aliases=['lbs'])
     async def pounds(self, ctx, kg: float):
