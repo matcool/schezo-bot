@@ -6,9 +6,13 @@ from functools import partial
 class PlayedTracker(commands.Cog, name='Played Tracker'):
     def __init__(self, bot):
         self.bot = bot
-        self.bot.loop.create_task(self.checkPlaying())
-        self.toTrack = []
         self.conn = None
+        self.task = asyncio.create_task(self.checkPlaying())
+        self.toTrack = []
+
+    def cog_unload(self):
+        self.task.cancel()
+        self.conn.close()
 
     async def checkPlaying(self):
         await self.bot.wait_until_ready()
@@ -118,11 +122,6 @@ class PlayedTracker(commands.Cog, name='Played Tracker'):
 
         games.sort(key=lambda x: x[1],reverse=True)
         await ctx.send('\n'.join([f'{i[0]} - {self.formatTime(*i[1:])}' for i in games]))
-
-
-
-
-
 
 def setup(bot):
     bot.add_cog(PlayedTracker(bot))
