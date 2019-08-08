@@ -53,7 +53,7 @@ class Timezone(commands.Cog):
         """
         if timezone == None:
             timezone = self.getUserTimezone(ctx.author.id)
-            if timezone: await ctx.send(f'Your current timezone is: {timezone}')
+            if timezone: await ctx.send(f'Your current timezone is: {timezone}\nYour time should be: {self.formatTime(pendulum.now(timezone))}')
             else: await ctx.send('You currently don\'t have a timezone set')
             return
         timezone = timezone.lower()
