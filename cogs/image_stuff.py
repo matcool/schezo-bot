@@ -25,13 +25,7 @@ class ImageStuff(commands.Cog, name='Image Stuff'):
 
 
     async def get_avatar(self, user) -> bytes:
-        avatar_url = user.avatar_url_as(format="png")
-
-        async with aiohttp.ClientSession() as session:
-            async with session.get(avatar_url) as response:
-                avatar_bytes = await response.read()
-
-        return avatar_bytes
+        return await user.avatar_url_as(format="png").read()
 
     @staticmethod
     def tenprintpil() -> io.BytesIO:
