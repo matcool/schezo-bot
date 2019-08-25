@@ -99,7 +99,18 @@ class PlayedTracker(commands.Cog, name='Played Tracker'):
 
     @commands.command()
     async def played(self,ctx,*args):
-        if not any(map(lambda x: x[0]==ctx.author.id,self.toTrack)):
+        """
+        Check played games stats
+        Usage:
+        s.played [enable|disable|delete|(user)]
+        """
+        user = ctx.author
+        if len(args) > 0 and args[0] not in ('enable', 'disable', 'delete'):
+            user = await commands.MemberConverter().convert(ctx, args[0])
+            if user and not any(map(lambda x: x[0] == user.id, self.toTrack)):
+                await ctx.send('Tagged person does not have played tracking enabled')
+                return
+        elif not any(map(lambda x: x[0] == user.id, self.toTrack)):
             if ctx.guild is None:
                 await ctx.send('You can only enable the played command within a guild')
                 return
@@ -112,13 +123,13 @@ class PlayedTracker(commands.Cog, name='Played Tracker'):
                 return
 
         if len(args) > 0 and args[0] in ('disable','delete'):
-            self.stopTracking(ctx.author.id,args[0]=='delete')
+            self.stopTracking(ctx.author.id, args[0] == 'delete')
             await ctx.send('Game tracking is now disabled')
             return
 
-        games = self.getUserPlayed(ctx.author.id)
+        games = self.getUserPlayed(user.id)
         if games is None or len(games) < 1:
-            await ctx.send('You haven\'t played any games yet!')
+            await ctx.send(f'{"You" if user == ctx.author else "They"} haven\'t played any games yet!')
             return
 
         games.sort(key=lambda x: x[1],reverse=True)
@@ -133,7 +144,7 @@ class PlayedTracker(commands.Cog, name='Played Tracker'):
                 pages.append(page)
                 page = ''
         if i != 0: pages.append(page)
-        p = buttons.Paginator(title=f'{ctx.author.name}\'s played stats', colour=0x61C7C3, embed=True, timeout=10, use_defaults=True,
+        p = buttons.Paginator(title=f'{user.name}\'s played stats', colour=0x61C7C3, embed=True, timeout=10, use_defaults=True,
         entries=pages, length=1)
         await p.start(ctx)
 
