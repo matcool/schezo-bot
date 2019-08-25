@@ -1,4 +1,5 @@
 from discord.ext import commands
+from discord.ext import buttons
 import sqlite3 as sql
 import asyncio
 from functools import partial
@@ -121,7 +122,20 @@ class PlayedTracker(commands.Cog, name='Played Tracker'):
             return
 
         games.sort(key=lambda x: x[1],reverse=True)
-        await ctx.send('\n'.join([f'{i[0]} - {self.formatTime(*i[1:])}' for i in games]))
+        pages = []
+        page = ''
+        i = 0
+        for game in games:
+            page += f'**{game[0]}** - {self.formatTime(game[1], game[2])}\n'
+            i += 1
+            if i > 10:
+                i = 0
+                pages.append(page)
+                page = ''
+        if i != 0: pages.append(page)
+        p = buttons.Paginator(title=f'{ctx.author.name}\'s played stats', colour=0x61C7C3, embed=True, timeout=10, use_defaults=True,
+        entries=pages, length=1)
+        await p.start(ctx)
 
 def setup(bot):
     bot.add_cog(PlayedTracker(bot))
