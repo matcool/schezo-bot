@@ -40,7 +40,7 @@ class customHelp(commands.Cog):
                 if cmd.help:
                     embed = discord.Embed(
                         title=cmd.name.capitalize(),
-                        description=cmd.help,
+                        description=cmd.help.replace('{prefix}', self.bot.command_prefix),
                         colour=0xd0d0d0
                         )
                     await ctx.send(embed=embed)
@@ -63,12 +63,6 @@ class customHelp(commands.Cog):
                     final += f"**{cmd.name}**" + (f" - {cmd.short_doc}" if cmd.short_doc else "") + "\n"
                 embed = discord.Embed(title=lookup,description=final,colour=0x3498db)
                 await ctx.send(embed=embed)
-
-
-
-
-
-                
 
 def setup(bot):
     bot.add_cog(customHelp(bot))
