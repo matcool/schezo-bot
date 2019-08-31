@@ -1,8 +1,20 @@
+import discord
 from discord.ext import commands
 from discord.ext import buttons
 import sqlite3 as sql
 import asyncio
 from functools import partial
+
+# Epic mixin so that the pages dont get deleted
+async def _teardown(self, *args, **kwargs):
+    """Clean the session up."""
+    self._session_task.cancel()
+
+    try:
+        await self.page.clear_reactions()
+    except discord.Fobidden:
+        pass
+buttons.Session.teardown = _teardown
 
 class PlayedTracker(commands.Cog, name='Played Tracker'):
     def __init__(self, bot):
