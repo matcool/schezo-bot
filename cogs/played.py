@@ -114,7 +114,7 @@ class PlayedTracker(commands.Cog, name='Played Tracker'):
         """
         Check played games stats
         Usage:
-        s.played [enable|disable|delete|(user)]
+        {prefix}played [enable|disable|delete|(user)]
         """
         user = ctx.author
         if len(args) > 0 and args[0] not in ('enable', 'disable', 'delete'):

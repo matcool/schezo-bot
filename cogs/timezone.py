@@ -49,7 +49,7 @@ class Timezone(commands.Cog):
         Sets your timezone, so it can be used with other commands
         Timezone picker: http://scratch.andrewl.in/timezone-picker/example_site/openlayers_example.html
 
-        Usage: s.mytimeis (timezone)
+        Usage: {prefix}mytimeis (timezone)
         """
         if timezone == None:
             timezone = self.getUserTimezone(ctx.author.id)
@@ -71,9 +71,9 @@ class Timezone(commands.Cog):
         """
         Shows what time it is for other
 
-        Usage: s.timefor (other)
+        Usage: {prefix}timefor (other)
         
-        s.timefor Mat
+        {prefix}timefor Mat
         """
         otherTz = self.getUserTimezone(other.id)
         if otherTz == None: return await ctx.send('Could not get that user\'s timezone')

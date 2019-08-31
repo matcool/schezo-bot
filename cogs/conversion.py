@@ -30,7 +30,7 @@ class Conversion(commands.Cog):
         Converts from inches (default) to cm
         
         Can also convert from feet (and inches) like so:
-        s.metric 5'4"
+        {prefix}metric 5'4"
         = 162.56cm
         """
         ft = x.find('\'')
@@ -52,7 +52,7 @@ class Conversion(commands.Cog):
         """
         Converts from cm to inches (and feet)
 
-        s.imperial 162.56
+        {prefix}imperial 162.56
         = 5'4"
         """
         inches = cm / 2.54

@@ -144,7 +144,7 @@ class Miscellaneous(commands.Cog):
         """
         Sends message in a embed so you can reply to it
 
-        Usage: s.reply <message>
+        Usage: {prefix}reply <message>
         message can either be the message id or a message URL
         """
         embed = discord.Embed(description=msg.content)
