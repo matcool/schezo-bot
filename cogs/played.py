@@ -12,7 +12,7 @@ async def _teardown(self, *args, **kwargs):
 
     try:
         await self.page.clear_reactions()
-    except discord.Fobidden:
+    except discord.Forbidden:
         pass
 buttons.Session.teardown = _teardown
 
