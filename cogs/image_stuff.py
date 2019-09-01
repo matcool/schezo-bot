@@ -15,17 +15,31 @@ class ImageStuff(commands.Cog, name='Image Stuff'):
     def __init__(self,bot):
         self.bot = bot
 
-
     async def get_page(self,url):
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as response:
-                result = await response.read()
-
-        return result
-
-
+                return await response.read()
+    
     async def get_avatar(self, user) -> bytes:
         return await user.avatar_url_as(format="png").read()
+
+    async def get_msg_image(self, message: discord.Message):
+        if message.attachments:
+            for att in message.attachments:
+                if att.width: return await att.read()
+        if message.embeds:
+            for embed in message.embeds:
+                url = embed.thumbnail.url or embed.image.url
+                if url: return await self.get_page(url)
+
+    async def get_nearest_image(self, ctx, limit=10) -> bytes:
+        image = await self.get_msg_image(ctx.message)
+        if image is None:
+            async for message in ctx.history(limit=limit):
+                if message.id == ctx.message.id: continue
+                image = await self.get_msg_image(message)
+                if image is not None: break
+        return image
 
     @staticmethod
     def tenprintpil() -> io.BytesIO:
@@ -272,6 +286,33 @@ class ImageStuff(commands.Cog, name='Image Stuff'):
         p = partial(self.explainjokepil, text)
         img = await self.bot.loop.run_in_executor(None, p)
         await ctx.send(file=discord.File(img, 'peter.jpg'))
-      
+
+    @staticmethod
+    def howpil(image):
+        how = Image.open('stuff/how.jpg')
+        image = Image.open(io.BytesIO(image))
+        image = image.resize((544, 529), Image.ANTIALIAS).convert('RGB')
+        how.paste(image, (88, 0))
+        
+        tmp = io.BytesIO()
+        how.save(tmp, format='JPEG', quality=50)
+        tmp.seek(0)
+        return tmp
+
+    @commands.command()
+    async def how(self, ctx, *links):
+        """
+        HOW
+
+        > {prefix}how [image link]
+        either does it with the given image or looks for an image in the past 10 messages
+        """
+        image = await self.get_nearest_image(ctx)
+        if image:
+            img = await self.bot.loop.run_in_executor(None, self.howpil, image)
+            await ctx.send(file=discord.File(img, filename='HOW.jpeg'))
+        else:
+            await ctx.send('No image found')
+
 def setup(bot):
     bot.add_cog(ImageStuff(bot))
