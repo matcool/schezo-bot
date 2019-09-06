@@ -164,7 +164,7 @@ class ImageStuff(commands.Cog, name='Image Stuff'):
     def cvoltonpil(image) -> io.BytesIO:
         cvolton = Image.open("stuff/cvolton.png")
         cvolton = cvolton.convert("RGBA")
-        bg = Image.open(image)
+        bg = Image.open(io.BytesIO(image))
         bg = bg.convert("RGBA")
         bg = bg.resize(cvolton.size, Image.ANTIALIAS)
         bg.paste(cvolton,(0,0),mask=cvolton.getchannel("A"))
@@ -175,29 +175,13 @@ class ImageStuff(commands.Cog, name='Image Stuff'):
         return tmp
 
     @commands.command()
-    async def cvolton(self,ctx):
-        try:
-            att = ctx.message.attachments
-            img = att[0]
-        except Exception:
-            await ctx.send("No attachments found.")
-            return
-        
-        supportedformats = (".png",".jpg",".jpeg",".gif")
-        download = False
-        for i in supportedformats:
-            if img.filename.endswith(i):
-                download = True
-                break
-        if not download:
-            return
-
-        print(img)
-        image = io.BytesIO()
-        await img.save(image)
-        p = partial(self.cvoltonpil,image)
-        img = await self.bot.loop.run_in_executor(None, p)
-        await ctx.send(file=discord.File(img, 'cvolton.png'))
+    async def cvolton(self, ctx, *links):
+        image = await self.get_nearest_image(ctx)
+        if image:
+            img = await self.bot.loop.run_in_executor(None, self.cvoltonpil, image)
+            await ctx.send(file=discord.File(img, filename='cvolton.png'))
+        else:
+            await ctx.send('No image found')
     
     @staticmethod
     def achievementpil(text) -> io.BytesIO:    
