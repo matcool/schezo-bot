@@ -10,20 +10,28 @@ import aiohttp
 import re
 import textwrap
 import subprocess
+import tempfile
+import os
 
 class ImageStuff(commands.Cog, name='Image Stuff'):
     def __init__(self,bot):
         self.bot = bot
 
-    async def get_page(self,url):
+    async def get_page(self, url):
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as response:
                 return await response.read()
+
+    async def get_file_size(self, url) -> int:
+        async with aiohttp.ClientSession() as session:
+            async with session.head(url) as response:
+                size = response.headers.get('Content-Length')
+        if size: return int(size)
     
     async def get_avatar(self, user) -> bytes:
         return await user.avatar_url_as(format="png").read()
 
-    async def get_msg_image(self, message: discord.Message):
+    async def get_msg_image(self, message: discord.Message) -> bytes:
         if message.attachments:
             for att in message.attachments:
                 if att.width: return await att.read()
@@ -31,13 +39,26 @@ class ImageStuff(commands.Cog, name='Image Stuff'):
             for embed in message.embeds:
                 url = embed.thumbnail.url or embed.image.url
                 if url: return await self.get_page(url)
+    
+    async def get_msg_video(self, message: discord.Message, max_size=8000000) -> bytes:
+        ALLOWED = {'mp4', 'mkv', 'wmv', 'avi'}
+        if message.attachments:
+            for att in message.attachments:
+                if att.size < max_size and att.filename.split('.')[-1] in ALLOWED: return await att.read()
+        if message.embeds:
+            for embed in message.embeds:
+                if embed.video.url:
+                    size = await self.get_file_size(embed.video.url)
+                    if size and size < max_size:
+                        return await self.get_page(embed.video.url)
 
-    async def get_nearest_image(self, ctx, limit=10) -> bytes:
-        image = await self.get_msg_image(ctx.message)
+    async def get_nearest_att(self, ctx, limit=10, video=False) -> bytes:
+        method = self.get_msg_video if video else self.get_msg_image
+        image = await method(ctx.message)
         if image is None:
             async for message in ctx.history(limit=limit):
                 if message.id == ctx.message.id: continue
-                image = await self.get_msg_image(message)
+                image = await method(message)
                 if image is not None: break
         return image
 
@@ -291,12 +312,69 @@ class ImageStuff(commands.Cog, name='Image Stuff'):
         > {prefix}how [image link]
         either does it with the given image or looks for an image in the past 10 messages
         """
-        image = await self.get_nearest_image(ctx)
+        image = await self.get_nearest_att(ctx)
         if image:
             img = await self.bot.loop.run_in_executor(None, self.howpil, image)
             await ctx.send(file=discord.File(img, filename='HOW.jpeg'))
         else:
             await ctx.send('No image found')
+    
+    @staticmethod
+    def howffmpeg(video):
+        with tempfile.TemporaryDirectory() as folder:
+            inpath = os.path.join(folder, 'input')
+            with open(inpath, 'wb') as file:
+                file.write(video)
+            # Commented as i could not get the audio to be optional
+            # which can be done like `-map 0:a?`
+            # Although it would still make the same command
+            # how = ffmpeg.input('stuff/how.jpg')
+            # over = ffmpeg.input(over)
+            # scaled = ffmpeg.filter(over, 'scale', width=544, height=529)
+            # out = ffmpeg.overlay(how, scaled, x=88, y=0)
+            # out = ffmpeg.output(over.audio, out, outpath, format='mp4')
+
+            outpath = os.path.join(folder, 'out.mp4')
+            
+            cmd = [
+                'ffmpeg', '-i', inpath, '-i', 'stuff/how.jpg', 
+                '-filter_complex', '[0]scale=height=529:width=544[scaled];[1][scaled]overlay=88:0[out]', 
+                '-map', '0:a?', '-map', '[out]', '-f', 'mp4', outpath
+            ]
+            # Running the command
+            process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            out, err = process.communicate(None)
+            retcode = process.poll()
+            if retcode:
+                raise Exception(f'FFmpeg returned code {retcode}')
+
+            with open(outpath, 'rb') as file:
+                data = file.read()
+        return data
+
+    @commands.command()
+    @commands.cooldown(2, 20, BucketType.default)
+    async def howv(self, ctx):
+        """
+        HOW (video)
+
+        > {prefix}howv
+        either does it with the given video or looks for an video in the past 10 messages
+        video cannot be a link (prob will change)
+        """
+        msg = await ctx.send('Looking for video...')
+        video = await self.get_nearest_att(ctx, video=True)
+        if video:
+            await msg.edit(content='Rendering video...')
+            vid = await self.bot.loop.run_in_executor(None, self.howffmpeg, video)
+            tmp = io.BytesIO()
+            tmp.write(vid)
+            tmp.seek(0)
+            await msg.edit(content='Uploading video...')
+            await ctx.send(file=discord.File(tmp, filename='HOW.mp4'))
+            await msg.delete()
+        else:
+            await msg.edit(content='No video found')
 
 def setup(bot):
     bot.add_cog(ImageStuff(bot))
