@@ -303,5 +303,61 @@ class ImageStuff(commands.Cog, name='Image Stuff'):
         else:
             await ctx.send('No image found')
 
+    @staticmethod
+    def googlepil(image):
+        how = Image.open('stuff/google.jpg')
+        image = Image.open(io.BytesIO(image))
+        image = image.resize((526, 309), Image.ANTIALIAS).convert('RGB')
+        how.paste(image, (0, 425))
+        
+        tmp = io.BytesIO()
+        how.save(tmp, format='JPEG', quality=50)
+        tmp.seek(0)
+        return tmp
+
+    @commands.command()
+    async def google(self, ctx, *links):
+        """
+        Google [google]
+             google
+             https://google.com/
+
+        > {prefix}google [image link]
+        either does it with the given image or looks for an image in the past 10 messages
+        """
+        image = await self.get_nearest_image(ctx)
+        if image:
+            img = await self.bot.loop.run_in_executor(None, self.googlepil, image)
+            await ctx.send(file=discord.File(img, filename='google.jpeg'))
+        else:
+            await ctx.send('No image found')
+
+    @staticmethod
+    def byemompil(image):
+        how = Image.open('stuff/byemom.png')
+        image = Image.open(io.BytesIO(image))
+        image = image.resize((340, 180), Image.ANTIALIAS).convert('RGB')
+        how.paste(image, (0, 0))
+        
+        tmp = io.BytesIO()
+        how.save(tmp, format='JPEG', quality=50)
+        tmp.seek(0)
+        return tmp
+
+    @commands.command()
+    async def byemom(self, ctx, *links):
+        """
+        BYE MOM!!
+
+        > {prefix}byemom [image link]
+        either does it with the given image or looks for an image in the past 10 messages
+        """
+        image = await self.get_nearest_image(ctx)
+        if image:
+            img = await self.bot.loop.run_in_executor(None, self.byemompil, image)
+            await ctx.send(file=discord.File(img, filename='BYE.MOM.jpeg'))
+        else:
+            await ctx.send('No image found')
+
 def setup(bot):
     bot.add_cog(ImageStuff(bot))
