@@ -37,11 +37,8 @@ class Timezone(commands.Cog):
         return dt.strftime('%Y-%m-%d %H:%M')
 
     def tzDiff(self, a, b):
-        """oh god this is a mess"""
-        n = pendulum.now()
-        a = pendulum.datetime(n.year, n.month, n.day, tz=a)
-        b = pendulum.datetime(n.year, n.month, n.day, tz=b)
-        return a.diff(b, False).in_hours()
+        """Returns the difference of hours of given timezones"""
+        return abs(pendulum.now(a).offset - pendulum.now(b).offset) // 3600
 
     @commands.command()
     async def mytimeis(self, ctx, *, timezone: str=None):
@@ -66,15 +63,23 @@ class Timezone(commands.Cog):
         self.setUserTimezone(ctx.author.id, timezone)
         await ctx.send(f'Your timezone is now set to {timezone}\nYour local time should be: {self.formatTime(pendulum.now(timezone))}')
 
-    @commands.command(aliases=['whattimeisitfor'])
-    async def timefor(self, ctx, other: discord.Member):
+    @commands.command(aliases=['whattimeisitfor', 'tz'])
+    async def timefor(self, ctx, *, other: discord.Member=None):
         """
         Shows what time it is for other
 
-        Usage: {prefix}timefor (other)
+        Usage: {prefix}timefor [other]
+        shows own time if no `other` is given
         
         {prefix}timefor Mat
         """
+        # Send own if another user isn't given
+        if other is None:
+            timezone = self.getUserTimezone(ctx.author.id)
+            if timezone: await ctx.send(f'Your current timezone is: {timezone}\nYour time should be: {self.formatTime(pendulum.now(timezone))}')
+            else: await ctx.send('You currently don\'t have a timezone set')
+            return
+
         otherTz = self.getUserTimezone(other.id)
         if otherTz == None: return await ctx.send('Could not get that user\'s timezone')
         myTz = self.getUserTimezone(ctx.author.id)
