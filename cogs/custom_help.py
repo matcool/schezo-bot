@@ -25,7 +25,7 @@ class customHelp(commands.Cog):
             for k in cmds:
                 cmds[k].sort(key = lambda c: c.name)
 
-            embed = discord.Embed(colour=0x3498db)
+            embed = discord.Embed(title='**Commands**',colour=0x3498db)
             for cog in cmds:
                 final = ""
                 for cmd in cmds[cog]:

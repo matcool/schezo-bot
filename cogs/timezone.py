@@ -40,7 +40,7 @@ class Timezone(commands.Cog):
         """Returns the difference of hours of given timezones"""
         return abs(pendulum.now(a).offset - pendulum.now(b).offset) // 3600
 
-    @commands.command()
+    @commands.command(aliases=['set_tz', 'settz'])
     async def mytimeis(self, ctx, *, timezone: str=None):
         """
         Sets your timezone, so it can be used with other commands
