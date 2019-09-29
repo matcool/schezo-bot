@@ -6,6 +6,7 @@ import random
 import aiohttp
 import psutil
 import datetime
+import os
 
 class privateCommands(commands.Cog, name='Private Commands', command_attrs=dict(hidden=True)):
     def __init__(self, bot):
@@ -193,6 +194,11 @@ class privateCommands(commands.Cog, name='Private Commands', command_attrs=dict(
     @commands.command()
     async def uptime(self, ctx):
         await ctx.send("{:0>8}".format(str(datetime.timedelta(seconds=self.bot.uptime))))
+
+    @commands.command()
+    async def botstats(self, ctx):
+        pro = psutil.Process(os.getpid())
+        await ctx.send(f'CPU usage: {pro.cpu_percent()}%\nMemory usage: {pro.memory_info().rss/1024/1024:.2f}mb')
 
 def setup(bot):
     bot.add_cog(privateCommands(bot))
