@@ -50,24 +50,14 @@ class Money(commands.Cog):
     async def money(self, ctx, curFrom=None, curTo=None, amount=None):
         """
         Converts an amount of one currency to another
-
-        **Usage**:
-        > {prefix}money
-        Will list all the available currencies in a paginator
-        > {prefix}money currencyA currencyB [amount]
-        Will convert from currencyA to currencyB in the given amount
-        > {prefix}money currency
-        Will send info about given currency
-
-        **Examples**:
-        > {prefix}money usd brl
-        1 USD is about 4.15 BRL
-        > {prefix}money usd brl 10
-        10 USD is about 41.45 BRL
-        > {prefix}money usd
-        United States Dollar - $
-        > {prefix}money
-        *Stats paginator with all the available currencies*
+        <example>
+        <cmd></cmd>
+        <res>*Starts paginator with all the available currencies*</res>
+        <cmd>currency</cmd>
+        <res>Sends info about currency</res>
+        <cmd>a b [amount]</cmd>
+        <res>Converts amount of a to b</res>        
+        </example>
         """
         now = pendulum.now().timestamp()
         needs_update = lambda x: True if x is None else now - x > self.update_time

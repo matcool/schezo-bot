@@ -45,8 +45,6 @@ class Timezone(commands.Cog):
         """
         Sets your timezone, so it can be used with other commands
         Timezone picker: http://scratch.andrewl.in/timezone-picker/example_site/openlayers_example.html
-
-        Usage: {prefix}mytimeis (timezone)
         """
         if timezone == None:
             timezone = self.getUserTimezone(ctx.author.id)
@@ -67,11 +65,6 @@ class Timezone(commands.Cog):
     async def timefor(self, ctx, *, other: discord.Member=None):
         """
         Shows what time it is for other
-
-        Usage: {prefix}timefor [other]
-        shows own time if no `other` is given
-        
-        {prefix}timefor Mat
         """
         # Send own if another user isn't given
         if other is None:

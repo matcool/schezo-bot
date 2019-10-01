@@ -21,17 +21,24 @@ class Conversion(commands.Cog):
 
     @commands.command(aliases=['kg','kilogram'])
     async def kilograms(self, ctx, pounds: float):
-        """Converts from pounds to kilograms"""
+        """
+        Converts from pounds to kilograms
+        <example>
+        <cmd>120</cmd>
+        <res>54.4kg</res>
+        </example>
+        """
         await ctx.send("{}kg".format(round(pounds * 0.4535924,1)))
 
     @commands.command(aliases=['cm'])
     async def metric(self, ctx, *, x):
         """
         Converts from inches (default) to cm
-        
-        Can also convert from feet (and inches) like so:
-        {prefix}metric 5'4"
-        = 162.56cm
+        <example>
+        Convert from feet (and inches)
+        <cmd>5'4"</cmd>
+        <res>162.56cm</res>
+        </example>
         """
         ft = x.find('\'')
         ic = x.find('"')

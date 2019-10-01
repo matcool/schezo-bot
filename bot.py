@@ -16,7 +16,7 @@ with open('bot_config.json') as file:
     
 bot = commands.Bot(command_prefix=prefix, owner_id=int(ownerid), pm_help=None)
 
-#Custom help command is in cogs/miscellaneous
+#Custom help command is in cogs/custom_help
 bot.remove_command("help")
 
 def getCogs():
