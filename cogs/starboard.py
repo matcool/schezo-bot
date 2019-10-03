@@ -101,6 +101,15 @@ class Starboard(commands.Cog):
     @commands.command()
     @commands.has_permissions(manage_channels=True)
     async def starboard(self, ctx, channel_or_remove, stars: int = None):
+        """
+        Sets given channel as starboard channel for server
+        <example>
+        <cmd>#starboard 5</cmd>
+        <res>Sets `#starboard` as this server's starboard channel with 5 stars required</res>
+        <cmd>remove</cmd>
+        <res>Removes starboard from server</res>
+        </example>
+        """
         if channel_or_remove.lower() == 'remove':
             self.delete_guild_starboard(ctx.guild.id)
             await ctx.send('Removed starboard from this server')
