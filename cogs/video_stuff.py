@@ -175,7 +175,7 @@ class VideoStuff(commands.Cog):
             tmp.write(vid)
             tmp.seek(0)
             await msg.edit(content='Uploading video...')
-            await ctx.send(file=discord.File(tmp, filename='HOW.mp4'))
+            await ctx.send(file=discord.File(tmp, filename='keem.mp4'))
             await msg.delete()
         else:
             await msg.edit(content='No video found')

@@ -255,13 +255,22 @@ class ImageStuff(commands.Cog, name='Image Stuff'):
                 await ctx.send(embed=embed)
 
     @staticmethod
-    def explainjokepil(text) -> io.BytesIO:    
-        img = Image.open("stuff/petergriffin.png")
-        draw = ImageDraw.Draw(img)
+    def explainjokepil(image, text) -> io.BytesIO:    
+        peter = Image.open("stuff/petergriffin.png")
+        draw = ImageDraw.Draw(peter)
         arial = ImageFont.truetype('arial.ttf', 30)
 
         text = textwrap.fill(text, width=35)
         draw.text((250,30), text, font=arial, fill=0)
+
+        if image:
+            image = Image.open(io.BytesIO(image))
+            image = image.resize((peter.width, (peter.width*image.height)//image.width))
+            img = Image.new('RGB', (peter.width, image.height+peter.height), 'white')
+            img.paste(image, (0, 0))
+            img.paste(peter, (0, image.height))
+        else:
+            img = peter
 
         img = img.convert("RGB")
         tmp = io.BytesIO()
@@ -272,8 +281,8 @@ class ImageStuff(commands.Cog, name='Image Stuff'):
     @commands.command(aliases=['explainjoke','peter'])
     async def oksothejokeis(self,ctx,*,text):
         """explains the joke because it is so epic"""
-        p = partial(self.explainjokepil, text)
-        img = await self.bot.loop.run_in_executor(None, p)
+        image = await self.get_nearest_image(ctx)
+        img = await self.bot.loop.run_in_executor(None, self.explainjokepil, image, text)
         await ctx.send(file=discord.File(img, 'peter.jpg'))
 
     @staticmethod
@@ -293,8 +302,12 @@ class ImageStuff(commands.Cog, name='Image Stuff'):
         """
         HOW
 
-        > {prefix}how [image link]
-        either does it with the given image or looks for an image in the past 10 messages
+        <example>
+        <cmd></cmd>
+        <res>Runs command on given image or an image in the past 10 messages</res>
+        <cmd>[image url]</cmd>
+        <res>Runs command with given image url</res>
+        </example>
         """
         image = await self.get_nearest_image(ctx)
         if image:
@@ -322,8 +335,12 @@ class ImageStuff(commands.Cog, name='Image Stuff'):
              google
              https://google.com/
 
-        > {prefix}google [image link]
-        either does it with the given image or looks for an image in the past 10 messages
+        <example>
+        <cmd></cmd>
+        <res>Runs command on given image or an image in the past 10 messages</res>
+        <cmd>[image url]</cmd>
+        <res>Runs command with given image url</res>
+        </example>
         """
         image = await self.get_nearest_image(ctx)
         if image:
@@ -349,8 +366,12 @@ class ImageStuff(commands.Cog, name='Image Stuff'):
         """
         BYE MOM!!
 
-        > {prefix}byemom [image link]
-        either does it with the given image or looks for an image in the past 10 messages
+        <example>
+        <cmd></cmd>
+        <res>Runs command on given image or an image in the past 10 messages</res>
+        <cmd>[image url]</cmd>
+        <res>Runs command with given image url</res>
+        </example>
         """
         image = await self.get_nearest_image(ctx)
         if image:
