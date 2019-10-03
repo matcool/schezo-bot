@@ -7,7 +7,6 @@ import pendulum
 class Timezone(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.toTrack = []
         self.conn = sql.connect('timezones.db')
 
     def ensureTable(self, c):
