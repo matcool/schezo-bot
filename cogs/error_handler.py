@@ -29,33 +29,37 @@ class ErrorHandlerCog(commands.Cog):
         if isinstance(error,self.ignored):
             return
 
-        if isinstance(error,commands.CommandNotFound):
+        elif isinstance(error,commands.CommandNotFound):
             cmds = [cmd.name for cmd in self.bot.commands if not cmd.hidden]
             cmds.sort(key=lambda x: string_distance(x,ctx.invoked_with))
             await ctx.send(f'Unknown command! Did you mean {cmds[0]}?')
             return
 
-        if isinstance(error,discord.errors.Forbidden):
+        elif isinstance(error,discord.errors.Forbidden):
             try:
                 await ctx.message.add_reaction(self.noperm)
             except discord.errors.Forbidden:
                 return
 
-        if isinstance(error,commands.MissingRequiredArgument):
+        elif isinstance(error,commands.MissingRequiredArgument):
             await ctx.send('{} is a required argument that is missing.'.format(error.param.name))
             return
 
-        if isinstance(error,commands.CommandOnCooldown):
+        elif isinstance(error,commands.CommandOnCooldown):
             await ctx.send(f'Command on cooldown! Please wait {round(error.retry_after,1)} seconds.')
             return
 
-        if isinstance(error, commands.BadArgument):
+        elif isinstance(error, commands.BadArgument):
             return await ctx.send(error.args[0])
         
-        print('Ignoring exception in command {}:'.format(ctx.command))
-        traceback.print_exception(type(error), error, error.__traceback__)
-        #print(error)
-        #print("error line {}".format(sys.exc_info()[-1].tb_lineno))
+        elif isinstance(error, commands.MissingPermissions):
+            await ctx.send(f'Missing permissions: {" ".join(error.missing_perms)}')
+        
+        else:
+            print('Ignoring exception in command {}:'.format(ctx.command))
+            traceback.print_exception(type(error), error, error.__traceback__)
+            #print(error)
+            #print("error line {}".format(sys.exc_info()[-1].tb_lineno))
 
 def setup(bot):
     bot.add_cog(ErrorHandlerCog(bot))
