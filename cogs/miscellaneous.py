@@ -139,7 +139,7 @@ class Miscellaneous(commands.Cog):
         embed.add_field(name=f'Players: {online}/{maxplayers}', value='- '+'\n- '.join(players) if online > 0 else 'No one')
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.command(aliases=['quote'])
     async def reply(self, ctx, msg: discord.Message):
         """
         Sends message in a embed so you can reply to it

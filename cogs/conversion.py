@@ -9,7 +9,9 @@ class Conversion(commands.Cog):
         """Converts from fahrenheit to celsius"""
         await ctx.send("{}°C".format(round(5*(temperature-32)/9,1)))
 
-    @commands.command()
+    @commands.command(aliases=[
+        'farenheit', 'farenreit', 'fárenrráite', 'fárenrráiti', 'fareraide', 'фаренхайт', 'fahrehnheit', 'farenheight', 'americancelsius', 'americantemperatureunits', '华氏度', 'farenright'
+        ])
     async def fahrenheit(self, ctx, temperature: float):
         """Converts from celsius to fahrenheit"""
         await ctx.send("{}°F".format(round((9*temperature/5)+32,1)))
