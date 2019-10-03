@@ -40,7 +40,7 @@ class Starboard(commands.Cog):
         if r is None:
             c.execute('INSERT INTO starboard VALUES (?, ?, ?)', (guild_id, channel_id, stars_req))
         else:
-            c.execute('UPDATE starboard SET channel_id=?, stars_req=? WHERE gid=?', (channel_id, stars_req, guild_id))
+            c.execute('UPDATE starboard SET cid=?, stars=? WHERE gid=?', (channel_id, stars_req, guild_id))
         self.conn.commit()
         c.close()
 
@@ -69,6 +69,8 @@ class Starboard(commands.Cog):
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction, user):
         if reaction.emoji != '⭐': return
+        # Ignore star from message author
+        if user.id == reaction.message.author.id: return
         starboard = self.get_guild_starboard(reaction.message.guild.id)
         if starboard is None: return
         if starboard.channel_id == reaction.message.channel.id: return
