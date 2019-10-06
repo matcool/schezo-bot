@@ -37,7 +37,7 @@ class Timezone(commands.Cog):
 
     def tzDiff(self, a, b):
         """Returns the difference of hours of given timezones"""
-        return abs(pendulum.now(a).offset - pendulum.now(b).offset) // 3600
+        return (pendulum.now(a).offset - pendulum.now(b).offset) // 3600
 
     @commands.command(aliases=['set_tz', 'settz'])
     async def mytimeis(self, ctx, *, timezone: str=None):
