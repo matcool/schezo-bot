@@ -1,7 +1,0 @@
-discord.py
-mcstatus
-psutil
-pillow
-bs4
-pendulum
-buttons
