@@ -3,20 +3,19 @@ from discord.ext import commands
 import json
 import asyncio
 import glob
+import time
 
 class Schezo(commands.Bot):
     def __init__(self):
         with open('bot_config.json') as file:
             self.config = json.load(file)
         super().__init__(command_prefix=self.config['prefix'])
-        self.loop.create_task(self.uptime())
+        self.start_time = time.time()
         self._cogs_loaded = False
-
-    async def uptime(self):
-        self.uptime = 0 
-        while not bot.is_closed():
-            await asyncio.sleep(10)
-            self.uptime += 10
+    
+    @property
+    def uptime(self):
+        return time.time() - self.start_time
 
     async def on_ready(self):
         print(f'Logged in as {self.user.name}')
