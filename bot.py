@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
 import json
-import asyncio
 import glob
 import time
 
@@ -18,7 +17,7 @@ class Schezo(commands.Bot):
         return time.time() - self.start_time
 
     async def on_ready(self):
-        print(f'Logged in as {self.user.name}')
+        print(f'Logged in as {self.user}')
         game = discord.Activity(name=self.config['game'], type=discord.ActivityType.watching)
         await self.change_presence(activity=game)
         self.load_cogs()

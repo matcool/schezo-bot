@@ -82,7 +82,7 @@ class CustomHelp(commands.Cog):
                 embed = discord.Embed(
                     title=cmd.name,
                     description=cmd_help,
-                    colour=0xd0d0d0
+                    colour=0x87ef73
                     )
                 embed.add_field(name='Syntax', value=f'`{ctx.prefix}{cmd.name} {cmd.signature}`')
                 if cmd.aliases:
