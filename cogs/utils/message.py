@@ -13,8 +13,8 @@ async def get_msg_image(message: discord.Message, url: bool=False) -> Union[byte
             if att.width: return att.url if url else await att.read()
     if message.embeds:
         for embed in message.embeds:
-            url = embed.thumbnail.url or embed.image.url
-            if url: return att.url if url else await get_page(url)
+            url_str = embed.thumbnail.url or embed.image.url
+            if url_str: return url_str if url else await get_page(url_str)
 
 async def get_msg_video(message: discord.Message, max_size: int=8000000, url: bool=False) -> Union[bytes, str]:
     if message.attachments:
