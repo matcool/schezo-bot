@@ -3,10 +3,13 @@ from discord.ext import commands
 import json
 import glob
 import time
+import os
 
 class Schezo(commands.Bot):
     def __init__(self):
-        with open('bot_config.json') as file:
+        if not os.path.exists('bot_config.json'):
+            raise FileNotFoundError('Could not find "bot_config.json". Make sure to copy and rename the template and then change the values.')
+        with open('bot_config.json', 'r', encoding='utf-8') as file:
             self.config = json.load(file)
         super().__init__(command_prefix=self.config['prefix'])
         self.start_time = time.time()
