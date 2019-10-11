@@ -19,10 +19,23 @@ def format_date(dt: pendulum.datetime):
     """Formats a given datetime object to format YYYY-MM-DD hh:mm"""
     return dt.strftime('%Y-%m-%d %H:%M')
 
-def timezone_diff(self, tz1: str, tz2: str):
+def timezone_diff(tz1: str, tz2: str):
     """
     Returns the difference of hours of given timezones
 
     Result can be negative which means tz2 is ahead of tz1
     """
     return (pendulum.now(tz1).offset - pendulum.now(tz2).offset) // 3600
+
+def is_valid_tz(timezone: str, lower: bool=False) -> str:
+    """
+    Checks if given timezone is valid (if its on pendulum.timezones).
+    Can also compare lowercase (aka case insensitive)
+    """
+    if lower:
+        timezone = timezone.lower()
+        for tz in pendulum.timezones:
+            if tz.lower() == timezone:
+                return tz
+    else:
+        if timezone in pendulum.timezones: return timezone

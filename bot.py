@@ -4,6 +4,7 @@ import json
 import glob
 import time
 import os
+import motor.motor_asyncio as motor
 
 class Schezo(commands.Bot):
     def __init__(self):
@@ -14,7 +15,9 @@ class Schezo(commands.Bot):
         super().__init__(command_prefix=self.config['prefix'])
         self.start_time = time.time()
         self._cogs_loaded = False
-    
+        self.db_client = motor.AsyncIOMotorClient('localhost', 27017)
+        self.db = self.db_client[self.config['dbname']]
+
     @property
     def uptime(self):
         return time.time() - self.start_time
