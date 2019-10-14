@@ -55,6 +55,9 @@ bot = Schezo()
 async def reloadcogs(ctx):
     ctx.bot.unload_cogs()
     ctx.bot.load_cogs()
-    await ctx.send('done')
+    try:
+        await ctx.message.add_reaction('🆗')
+    except discord.DiscordException:
+        pass
 
 bot.run()
