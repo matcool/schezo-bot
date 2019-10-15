@@ -1,5 +1,5 @@
 import discord
-from discord.ext import commands
+from discord.ext import commands, buttons
 import pendulum
 import aiohttp
 import math
@@ -77,10 +77,31 @@ class Money(commands.Cog):
             curr_a = curr_a.upper() if curr_a else None
             curr_b = curr_b.upper() if curr_b else None
             
+            # Send all currencies if none are given
             if curr_a is None:
-                # TODO
-                await ctx.send('(send all currencies)')
+                currencies = list(self.currencies.keys())
+                currencies.sort()
+                formatted = []
+                for curr in currencies:
+                    c = self.currencies[curr]
+                    # Format so its like "USD - United States Dollar"
+                    formatted.append(f"{curr} - {c['currencyName']}")
+                
+                curr_per_page = 30
+                pages = []
+                while len(formatted):
+                    msg = ''
+                    for _ in range(curr_per_page):
+                        if len(formatted) == 0: break
+                        msg += formatted[0]+'\n'
+                        formatted.pop(0)
+                    pages.append(msg)
+                
+                pag = buttons.Paginator(title='List of available currencies', colour=0x8BF488, embed=True, timeout=30, use_defaults=True,
+                    entries=pages, length=1, format='```')
+                await pag.start(ctx)
 
+            # Send info about currency if only one is given
             elif curr_b is None:
                 info = await self.curr_info(curr_a)
                 if info is None:
@@ -89,7 +110,8 @@ class Money(commands.Cog):
                 symbol = info.get('currencySymbol')
                 symbol = ' - ' + symbol if symbol else ''
                 await ctx.send(name + symbol)
-                
+
+            # Convert from one currency to another if both given
             else:
                 if self.currencies.get(curr_a) is None or self.currencies.get(curr_b) is None:
                     return await ctx.send('Unknown currency')
