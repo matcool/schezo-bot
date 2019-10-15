@@ -1,6 +1,7 @@
 {
-    "_comment": "This file isn't used, copy it to bot_config.json and then change the values",
+	"_comment": "This file isn't used, copy it to bot_config.json and then change the values",
 	"token" : "<token>",
 	"prefix" : "!",
-	"dbname": "schezo"
+	"dbname": "schezo",
+	"currencyapikey": "api key"
 }
