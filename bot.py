@@ -5,6 +5,7 @@ import glob
 import time
 import os
 import motor.motor_asyncio as motor
+import logging
 
 class Schezo(commands.Bot):
     def __init__(self):
@@ -18,12 +19,23 @@ class Schezo(commands.Bot):
         self.db_client = motor.AsyncIOMotorClient('localhost', 27017)
         self.db = self.db_client[self.config['dbname']]
 
+        self.logger = logging.getLogger('schezo')
+        formatter = logging.Formatter('[{asctime} {levelname}] {message}', datefmt='%d/%m/%Y %H:%M', style='{')
+        file_handler = logging.FileHandler('schezo.log', mode='w')
+        file_handler.setFormatter(formatter)
+
+        self.logger.setLevel(logging.INFO)
+        self.logger.addHandler(file_handler)
+        self.logger.propagate = False
+
     @property
     def uptime(self):
         return time.time() - self.start_time
 
     async def on_ready(self):
-        print(f'Logged in as {self.user}')
+        msg = f'Logged in as {self.user}'
+        print(msg)
+        self.logger.info(msg)
         game = discord.Activity(name=self.config['game'], type=discord.ActivityType.watching)
         await self.change_presence(activity=game)
         self.load_cogs()

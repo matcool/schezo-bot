@@ -12,6 +12,7 @@ class Private(commands.Cog, command_attrs=dict(hidden=True)):
             await ctx.message.add_reaction('🆗')
         except discord.DiscordException:
             pass
+        self.bot.logger.info('Logging out')
         await self.bot.logout()
 
 def setup(bot):
