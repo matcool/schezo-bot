@@ -1,3 +1,5 @@
+import discord
+
 def string_distance(a: str, b: str):
     """
     Returns the levenshtein distance between two strings, which can be used to compare their similarity
@@ -16,3 +18,18 @@ def string_distance(a: str, b: str):
             crow.append(min(ins, dl, sub))
         prow = crow
     return prow[-1]
+
+def buttons_mixin(buttons):
+    """
+    Changes a function in the discord.ext.buttons library
+    to instead of deleting the message, clear all the reactions (if possible)
+    """
+    async def _teardown(self, *args, **kwargs):
+        """Clean the session up."""
+        self._session_task.cancel()
+
+        try:
+            await self.page.clear_reactions()
+        except discord.Forbidden:
+            pass
+    buttons.Session.teardown = _teardown
