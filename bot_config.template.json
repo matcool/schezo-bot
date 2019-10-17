@@ -3,5 +3,6 @@
 	"token" : "<token>",
 	"prefix" : "!",
 	"dbname": "schezo",
-	"currencyapikey": "api key"
+	"currencyapikey": "api key",
+	"retrywrites": true
 }

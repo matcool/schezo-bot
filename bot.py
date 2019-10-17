@@ -16,7 +16,7 @@ class Schezo(commands.Bot):
         super().__init__(command_prefix=self.config['prefix'])
         self.start_time = time.time()
         self._cogs_loaded = False
-        self.db_client = motor.AsyncIOMotorClient('localhost', 27017)
+        self.db_client = motor.AsyncIOMotorClient('localhost', 27017, retryWrites=self.config.get('retrywrites', True))
         self.db = self.db_client[self.config['dbname']]
 
         self.logger = logging.getLogger('schezo')
