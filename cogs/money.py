@@ -28,7 +28,7 @@ class Money(commands.Cog):
         self.max_requests = 90
 
     def needs_update(self, t):
-        now = pendulum.now().timestamp
+        now = pendulum.now().timestamp()
         return now - t > self.update_time
 
     async def convert_currency(self, session, a, b, amt=1):
