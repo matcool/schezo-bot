@@ -37,5 +37,16 @@ class General(commands.Cog):
         await msg.edit(content=f'Websocket: {int(self.bot.latency*1000)}ms\n'
                                f'Message: {int((end-start)*1000)}ms')
 
+    @commands.command(aliases=['hoststats', 'hostinfo', 'vps'])
+    async def host(self,ctx):
+        """Sends some info about the bot's host"""
+        gb = 1024 ** 3
+        cpu = int(psutil.cpu_percent())
+        mem = psutil.virtual_memory()
+        used = f'{mem.used / gb:.2f}'
+        total = f'{mem.total / gb:.2f}'
+        await ctx.send(f'CPU Usage: {cpu}%\n'
+                       f'RAM Usage: {used}GiB/{total}GiB')
+
 def setup(bot):
     bot.add_cog(General(bot))
