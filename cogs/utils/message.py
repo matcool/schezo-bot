@@ -35,3 +35,15 @@ async def get_nearest(ctx: commands.Context, limit: int=10, lookup: Callable=get
             look = await lookup(message, url=url)
             if look is not None: break
     return look
+
+async def message_embed(message: discord.Message, original: bool=True, color: int=0xa3a3a3, timestamp: bool=True) -> discord.Embed:
+    embed = discord.Embed(description=message.clean_content, colour=color)
+    embed.set_author(name=message.author.display_name, icon_url=message.author.avatar_url)
+    if original:
+        embed.description = f'[Original]({message.jump_url})\n\n' + embed.description
+    if timestamp:
+        embed.timestamp = message.created_at
+    url = await get_msg_image(message, url=True)
+    if url:
+        embed.set_image(url=url)
+    return embed

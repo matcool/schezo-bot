@@ -5,7 +5,7 @@ import psutil
 import os
 import random
 from .utils.time import format_time
-from .utils.message import get_avatar
+from .utils.message import get_avatar, message_embed
 import time
 
 class General(commands.Cog):
@@ -38,7 +38,7 @@ class General(commands.Cog):
                                f'Message: {int((end-start)*1000)}ms')
 
     @commands.command(aliases=['hoststats', 'hostinfo', 'vps'])
-    async def host(self,ctx):
+    async def host(self, ctx):
         """Sends some info about the bot's host"""
         gb = 1024 ** 3
         cpu = int(psutil.cpu_percent())
@@ -47,6 +47,13 @@ class General(commands.Cog):
         total = f'{mem.total / gb:.2f}'
         await ctx.send(f'CPU Usage: {cpu}%\n'
                        f'RAM Usage: {used}GiB/{total}GiB')
+
+    @commands.command(alises=['reply'])
+    async def quote(self, ctx, msg: discord.Message):
+        embed = await message_embed(msg)
+        await ctx.send(embed=embed)
+        if ctx.guild and ctx.guild.me.permissions_in(ctx.channel).manage_messages:
+            await ctx.message.delete()
 
 def setup(bot):
     bot.add_cog(General(bot))
