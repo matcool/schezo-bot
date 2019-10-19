@@ -7,6 +7,7 @@ import random
 from .utils.time import format_time
 from .utils.message import get_avatar, message_embed
 import time
+import platform
 
 class General(commands.Cog):
     def __init__(self, bot):
@@ -25,6 +26,9 @@ class General(commands.Cog):
         embed.add_field(name='Memory usage', value=f'{process.memory_info().rss/1024/1024:.2f}MB')
         embed.add_field(name='Guilds', value=len(self.bot.guilds))
         embed.add_field(name='Users', value=len(self.bot.users))
+        
+        embed.set_footer(text=f'Running on {platform.python_implementation()} {platform.python_version()} with discord.py {discord.__version__}')
+
         await ctx.send(embed=embed)
 
     @commands.command()
