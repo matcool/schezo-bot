@@ -54,6 +54,9 @@ class General(commands.Cog):
 
     @commands.command(alises=['reply'])
     async def quote(self, ctx, msg: discord.Message):
+        """Sends given message in an embed
+        Useful for quoting and earlier message
+        Works with message link (recommended) or message id (not so reliable)"""
         embed = await message_embed(msg)
         await ctx.send(embed=embed)
         if ctx.guild and ctx.guild.me.permissions_in(ctx.channel).manage_messages:
