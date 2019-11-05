@@ -4,5 +4,6 @@
 	"prefix" : "!",
 	"dbname": "schezo",
 	"currencyapikey": "api key",
-	"retrywrites": true
+	"retrywrites": true,
+	"hypixelkey": "api key"
 }
