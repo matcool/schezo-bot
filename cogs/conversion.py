@@ -3,6 +3,7 @@ import re
 import math
 
 class Conversion(commands.Cog):
+    __slots__ = 'bot', 'feet_regex'
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.feet_regex = re.compile('^(?:(\d+?(?:\.\d+?)?)\'?)?(?:(\d+?(?:\.\d+?)?)\"?)?$')

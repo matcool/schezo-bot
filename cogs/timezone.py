@@ -4,6 +4,7 @@ import pendulum
 from .utils import time as time_utils
 
 class Timezone(commands.Cog):
+    __slots__ = 'bot', 'db'
     def __init__(self, bot):
         self.bot = bot
         self.db = self.bot.db.timezones

@@ -3,6 +3,7 @@ from discord.ext import commands
 from .utils.message import message_embed
 
 class Starboard(commands.Cog):
+    __slots__ = 'bot', 'db'
     def __init__(self, bot):
         self.bot = bot
         self.db = self.bot.db.starboard

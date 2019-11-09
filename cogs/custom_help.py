@@ -4,6 +4,7 @@ from typing import Tuple, Dict, List
 import re
 
 class CustomHelp(commands.Cog):
+    __slots__ = 'bot',
     def __init__(self, bot):
         self.bot = bot
         self.bot.remove_command('help')

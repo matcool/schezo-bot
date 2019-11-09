@@ -7,6 +7,7 @@ from contextlib import redirect_stdout
 import traceback
 
 class Private(commands.Cog, command_attrs=dict(hidden=True)):
+    __slots__ = 'bot', 
     def __init__(self, bot):
         self.bot = bot
 

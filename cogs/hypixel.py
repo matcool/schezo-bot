@@ -8,6 +8,7 @@ import datetime
 from typing import Dict
 
 class Hypixel(commands.Cog):
+    __slots__ = 'bot', 'api_key'
     def __init__(self, bot):
         self.bot = bot
         self.api_key = self.bot.config.get('hypixelkey')

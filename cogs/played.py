@@ -7,6 +7,7 @@ from .utils.time import format_time
 buttons_mixin(buttons)
 
 class PlayingTracker(commands.Cog, name='Playing Tracker'):
+    __slots__ = 'bot', 'db', 'task', 'to_track'
     def __init__(self, bot):
         self.bot = bot
         self.db = self.bot.db.played

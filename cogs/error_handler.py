@@ -6,6 +6,7 @@ import logging
 import traceback
 
 class ErrorHandlerCog(commands.Cog):
+    __slots__ = 'bot', 'ignored', 'logger'
     def __init__(self, bot):
         self.bot = bot
         self.ignored = (commands.NotOwner,commands.DisabledCommand)

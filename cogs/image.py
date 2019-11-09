@@ -8,6 +8,7 @@ import io
 
 # class name is Image_ as to not intefere with PIL's Image class
 class Image_(commands.Cog, name='Image'):
+    __slots__ = 'bot', 
     def __init__(self, bot):
         self.bot = bot
 
