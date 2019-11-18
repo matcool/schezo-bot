@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-import pendulum
 import textwrap
 import io
 from contextlib import redirect_stdout
@@ -16,12 +15,6 @@ class Private(commands.Cog, command_attrs=dict(hidden=True)):
     async def kill(self, ctx):
         self.bot.logger.info('Logging out')
         await self.bot.logout()
-
-    @commands.command()
-    async def matfree(self, ctx):
-        """How many days left for mat to be free"""
-        period = pendulum.date(2019, 11, 14) - pendulum.now()
-        await ctx.send(f'{period.in_days()} days left!!!')
 
     # This is highly based off https://github.com/Rapptz/RoboDanny/blob/rewrite/cogs/admin.py#L216
     @commands.command(name='eval')
