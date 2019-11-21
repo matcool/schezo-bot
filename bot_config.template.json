@@ -5,5 +5,6 @@
 	"dbname": "schezo",
 	"currencyapikey": "api key",
 	"retrywrites": true,
-	"hypixelkey": "api key"
+	"hypixelkey": "api key",
+	"game": "uhh"
 }
