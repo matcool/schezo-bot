@@ -9,7 +9,7 @@ class ErrorHandlerCog(commands.Cog):
     __slots__ = 'bot', 'ignored', 'logger'
     def __init__(self, bot):
         self.bot = bot
-        self.ignored = (commands.NotOwner,commands.DisabledCommand)
+        self.ignored = (commands.NotOwner, commands.DisabledCommand, discord.errors.Forbidden)
         self.logger = logging.getLogger('schezo')
 
     @commands.Cog.listener()
