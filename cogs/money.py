@@ -29,7 +29,7 @@ class Money(commands.Cog):
         self.max_requests = 90
 
     def needs_update(self, t):
-        now = pendulum.now().timestamp()
+        now = pendulum.now('UTC').timestamp()
         return now - t > self.update_time
 
     async def convert_currency(self, session, a, b, amt=1):
@@ -57,7 +57,7 @@ class Money(commands.Cog):
     async def update_currency(self, session, currency):
         async with session.get(f'https://free.currconv.com/api/v7/convert?apiKey=&q={self.base}_{currency}&compact=ultra&apiKey={self.api_key}') as r:
             js = await r.json()
-            self.currency_rates[currency] = (js[f'{self.base}_{currency}'], pendulum.now().timestamp())
+            self.currency_rates[currency] = (js[f'{self.base}_{currency}'], pendulum.now('UTC').timestamp())
 
     async def get_usage(self, session):
         async with session.get(f'https://free.currconv.com/others/usage?apiKey={self.api_key}') as r:
