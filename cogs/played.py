@@ -36,15 +36,14 @@ class PlayingTracker(commands.Cog, name='Playing Tracker'):
         await self.get_to_track()
         while not self.bot.is_closed():
             await asyncio.sleep(60)
-            members = self.bot.get_all_members()
             for user in self.to_track:
-                member = discord.utils.get(members, id=user)
+                member = discord.utils.get(self.bot.get_all_members(), id=user)
                 if member is None: continue
 
                 act = member.activity
                 if act is None: continue
 
-                await self.update_game(user[0], act)
+                await self.update_game(user, act)
 
     async def get_to_track(self):
         cursor = self.db.find({}, ['user_id'])
@@ -53,7 +52,7 @@ class PlayingTracker(commands.Cog, name='Playing Tracker'):
             self.to_track.append(entry['user_id'])
 
     async def track(self, user_id: int):
-        self.to_track.append((user_id, guild_id))
+        self.to_track.append(user_id)
         return await self.db.insert_one({
             'user_id': user_id,
             'played': []
@@ -136,7 +135,7 @@ class PlayingTracker(commands.Cog, name='Playing Tracker'):
         if ctx.author.id in self.to_track:
             await ctx.send('Already tracking')
         else:
-            await self.track(ctx.author.id, ctx.guild.id)
+            await self.track(ctx.author.id)
             await ctx.send(f"I'm now tracking your games\nUse `{ctx.prefix}played delete` to stop tracking and delete data")
 
     @played.command()
