@@ -54,7 +54,6 @@ class PlayingTracker(commands.Cog, name='Playing Tracker'):
         self.to_track = []
         async for entry in cursor:
             self.to_track.append(entry['user_id'])
-        print(self.to_track)
 
     async def track(self, user_id: int):
         self.to_track.append(user_id)
