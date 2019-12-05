@@ -12,8 +12,6 @@ class PlayingTracker(commands.Cog, name='Playing Tracker'):
         self.bot = bot
         self.db = self.bot.db.played
         self.task = asyncio.create_task(self.update_playing())
-        # A list of (user_id, guild_id)
-        # guild_id is required as you cannot get an user's activty, only a member's
         self.to_track = []
 
     def cog_unload(self):
@@ -23,7 +21,6 @@ class PlayingTracker(commands.Cog, name='Playing Tracker'):
     {
         _id: ObjectID(whatever),
         user_id: the user id,
-        guild_id: guild which the user is in,
         played: [
             {
                 name: activity name,
@@ -39,12 +36,9 @@ class PlayingTracker(commands.Cog, name='Playing Tracker'):
         await self.get_to_track()
         while not self.bot.is_closed():
             await asyncio.sleep(60)
-            # user is a tuple of (user_id, guild_id)
+            members = self.bot.get_all_members()
             for user in self.to_track:
-                guild = self.bot.get_guild(user[1])
-                if guild is None: continue
-
-                member = guild.get_member(user[0])
+                member = discord.utils.get(members, id=user)
                 if member is None: continue
 
                 act = member.activity
@@ -53,16 +47,15 @@ class PlayingTracker(commands.Cog, name='Playing Tracker'):
                 await self.update_game(user[0], act)
 
     async def get_to_track(self):
-        cursor = self.db.find({}, ['user_id', 'guild_id'])
+        cursor = self.db.find({}, ['user_id'])
         self.to_track = []
         async for entry in cursor:
-            self.to_track.append((entry['user_id'], entry['guild_id']))
+            self.to_track.append(entry['user_id'])
 
-    async def track(self, user_id: int, guild_id: int):
+    async def track(self, user_id: int):
         self.to_track.append((user_id, guild_id))
         return await self.db.insert_one({
             'user_id': user_id,
-            'guild_id': guild_id,
             'played': []
         })
 
@@ -88,12 +81,8 @@ class PlayingTracker(commands.Cog, name='Playing Tracker'):
         result = await self.db.find_one({'user_id': user_id})
         return result['played'] if result else None
 
-    def to_track_index(self, user_id: int):
-        i = tuple(j for j,i in enumerate(self.to_track) if i[0] == user_id)
-        if len(i) != 0: return i[0]
-
     async def stop_tracking(self, user_id: int):
-        index = self.to_track_index(user_id)
+        index = self.to_track.index(user_id)
         if index is None: return False
         self.to_track.pop(index)
         await self.db.delete_one({'user_id': user_id})
@@ -114,7 +103,7 @@ class PlayingTracker(commands.Cog, name='Playing Tracker'):
         <res>Disables tracking and deletes tracked data</res>
         </examples>
         """
-        if user and not any(map(lambda x: x[0] == user.id, self.to_track)):
+        if user and not any(map(lambda x: x == user.id, self.to_track)):
             await ctx.send('Tagged person does not have played tracking enabled')
             return
 
@@ -144,7 +133,7 @@ class PlayingTracker(commands.Cog, name='Playing Tracker'):
 
     @played.command()
     async def enable(self, ctx):
-        if self.to_track_index(ctx.author.id) is not None:
+        if ctx.author.id in self.to_track:
             await ctx.send('Already tracking')
         else:
             await self.track(ctx.author.id, ctx.guild.id)
