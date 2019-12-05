@@ -13,8 +13,10 @@ class PlayingTracker(commands.Cog, name='Playing Tracker'):
         self.db = self.bot.db.played
         self.task = asyncio.create_task(self.update_playing())
         self.to_track = []
+        self.close = False
 
     def cog_unload(self):
+        self.close = True
         self.task.cancel()
 
     """
@@ -34,13 +36,15 @@ class PlayingTracker(commands.Cog, name='Playing Tracker'):
     async def update_playing(self):
         await self.bot.wait_until_ready()
         await self.get_to_track()
-        while not self.bot.is_closed():
+        while not self.bot.is_closed() and not self.close:
             await asyncio.sleep(60)
             for user in self.to_track:
                 member = discord.utils.get(self.bot.get_all_members(), id=user)
                 if member is None: continue
 
-                act = member.activity
+                # ignore custom status if playing anything, else just use custom status
+                activities = tuple(filter(lambda a: a.type != 4, member.activities))
+                act = activities[0] if len(activities) != 0 else member.activity
                 if act is None: continue
 
                 await self.update_game(user, act)
@@ -50,6 +54,7 @@ class PlayingTracker(commands.Cog, name='Playing Tracker'):
         self.to_track = []
         async for entry in cursor:
             self.to_track.append(entry['user_id'])
+        print(self.to_track)
 
     async def track(self, user_id: int):
         self.to_track.append(user_id)
