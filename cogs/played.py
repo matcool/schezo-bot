@@ -3,6 +3,7 @@ from discord.ext import commands, buttons
 import asyncio
 from .utils.misc import buttons_mixin
 from .utils.time import format_time
+from typing import Set
 
 buttons_mixin(buttons)
 
@@ -12,11 +13,10 @@ class PlayingTracker(commands.Cog, name='Playing Tracker'):
         self.bot = bot
         self.db = self.bot.db.played
         self.task = asyncio.create_task(self.update_playing())
-        self.to_track = []
+        self.to_track: Set[int] = set()
 
     def cog_unload(self):
         self.task.cancel()
-        self.bot.has_played_task = False
 
     """
     {
@@ -34,8 +34,6 @@ class PlayingTracker(commands.Cog, name='Playing Tracker'):
 
     async def update_playing(self):
         await self.get_to_track()
-        if self.bot.has_played_task: return
-        self.bot.has_played_task = True
         while not self.bot.is_closed():
             await asyncio.sleep(60)
             for user in self.to_track:
@@ -51,12 +49,12 @@ class PlayingTracker(commands.Cog, name='Playing Tracker'):
 
     async def get_to_track(self):
         cursor = self.db.find({}, ['user_id'])
-        self.to_track = []
+        self.to_track = set()
         async for entry in cursor:
-            self.to_track.append(entry['user_id'])
+            self.to_track.add(entry['user_id'])
 
     async def track(self, user_id: int):
-        self.to_track.append(user_id)
+        self.to_track.add(user_id)
         return await self.db.insert_one({
             'user_id': user_id,
             'played': []
@@ -85,9 +83,8 @@ class PlayingTracker(commands.Cog, name='Playing Tracker'):
         return result['played'] if result else None
 
     async def stop_tracking(self, user_id: int):
-        index = self.to_track.index(user_id)
-        if index is None: return False
-        self.to_track.pop(index)
+        if user_id not in self.to_track: return False
+        self.to_track.remove(user_id)
         await self.db.delete_one({'user_id': user_id})
         return True
 
@@ -106,7 +103,7 @@ class PlayingTracker(commands.Cog, name='Playing Tracker'):
         <res>Disables tracking and deletes tracked data</res>
         </examples>
         """
-        if user and not any(map(lambda x: x == user.id, self.to_track)):
+        if user and user not in self.to_track:
             await ctx.send('Tagged person does not have played tracking enabled')
             return
 
