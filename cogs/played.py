@@ -13,11 +13,10 @@ class PlayingTracker(commands.Cog, name='Playing Tracker'):
         self.db = self.bot.db.played
         self.task = asyncio.create_task(self.update_playing())
         self.to_track = []
-        self.close = False
 
     def cog_unload(self):
-        self.close = True
         self.task.cancel()
+        self.bot.has_played_task = False
 
     """
     {
@@ -34,9 +33,10 @@ class PlayingTracker(commands.Cog, name='Playing Tracker'):
     """
 
     async def update_playing(self):
-        await self.bot.wait_until_ready()
         await self.get_to_track()
-        while not self.bot.is_closed() and not self.close:
+        if self.bot.has_played_task: return
+        self.bot.has_played_task = True
+        while not self.bot.is_closed():
             await asyncio.sleep(60)
             for user in self.to_track:
                 member = discord.utils.get(self.bot.get_all_members(), id=user)

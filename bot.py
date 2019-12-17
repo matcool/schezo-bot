@@ -8,7 +8,7 @@ import motor.motor_asyncio as motor
 import logging
 
 class Schezo(commands.Bot):
-    __slots__ = 'config', 'start_time', '_cogs_loaded', 'db_client', 'db', 'logger'
+    __slots__ = 'config', 'start_time', '_cogs_loaded', 'db_client', 'db', 'logger', 'has_played_task'
     def __init__(self):
         if not os.path.exists('bot_config.json'):
             raise FileNotFoundError('Could not find "bot_config.json". Make sure to copy and rename the template and then change the values.')
@@ -28,6 +28,8 @@ class Schezo(commands.Bot):
         self.logger.setLevel(logging.INFO)
         self.logger.addHandler(file_handler)
         self.logger.propagate = False
+
+        self.has_played_task = False
 
     @property
     def uptime(self):
