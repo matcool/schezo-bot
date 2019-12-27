@@ -75,5 +75,58 @@ class Image_(commands.Cog, name='Image'):
             img = await self.bot.loop.run_in_executor(None, self.networth_pil, await get_avatar(user), user.name, user.id)
             await ctx.send(file=discord.File(img, filename='networth.png'))
 
+    def google_pil(self, image: bytes):
+        google = Image.open('assets/google.jpg')
+        image = Image.open(io.BytesIO(image))
+        image = image.resize((526, 309), Image.ANTIALIAS).convert('RGB')
+        google.paste(image, (0, 425))
+        
+        tmp = io.BytesIO()
+        google.save(tmp, format='JPEG', quality=50)
+        tmp.seek(0)
+        return tmp
+
+    @commands.command()
+    async def google(self, ctx: commands.Context, *links):
+        """
+        Google
+        https://google.com
+        *command runs with image found in past 10 messages*
+        """
+        async with ctx.typing():
+            # get_nearest defaults to nearest image
+            image = await get_nearest(ctx)
+            if image:
+                img = await self.bot.loop.run_in_executor(None, self.google_pil, image)
+                await ctx.send(file=discord.File(img, filename='google.jpeg'))
+            else:
+                await ctx.send('No image found')
+
+    def byemom_pil(self, image: bytes):
+        byemom = Image.open('assets/byemom.png')
+        image = Image.open(io.BytesIO(image))
+        image = image.resize((340, 180), Image.ANTIALIAS).convert('RGB')
+        byemom.paste(image, (0, 0))
+        
+        tmp = io.BytesIO()
+        byemom.save(tmp, format='JPEG', quality=50)
+        tmp.seek(0)
+        return tmp
+
+    @commands.command()
+    async def byemom(self, ctx: commands.Context, *links):
+        """
+        BYE MOM!!
+        *command runs with image found in past 10 messages*
+        """
+        async with ctx.typing():
+            # get_nearest defaults to nearest image
+            image = await get_nearest(ctx)
+            if image:
+                img = await self.bot.loop.run_in_executor(None, self.byemom_pil, image)
+                await ctx.send(file=discord.File(img, filename='BYEMOM!.jpeg'))
+            else:
+                await ctx.send('No image found')
+
 def setup(bot):
     bot.add_cog(Image_(bot))
