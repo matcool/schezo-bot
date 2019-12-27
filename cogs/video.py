@@ -44,11 +44,9 @@ class Video(commands.Cog):
         if video:
             await msg.edit(content='Rendering video...')
             vid = await self.bot.loop.run_in_executor(None, self.how_ffmpeg, video)
-            tmp = io.BytesIO()
-            tmp.write(vid)
-            tmp.seek(0)
+            vid = io.BytesIO(vid)
             await msg.edit(content='Uploading video...')
-            await ctx.send(file=discord.File(tmp, filename='HOW.mp4'))
+            await ctx.send(file=discord.File(vid, filename='HOW.mp4'))
             await msg.delete()
         else:
             await msg.edit(content='No video found')
