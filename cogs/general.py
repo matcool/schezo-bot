@@ -63,5 +63,10 @@ class General(commands.Cog):
         if ctx.guild and ctx.guild.me.permissions_in(ctx.channel).manage_messages:
             await ctx.message.delete()
 
+    @commands.command()
+    async def invite(self, ctx: commands.Context):
+        """Sends the invite link for this bot"""
+        await ctx.send(f'<https://discordapp.com/oauth2/authorize?client_id={ctx.bot.user.id}&scope=bot>')
+
 def setup(bot):
     bot.add_cog(General(bot))
