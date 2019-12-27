@@ -16,10 +16,14 @@ async def get_msg_image(message: discord.Message, url: bool=False) -> Union[byte
             url_str = embed.thumbnail.url or embed.image.url
             if url_str: return url_str if url else await get_page(url_str)
 
+ALLOWED_VIDEOS = {'mp4', 'mkv', 'wmv', 'avi', 'webm'}
+
 async def get_msg_video(message: discord.Message, max_size: int=8000000, url: bool=False) -> Union[bytes, str]:
     if message.attachments:
         for att in message.attachments:
-            if att.size < max_size and att.filename.split('.')[-1] in ALLOWED: return att.url if url else await att.read()
+            ext = att.filename.split('.')[-1]
+            if att.size < max_size and ext in ALLOWED_VIDEOS:
+                return att.url if url else await att.read()
     if message.embeds:
         for embed in message.embeds:
             if embed.video.url:
@@ -27,12 +31,12 @@ async def get_msg_video(message: discord.Message, max_size: int=8000000, url: bo
                 if size and size < max_size:
                     return embed.video.url if url else await get_page(embed.video.url)
 
-async def get_nearest(ctx: commands.Context, limit: int=10, lookup: Callable=get_msg_image, url: bool=False) -> Union[bytes, str]:
-    look = await lookup(ctx.message, url=url)
+async def get_nearest(ctx: commands.Context, limit: int=10, lookup: Callable[[discord.Message], Union[bytes, str]]=get_msg_image, **lookup_kwargs) -> Union[bytes, str]:
+    look = await lookup(ctx.message, **lookup_kwargs)
     if look is None:
         async for message in ctx.history(limit=limit):
             if message.id == ctx.message.id: continue
-            look = await lookup(message, url=url)
+            look = await lookup(message, **lookup_kwargs)
             if look is not None: break
     return look
 
