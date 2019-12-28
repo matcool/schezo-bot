@@ -1,4 +1,5 @@
 import discord
+from typing import Union
 
 def string_distance(a: str, b: str):
     """
@@ -33,3 +34,7 @@ def buttons_mixin(buttons):
         except discord.Forbidden:
             pass
     buttons.Session.teardown = _teardown
+
+def safe_div(a: Union[int, float], b: Union[int, float], return_a: bool=True):
+    if b == 0: return a if return_a else 0
+    else: return a / b

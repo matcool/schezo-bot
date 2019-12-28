@@ -1,11 +1,12 @@
 from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
+from .utils.misc import safe_div
+from typing import Dict
 import discord
 import asyncio
 import aiohttp
 import json
 import datetime
-from typing import Dict
 
 class Hypixel(commands.Cog):
     __slots__ = 'bot', 'api_key'
@@ -63,6 +64,10 @@ class Hypixel(commands.Cog):
         coins = bw.get('coins', 0)
         coins = f'{coins:,}' # 10000 -> 10,000
 
+        kdr = safe_div(kills, bw.get('deaths_bedwars', 0))
+        fkdr = safe_div(final_kills, bw.get('final_deaths_bedwars', 0))
+        wlr = safe_div(wins, bw.get('losses_bedwars', 0))
+
         embed = discord.Embed(title=f"{name}'s Hypixel Bedwars stats", colour=0xff7575)
         embed.set_thumbnail(url=f'https://minotar.net/helm/{uuid}/256.png')
         
@@ -70,13 +75,18 @@ class Hypixel(commands.Cog):
                         value=f'{level}\N{WHITE MEDIUM STAR}', inline=False)
 
         embed.add_field(name='Wins',
-                        value=f'{wins} Total wins\nCurrent winstreak : {winstreak}', inline=True)
+                        value=f'{wins} Total wins\nWinstreak: {winstreak}', inline=True)
 
         embed.add_field(name=f'{total_kills} Total kills',
                         value=f'{kills} Kills\n{final_kills} Final kills', inline=True)
 
-        embed.add_field(name='Items',
-                        value=f"{coins} Coins\n{loot_chests} Loot Chest{'s' if loot_chests > 1 else ''}", inline=True)
+        embed.add_field(name='Items', inline=True,
+                        value=f"{coins} Coins\n{loot_chests} Loot Chest{'s' if loot_chests > 1 else ''}")
+
+        embed.add_field(name='Ratios', inline=True,
+                        value=f'K/D: {kdr:.2f}\n'
+                              f'Final K/D: {fkdr:.2f}\n'
+                              f'W/L: {wlr:.2f}')
 
         await ctx.send(embed=embed)
 
@@ -104,6 +114,9 @@ class Hypixel(commands.Cog):
 
         coins = sw.get('coins', 0)
         coins = f'{coins:,}' # 10000 -> 10,000
+
+        kdr = safe_div(sw.get('kills', 0), sw.get('deaths', 0))
+        wlr = safe_div(sw.get('wins', 0), sw.get('losses', 0))
         
         embed = discord.Embed(title=f"{name}'s Hypixel Skywars stats", colour=0xf4e842)
         embed.set_thumbnail(url=f'https://minotar.net/helm/{uuid}/256.png')
@@ -119,6 +132,10 @@ class Hypixel(commands.Cog):
         
         embed.add_field(name='Items',
                         value=f'{tokens} Tokens\n{loot_chests} Loot Chests', inline=True)
+
+        embed.add_field(name='Ratios', inline=True,
+                        value=f'K/D: {kdr:.2f}\n'
+                              f'W/L: {wlr:.2f}')
 
         await ctx.send(embed=embed)
 
