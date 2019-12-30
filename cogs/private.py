@@ -9,6 +9,7 @@ class Private(commands.Cog, command_attrs=dict(hidden=True)):
     __slots__ = 'bot', 
     def __init__(self, bot):
         self.bot = bot
+        self.last_result = None
 
     @commands.command()
     @commands.is_owner()
@@ -37,7 +38,9 @@ class Private(commands.Cog, command_attrs=dict(hidden=True)):
 
         env = {
             'ctx': ctx,
-            'bot': self.bot
+            'bot': self.bot,
+            'discord': discord,
+            '_': self.last_result
         }
         stdout = io.StringIO()
 
@@ -58,6 +61,8 @@ class Private(commands.Cog, command_attrs=dict(hidden=True)):
                 await ctx.send(f'```py\n{value}{traceback.format_exc()}\n```')
             else:
                 value = stdout.getvalue()
+                # save return value on _
+                if ret is not None: self.last_result = ret
                 # prefer stdout over function return value
                 if value:
                     await ctx.send(f'```py\n{value}```')
