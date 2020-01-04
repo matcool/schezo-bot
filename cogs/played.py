@@ -103,7 +103,7 @@ class PlayingTracker(commands.Cog, name='Playing Tracker'):
         <res>Disables tracking and deletes tracked data</res>
         </examples>
         """
-        if user and user not in self.to_track:
+        if user and user.id not in self.to_track:
             await ctx.send('Tagged person does not have played tracking enabled')
             return
 
@@ -116,17 +116,11 @@ class PlayingTracker(commands.Cog, name='Playing Tracker'):
             return await ctx.send(f"{'You' if user == ctx.author else 'They'} haven't played any games yet")
 
         games.sort(key=lambda x: x['time'], reverse=True)
-        pages = []
-        page = ''
-        i = 0
-        for game in games:
-            page += f"**{game['name']}** - {format_time(game['time']*60)}\n"
-            i += 1
-            if i > 10:
-                i = 0
-                pages.append(page)
-                page = ''
-        if i != 0: pages.append(page)
+
+        per_page = 10
+        pages = [games[i:i+per_page] for i in range(0, len(games), per_page)]
+        pages = ['\n'.join(f"**{game['name']}** - {format_time(game['time']*60)}" for game in page) for page in pages]
+
         paginator = buttons.Paginator(title=f"{user.name}'s played stats", colour=0x61C7C3, embed=True, timeout=10, use_defaults=True,
         entries=pages, length=1)
         await paginator.start(ctx)
