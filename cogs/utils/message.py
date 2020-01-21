@@ -18,13 +18,11 @@ async def get_msg_image(message: discord.Message, url: bool=False) -> Union[byte
             url_str = embed.thumbnail.url or embed.image.url
             if url_str: return url_str if url else await get_page(url_str)
 
-ALLOWED_VIDEOS = {'mp4', 'mkv', 'wmv', 'avi', 'webm'}
-
 async def get_msg_video(message: discord.Message, max_size: int=8000000, url: bool=False) -> Union[bytes, str]:
     if message.attachments:
         for att in message.attachments:
-            ext = att.filename.split('.')[-1]
-            if att.size < max_size and ext in ALLOWED_VIDEOS:
+            file_type = await get_file_type(att.url)
+            if file_type and file_type.startswith('video/'):
                 return att.url if url else await att.read()
     if message.embeds:
         for embed in message.embeds:
