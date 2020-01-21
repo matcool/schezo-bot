@@ -19,13 +19,16 @@ class Video(commands.Cog):
                 file.write(video)
             outpath = os.path.join(folder, 'out.mp4') 
             cmd = [
-                'ffmpeg', '-i', inpath, '-i', 'assets/how.jpg', 
+                'ffmpeg', '-i', inpath, '-i', 'assets/how.jpg',
+                '-c:v', 'h264', '-c:a', 'copy',
                 '-filter_complex', '[0]scale=height=529:width=544[scaled];[1][scaled]overlay=88:0[out]', 
-                '-map', '0:a?', '-map', '[out]', '-f', 'mp4', outpath
+                '-map', '0:a?', '-map', '[out]', '-f', 'mp4', outpath,
+                '-hide_banner', '-v', 'error'
             ]
 
             process = run_command(cmd)
             if process.ret:
+                self.bot.logger.error(process.err.decode('utf-8'))
                 raise Exception(f'FFmpeg returned code {process.ret}')
 
             with open(outpath, 'rb') as file:
@@ -71,6 +74,7 @@ class Video(commands.Cog):
             
             cmd = [
                 'ffmpeg', '-i', 'assets/keem.mp4', '-i', inpath,
+                '-c:v', 'h264',
                 '-filter_complex', f'[0]scale=width={w}:height={h}[scaled];[1][scaled]overlay=x=main_w-overlay_w:y=0:eval=init:eof_action=endall', '-shortest',
                 '-f', 'mp4', outpath,
                 '-hide_banner', '-v', 'error'
@@ -78,10 +82,11 @@ class Video(commands.Cog):
             # only add amix if video has audio
             # as it would error otherwise
             if has_audio(inpath):
-                cmd[6] = 'amix=duration=shortest;' + cmd[6]
+                cmd[8] = 'amix=duration=shortest;' + cmd[8]
 
             process = run_command(cmd)
             if process.ret:
+                self.bot.logger.error(process.err.decode('utf-8'))
                 raise Exception(f'FFmpeg returned with error code {process.ret}')
 
             with open(outpath, 'rb') as file:
