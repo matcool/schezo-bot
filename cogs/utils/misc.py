@@ -1,5 +1,7 @@
 import discord
-from typing import Union
+from typing import Union, Sequence
+import subprocess
+from collections import namedtuple
 
 def string_distance(a: str, b: str):
     """
@@ -38,3 +40,11 @@ def buttons_mixin(buttons):
 def safe_div(a: Union[int, float], b: Union[int, float], return_a: bool=True):
     if b == 0: return a if return_a else 0
     else: return a / b
+
+ProcessInfo = namedtuple('ProcessInfo', ['out', 'err', 'ret'])
+
+def run_command(cmd: Sequence[str], input: bool=None) -> ProcessInfo:
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = process.communicate(input)
+    ret = process.poll()
+    return ProcessInfo(out, err, ret)

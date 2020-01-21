@@ -1,15 +1,6 @@
-from collections import namedtuple
-import subprocess
+from .misc import run_command
 
-ProcessInfo = namedtuple('ProcessInfo', ['out', 'err', 'ret'])
-
-def run_command(cmd, input=None):
-    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out, err = process.communicate(input)
-    ret = process.poll()
-    return ProcessInfo(out, err, ret)
-
-def video_length(video_path):
+def video_length(video_path) -> float:
     process = run_command((
         'ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'default=noprint_wrappers=1:nokey=1', video_path
     ))

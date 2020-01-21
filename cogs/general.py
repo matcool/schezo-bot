@@ -6,8 +6,11 @@ import os
 import random
 from .utils.time import format_time
 from .utils.message import get_avatar, message_embed
+from .utils.misc import run_command
 import time
 import platform
+import shutil
+import json
 
 class General(commands.Cog):
     __slots__ = 'bot', 
@@ -67,6 +70,27 @@ class General(commands.Cog):
     async def invite(self, ctx: commands.Context):
         """Sends the invite link for this bot"""
         await ctx.send(f'<https://discordapp.com/oauth2/authorize?client_id={ctx.bot.user.id}&scope=bot>')
+
+    def speedtest_sync(self):
+        if shutil.which('speedtest') is None: return None
+        cmd = run_command(('speedtest', '--json'))
+        return json.loads(cmd.out.decode('utf-8'))
+
+    @commands.command()
+    @commands.cooldown(1, 60, BucketType.default)
+    async def speedtest(self, ctx: commands.Context):
+        """Runs a speedtest on bot's host"""
+        async with ctx.typing():
+            data = await self.bot.loop.run_in_executor(None, self.speedtest_sync)
+            if data is None:
+                return await ctx.send('Speedtest is unavailable')
+            download = data['download'] / 1000000
+            upload = data['upload'] / 1000000
+            ping = data['ping']
+            await ctx.send(
+                f'Ping: {ping:.1f}ms\n'
+                f'Download: {download:.2f}Mbps\n'
+                f'Upload: {upload:.2f}Mbps')
 
 def setup(bot):
     bot.add_cog(General(bot))
