@@ -33,6 +33,9 @@ class ErrorHandlerCog(commands.Cog):
         
         elif isinstance(error, commands.MissingPermissions):
             await ctx.send(f'Missing permissions: {", ".join(error.missing_perms)}')
+
+        elif isinstance(error, commands.BotMissingPermissions):
+            await ctx.send(f'Bot has missing permissions: {", ".join(error.missing_perms)}')
         
         else:
             tb = traceback.format_exception(type(error), error, error.__traceback__)
