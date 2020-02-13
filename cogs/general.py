@@ -112,9 +112,10 @@ class General(commands.Cog):
     @commands.cooldown(1, 30, BucketType.default)
     async def mcserver(self, ctx, server_ip):
         """Shows info for a minecraft server"""
-        result = await self.bot.loop.run_in_executor(None, self.mcserver_sync, server_ip)
-        if not result:
-            return await ctx.send('Error while trying to connect')
+        async with ctx.typing():
+            result = await self.bot.loop.run_in_executor(None, self.mcserver_sync, server_ip)
+            if not result:
+                return await ctx.send('Error while trying to connect')
         online, players, max_players, version = result
         embed = discord.Embed(title=f'**{server_ip}** \'s status', colour=discord.Colour(0x339c31))
         embed.add_field(name='Version', value=version or 'Unknown')
