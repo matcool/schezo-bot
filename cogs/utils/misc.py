@@ -2,6 +2,7 @@ import discord
 from typing import Union, Sequence
 import subprocess
 from collections import namedtuple
+from mcstatus import MinecraftServer
 
 def string_distance(a: str, b: str):
     """
@@ -48,3 +49,35 @@ def run_command(cmd: Sequence[str], input: bool=None) -> ProcessInfo:
     out, err = process.communicate(input)
     ret = process.poll()
     return ProcessInfo(out, err, ret)
+
+MinecraftInfo = namedtuple('MinecraftInfo', ['ping', 'desc', 'online', 'max', 'players', 'version'])
+
+def mcserver_status(server_ip: str, query: bool=False) -> MinecraftInfo:
+    server = MinecraftServer.lookup(server_ip)
+    if query:
+        try:
+            query = server.query(retries=1)
+        except Exception:
+            pass
+        else:
+            return MinecraftInfo(
+                server.ping(retries=1),
+                query.motd,
+                query.players.online,
+                query.players.max,
+                query.players.names,
+                query.software.version
+            )
+    try:
+        status = server.status(retries=1)
+    except Exception:
+        pass
+    else:
+        return MinecraftInfo(
+            status.latency,
+            status.description if isinstance(status.description, str) else status.description['text'],
+            status.players.online,
+            status.players.max,
+            [p.name for p in status.players.sample or []],
+            status.version.name
+        )

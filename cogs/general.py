@@ -6,12 +6,11 @@ import os
 import random
 from .utils.time import format_time
 from .utils.message import get_avatar, message_embed
-from .utils.misc import run_command
+from .utils.misc import run_command, mcserver_status
 import time
 import platform
 import shutil
 import json
-from mcstatus import MinecraftServer
 
 class General(commands.Cog):
     __slots__ = 'bot', 
@@ -93,33 +92,18 @@ class General(commands.Cog):
                 f'Download: {download:.2f}Mbps\n'
                 f'Upload: {upload:.2f}Mbps')
 
-    def mcserver_sync(self, server_ip: str):
-        server = MinecraftServer.lookup(server_ip)
-        try:
-            query = server.query(retries=1)
-        except Exception:
-            # Either query is disabled or failed to connect
-            try:
-                status = server.status(retries=1)
-            except Exception:
-                return False
-            else:
-                return (status.players.online, [p.name for p in status.players.sample or []], status.players.max, status.version.name)
-        else:
-            return (query.players.online, query.players.names, query.players.max, query.software.version)
-
     @commands.command()
-    @commands.cooldown(1, 30, BucketType.default)
+    @commands.cooldown(1, 10, BucketType.default)
     async def mcserver(self, ctx, server_ip):
         """Shows info for a minecraft server"""
         async with ctx.typing():
-            result = await self.bot.loop.run_in_executor(None, self.mcserver_sync, server_ip)
-            if not result:
+            server = await self.bot.loop.run_in_executor(None, mcserver_status, server_ip)
+            if server is None:
                 return await ctx.send('Error while trying to connect')
-        online, players, max_players, version = result
-        embed = discord.Embed(title=f'**{server_ip}** \'s status', colour=discord.Colour(0x339c31))
-        embed.add_field(name='Version', value=version or 'Unknown')
-        embed.add_field(name=f'Players: {online}/{max_players}', value='\n'.join(f'- {player}' for player in players) if len(players) > 0 else 'No one')
+        embed = discord.Embed(title=f'**{server_ip}** status *[{int(server.ping)}ms]*', description=server.desc, colour=discord.Colour(0x339c31))
+        embed.add_field(name='Version', value=server.version or 'Unknown')
+        embed.add_field(name=f'Players: {server.online}/{server.max}',
+                        value='\n'.join(f'- {player}' for player in server.players) if len(server.players) > 0 else 'No one')
         await ctx.send(embed=embed)
 
 def setup(bot):
