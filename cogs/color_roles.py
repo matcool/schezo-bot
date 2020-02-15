@@ -14,7 +14,8 @@ class ColorRoles(commands.Cog):
             'guild_id': guild_id,
             # using 0 and 1 instead of booleans so i can do a xor, since there is no way of toggling booleans in one operation
             'disabled': 0,
-            'roles': {} # user_id: role_id
+            'roles': {}, # user_id: role_id
+            'restrict': None # restrict system to users with this role
         })
 
     async def has_guild(self, guild_id: int) -> bool:
@@ -40,6 +41,9 @@ class ColorRoles(commands.Cog):
     async def set_user_role(self, guild_id: int, user_id: int, role_id: int):
         await self.db.update_one({'guild_id': guild_id}, {'$set': {f'roles.{user_id}': role_id}})
 
+    async def set_restrict(self, guild_id: int, role_id: int):
+        await self.db.update_one({'guild_id': guild_id}, {'$set': {'restrict': role_id}})
+
     @commands.group(invoke_without_command=True, aliases=['colorroles', 'cr'])
     @commands.guild_only()
     @commands.bot_has_permissions(manage_roles=True)
@@ -61,6 +65,10 @@ class ColorRoles(commands.Cog):
         <res>Toggles the color system. Disabling it makes it so new roles can't be made and existing ones can't be changed</res>
         <cmd>delete</cmd>
         <res>Deletes color system data, **along with all the color roles**</res>
+        <cmd>restrict Special</cmd>
+        <res>Restricts color system to given role (can be name or id)</res>
+        <cmd>restrict</cmd>
+        <res>Resets restrict role</res>
         </examples>
         """
         info = await self.get_guild(ctx.guild.id)
@@ -80,6 +88,10 @@ class ColorRoles(commands.Cog):
             return
         elif info['disabled']:
             return await ctx.send(f'Color system is currently disabled on this server.')
+        elif info.get('restrict'):
+            role = ctx.guild.get_role(info['restrict'])
+            if role is None or role not in ctx.author.roles:
+                return await ctx.send(f'Color system is only allowed to those who have the "{role}" role.')
         if color[0] == '#': color = color[1:]
         if len(color) != 6:
             return await ctx.send('Color must be 6 hex digits')
@@ -130,11 +142,25 @@ class ColorRoles(commands.Cog):
                 return await ctx.send('Cancelling')
             data = await self.get_guild(ctx.guild.id)
             await self.delete_guild(ctx.guild.id)
-            for id in data['roles'].values():
-                role = ctx.guild.get_role(id)
+            for role_id in data['roles'].values():
+                role = ctx.guild.get_role(role_id)
                 await role.delete()
         else:
             await ctx.send('its not even on')
+
+    @color_roles.command()
+    @commands.has_permissions(manage_roles=True)
+    @commands.bot_has_permissions(manage_roles=True)
+    async def restrict(self, ctx, role: discord.Role=None):
+        if not await self.has_guild(ctx.guild.id):
+            return await ctx.send('its not even on')
+        
+        if role is None:
+            await self.set_restrict(ctx.guild.id, None)
+            await ctx.send('Restrict role has been reset')
+        else:
+            await self.set_restrict(ctx.guild.id, role.id)
+            await ctx.send(f'Restrict role has been set to {role.name}')
 
 def setup(bot):
     bot.add_cog(ColorRoles(bot))
