@@ -3,7 +3,7 @@ from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
 from pymongo import ReturnDocument
 
-class ColorRoles(commands.Cog):
+class ColorRoles(commands.Cog, name='Color Roles'):
     __slots__ = 'bot', 'db'
     def __init__(self, bot):
         self.bot = bot
