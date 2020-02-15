@@ -4,6 +4,7 @@ from .utils.misc import string_distance
 from .utils.time import format_time
 import logging
 import traceback
+import asyncio
 
 class ErrorHandlerCog(commands.Cog):
     __slots__ = 'bot', 'ignored', 'logger'
@@ -13,14 +14,16 @@ class ErrorHandlerCog(commands.Cog):
         self.logger = logging.getLogger('schezo')
 
     @commands.Cog.listener()
-    async def on_command_error(self,ctx,error):
+    async def on_command_error(self, ctx, error):
         if isinstance(error, self.ignored):
             return
 
         elif isinstance(error, commands.CommandNotFound):
             cmds = [cmd.name for cmd in self.bot.commands if not cmd.hidden]
             cmds.sort(key=lambda x: string_distance(x, ctx.invoked_with))
-            await ctx.send(f'Unknown command! Did you mean {cmds[0]}?')
+            msg = await ctx.send(f'Unknown command! Did you mean {cmds[0]}?')
+            await asyncio.sleep(5)
+            await msg.delete()
             
         elif isinstance(error, commands.MissingRequiredArgument):
             await ctx.send('{} is a required argument that is missing.'.format(error.param.name))
