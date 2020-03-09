@@ -6,5 +6,6 @@
 	"currencyapikey": "api key",
 	"retrywrites": true,
 	"hypixelkey": "api key",
-	"game": "uhh"
+	"game": "uhh",
+	"weather_key": "openweathermap api key"
 }

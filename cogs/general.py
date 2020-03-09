@@ -4,18 +4,22 @@ from discord.ext.commands.cooldowns import BucketType
 import psutil
 import os
 import random
-from .utils.time import format_time
+from .utils.time import format_time, format_date
 from .utils.message import get_avatar, message_embed
 from .utils.misc import run_command, mcserver_status
 import time
 import platform
 import shutil
 import json
+import aiohttp
+import pendulum
 
 class General(commands.Cog):
     __slots__ = 'bot', 
     def __init__(self, bot):
         self.bot = bot
+
+        self.weather_key = self.bot.config['weather_key']
 
     @commands.command()
     async def info(self, ctx):
@@ -105,6 +109,43 @@ class General(commands.Cog):
         embed.add_field(name=f'Players: {server.online}/{server.max}',
                         value='\n'.join(f'- {player}' for player in server.players) if len(server.players) > 0 else 'No one')
         await ctx.send(embed=embed)
+
+    @commands.command()
+    @commands.cooldown(50, 60, BucketType.default)
+    async def weather(self, ctx, *, city):
+        """Shows weather info for given city"""
+        async with ctx.typing():
+            async with aiohttp.ClientSession() as session:
+                async with session.get('https://api.openweathermap.org/data/2.5/weather', params={
+                    'appid': self.weather_key,
+                    'q': city,
+                    'units': 'metric'
+                }) as r:
+                    data = await r.json()
+            # why didnt they just use code
+            if data['cod'] != 200:
+                return await ctx.send('Error: ' + data['message'])
+            
+            name = data['name'] + (f", {data['sys']['country']}" if 'country' in data['sys'] else '')
+
+            weather = data['weather'][0]
+            color = 0xedbc4b if weather['icon'][2] == 'd' else 0x0a0914
+            
+            embed = discord.Embed(title=name, url=f'https://openweathermap.org/city/{data["id"]}', colour=discord.Color(color))
+            embed.description = weather['description'].capitalize()
+            embed.set_thumbnail(url=f'http://openweathermap.org/img/wn/{weather["icon"]}@2x.png')
+
+            temp = data['main']['temp']
+            feel_temp = data['main']['feels_like']
+            embed.add_field(name='Temperature', value=f"{temp:.0f}°C\n*Feels like {feel_temp:.0f}°C*", inline=False)
+
+            date = pendulum.from_timestamp(data['dt'] + data['timezone'])
+            embed.add_field(name='Date', value=f'{format_date(date)}', inline=False)
+
+            humidity = data['main']['humidity']
+            embed.add_field(name='Humidity', value=f'{humidity}%', inline=False)
+            
+            await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(General(bot))
