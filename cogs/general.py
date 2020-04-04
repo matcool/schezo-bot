@@ -13,6 +13,7 @@ import shutil
 import json
 import aiohttp
 import pendulum
+from cpuinfo import get_cpu_info
 
 class General(commands.Cog):
     __slots__ = 'bot', 
@@ -49,16 +50,36 @@ class General(commands.Cog):
         await msg.edit(content=f'Websocket: {int(self.bot.latency*1000)}ms\n'
                                f'Message: {int((end-start)*1000)}ms')
 
+    def host_sync(self):
+        if shutil.which('df') is None: return None
+        cmd = run_command(('df', '/', '--output=used,size'))
+        if cmd.ret: return None
+        return tuple(map(int, cmd.out.decode('utf-8').splitlines()[1].split()))
+
     @commands.command(aliases=['hoststats', 'hostinfo', 'vps'])
+    @commands.cooldown(1, 2, BucketType.default)
     async def host(self, ctx):
         """Sends some info about the bot's host"""
-        gb = 1024 ** 3
+        embed = discord.Embed(title='Host information')
+
+        brand = get_cpu_info().get('brand', 'Unknown')
         cpu = int(psutil.cpu_percent())
+        cpu_bar = '█' * (cpu // 10) + ' ' * (10 - cpu // 10)
+        cpu_bar = f'[{cpu_bar}]'
+        embed.add_field(name='CPU', value=f'Name: {brand}\n Usage: {cpu}% `{cpu_bar}`', inline=False)
+        
+        gb = 1024 ** 3
         mem = psutil.virtual_memory()
         used = f'{mem.used / gb:.2f}'
         total = f'{mem.total / gb:.2f}'
-        await ctx.send(f'CPU Usage: {cpu}%\n'
-                       f'RAM Usage: {used}GiB/{total}GiB')
+        embed.add_field(name='RAM', value=f'{used}/{total} GB')
+
+        data = await self.bot.loop.run_in_executor(None, self.host_sync)
+        gb = 1024 ** 2
+        if data is not None:
+            embed.add_field(name='Disk', value=f'{data[0] / gb:.2f}/{data[1] / gb:.2f} GB')
+
+        await ctx.send(embed=embed)
 
     @commands.command(alises=['reply'])
     async def quote(self, ctx, msg: discord.Message):
