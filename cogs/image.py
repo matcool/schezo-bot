@@ -8,6 +8,12 @@ import io
 import random
 import math
 
+def save_image(img, *args, **kwargs) -> io.BytesIO:
+    tmp = io.BytesIO()
+    img.save(tmp, *args, **kwargs)
+    tmp.seek(0)
+    return tmp
+
 # class name is Image_ as to not intefere with PIL's Image class
 class Image_(commands.Cog, name='Image'):
     __slots__ = 'bot', 
@@ -20,10 +26,7 @@ class Image_(commands.Cog, name='Image'):
         image = image.resize((544, 529), Image.ANTIALIAS).convert('RGB')
         how.paste(image, (88, 0))
         
-        tmp = io.BytesIO()
-        how.save(tmp, format='JPEG', quality=50)
-        tmp.seek(0)
-        return tmp
+        return save_image(how, format='JPEG', quality=50)
 
     @commands.command()
     async def how(self, ctx: commands.Context, *links):
@@ -61,11 +64,8 @@ class Image_(commands.Cog, name='Image'):
         draw.text((33, 181), f'${money:,}', font=arial, fill=0)
 
         draw.line((0, 76, networth.width, 76), fill=(230, 230, 230), width=2)
-        
-        tmp = io.BytesIO()
-        networth.save(tmp, format='PNG')
-        tmp.seek(0)
-        return tmp
+
+        return save_image(networth, format='PNG')
 
     @commands.command()
     async def networth(self, ctx: commands.Context, user: discord.Member=None):
@@ -81,10 +81,7 @@ class Image_(commands.Cog, name='Image'):
         image = image.resize((526, 309), Image.ANTIALIAS).convert('RGB')
         google.paste(image, (0, 425))
         
-        tmp = io.BytesIO()
-        google.save(tmp, format='JPEG', quality=50)
-        tmp.seek(0)
-        return tmp
+        return save_image(google, format='JPEG', quality=50)
 
     @commands.command()
     async def google(self, ctx: commands.Context, *links):
@@ -108,10 +105,7 @@ class Image_(commands.Cog, name='Image'):
         image = image.resize((340, 180), Image.ANTIALIAS).convert('RGB')
         byemom.paste(image, (0, 0))
         
-        tmp = io.BytesIO()
-        byemom.save(tmp, format='JPEG', quality=50)
-        tmp.seek(0)
-        return tmp
+        return save_image(byemom, format='JPEG', quality=50)
 
     @commands.command()
     async def byemom(self, ctx: commands.Context, *links):
@@ -169,10 +163,7 @@ Not even Redditors at Area 51:
             final.paste(image, (0, 0))
             final.paste(overlay, (0, image.height))
         
-        tmp = io.BytesIO()
-        final.save(tmp, format='PNG')
-        tmp.seek(0)
-        return tmp
+        return save_image(final, format='PNG')
 
     @commands.command()
     async def reddit(self, ctx: commands.Context, *links):
