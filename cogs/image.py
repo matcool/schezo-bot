@@ -128,10 +128,11 @@ class Image_(commands.Cog, name='Image'):
             else:
                 await ctx.send('No image found')
 
-    def reddit_pil(self, image: bytes):
-        choice = random.choice(('wholesome', 'everyone', 'reddit', 'reddit-post', 'reddit-watermark'))
+    def reddit_pil(self, image: bytes, username: str):
+        choice = random.choice(('wholesome', 'everyone', 'reddit', 'reddit-post', 'reddit-watermark', 'reddit-imin', 'reddit-killedher', 'reddit-tumblr', 'nobody'))
 
-        overlay = Image.open(f'assets/{choice}.png')
+        if choice != 'nobody':
+            overlay = Image.open(f'assets/{choice}.png')
         image = Image.open(io.BytesIO(image))
         final = None
         if choice == 'reddit-post':
@@ -143,6 +144,25 @@ class Image_(commands.Cog, name='Image'):
             # wtf this is disgusting
             image.paste(overlay, (image.width // 3 * 2, image.height // 3 * 2), ImageChops.multiply(overlay, Image.new('RGBA', overlay.size, (255, 255, 255, 50))))
             final = image
+        elif choice == 'nobody':
+            arial = ImageFont.truetype('arial.ttf', 25)
+            _, text_h = arial.getsize('No one')
+        
+            nobody = Image.new('RGBA', (390, text_h * 9), color='WHITE')
+
+            draw = ImageDraw.Draw(nobody)
+
+            draw.text((10, 10), f'''Nobody:
+Not a single soul:
+Not even Keanu Reeves:
+Not even Big Chungus:
+Not even Redditors at Area 51:
+
+{username}:''', font=arial, fill='black')
+            nobody = nobody.resize((image.width, int(image.width * nobody.height / nobody.width)), Image.ANTIALIAS)
+            final = Image.new('RGBA', (image.width, image.height + nobody.height))
+            final.paste(nobody, (0, 0))
+            final.paste(image, (0, nobody.height))
         else:
             overlay = overlay.resize((image.width, int(image.width * overlay.height / overlay.width)), Image.ANTIALIAS)
             final = Image.new('RGBA', (image.width, image.height + overlay.height))
@@ -164,7 +184,7 @@ class Image_(commands.Cog, name='Image'):
             # get_nearest defaults to nearest image
             image = await get_nearest(ctx)
             if image:
-                img = await self.bot.loop.run_in_executor(None, self.reddit_pil, image)
+                img = await self.bot.loop.run_in_executor(None, self.reddit_pil, image, ctx.author.name)
                 await ctx.send(file=discord.File(img, filename='reddit.png'))
             else:
                 await ctx.send('No image found')
