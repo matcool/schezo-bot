@@ -3,7 +3,7 @@ from discord.ext import commands
 
 from .utils.message import get_nearest, get_avatar
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageChops
 import io
 import random
 import math
@@ -125,6 +125,47 @@ class Image_(commands.Cog, name='Image'):
             if image:
                 img = await self.bot.loop.run_in_executor(None, self.byemom_pil, image)
                 await ctx.send(file=discord.File(img, filename='BYEMOM!.jpeg'))
+            else:
+                await ctx.send('No image found')
+
+    def reddit_pil(self, image: bytes):
+        choice = random.choice(('wholesome', 'everyone', 'reddit', 'reddit-post', 'reddit-watermark'))
+
+        overlay = Image.open(f'assets/{choice}.png')
+        image = Image.open(io.BytesIO(image))
+        final = None
+        if choice == 'reddit-post':
+            image = image.resize((542, 512), Image.ANTIALIAS).convert('RGBA')
+            overlay.paste(image, (78, 72))
+            final = overlay
+        elif choice == 'reddit-watermark':
+            overlay = overlay.resize((image.width // 3, image.height // 3), Image.ANTIALIAS)
+            # wtf this is disgusting
+            image.paste(overlay, (image.width // 3 * 2, image.height // 3 * 2), ImageChops.multiply(overlay, Image.new('RGBA', overlay.size, (255, 255, 255, 50))))
+            final = image
+        else:
+            overlay = overlay.resize((image.width, int(image.width * overlay.height / overlay.width)), Image.ANTIALIAS)
+            final = Image.new('RGBA', (image.width, image.height + overlay.height))
+            final.paste(image, (0, 0))
+            final.paste(overlay, (0, image.height))
+        
+        tmp = io.BytesIO()
+        final.save(tmp, format='PNG')
+        tmp.seek(0)
+        return tmp
+
+    @commands.command()
+    async def reddit(self, ctx: commands.Context, *links):
+        """
+        Reddit post whoelsome
+        *command runs with image found in past 10 messages*
+        """
+        async with ctx.typing():
+            # get_nearest defaults to nearest image
+            image = await get_nearest(ctx)
+            if image:
+                img = await self.bot.loop.run_in_executor(None, self.reddit_pil, image)
+                await ctx.send(file=discord.File(img, filename='reddit.png'))
             else:
                 await ctx.send('No image found')
 
