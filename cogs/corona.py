@@ -8,7 +8,7 @@ import time
 import pendulum
 
 class CountryInfo:
-    __slots__ = ('cases', 'new_cases', 'deaths', 'new_deaths', 'recovered', 'active', 'cpm')
+    __slots__ = ('cases', 'new_cases', 'deaths', 'new_deaths', 'recovered', 'active', 'cpm', 'critical', 'tests', 'flag')
 
     def __init__(self, data):
         self.cases = data['cases']
@@ -17,7 +17,10 @@ class CountryInfo:
         self.new_deaths = data['todayDeaths']
         self.recovered = data['recovered']
         self.active = data['active']
+        self.critical = data['critical']
+        self.tests = data['tests']
         self.cpm = data['casesPerOneMillion']
+        self.flag = data['countryInfo']['flag']
 
 class GlobalInfo:
     __slots__ = ('cases', 'deaths', 'recovered', 'updated')
@@ -58,7 +61,7 @@ class Corona(commands.Cog):
 
         if country is None:
             embed = discord.Embed(title='Worldwide coronavirus status')
-            embed.description = '[Data source](https://www.worldometers.info/coronavirus/)'
+            embed.description = '[Data source](https://www.worldometers.info/coronavirus/), [API](https://corona.lmao.ninja/)'
             embed.add_field(name='Cases', value=f'{self.all.cases:,}')
             embed.add_field(name='Deaths', value=f'{self.all.deaths:,}')
             embed.add_field(name='Recovered', value=f'{self.all.recovered:,}')
@@ -68,6 +71,14 @@ class Corona(commands.Cog):
 
             await ctx.send(embed=embed)
         else:
+            # stupid string distance doesnt do these properly
+            hardcoded = {
+                'us': 'USA',
+                'vatican city': 'Holy See (Vatican City State)',
+                'vatican': 'Holy See (Vatican City State)'
+            }
+            if country.lower() in hardcoded:
+                country = hardcoded[country.lower()]
             if country not in self.countries:
                 country = country.lower()
                 countries = tuple(sorted(self.countries.keys(), key=lambda x: string_distance(x.lower(), country)))
@@ -79,9 +90,11 @@ class Corona(commands.Cog):
             embed.add_field(name='Deaths', value=f'{data.deaths:,} *+{data.new_deaths:,} today*')
             embed.add_field(name='Recovered', value=f'{data.recovered:,}')
             embed.add_field(name='Active', value=f'{data.active:,}')
+            embed.add_field(name='Critical', value=f'{data.critical:,}')
+            embed.add_field(name='Tests', value=f'{data.tests:,}')
 
             embed.set_footer(text=f'Updated on {format_date(pendulum.from_timestamp(self.all.updated))} (UTC)')
-            embed.set_thumbnail(url='https://i.imgur.com/ENjogk0.png')
+            embed.set_thumbnail(url=data.flag)
 
             await ctx.send(embed=embed)
 
