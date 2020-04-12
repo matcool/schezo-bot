@@ -6,6 +6,7 @@ import time
 import os
 import motor.motor_asyncio as motor
 import logging
+import sys
 
 class Schezo(commands.Bot):
     __slots__ = 'config', 'start_time', '_cogs_loaded', 'db_client', 'db', 'logger'
@@ -67,6 +68,10 @@ bot = Schezo()
 @commands.is_owner()
 async def reloadcogs(ctx):
     ctx.bot.unload_cogs()
+    modules = tuple(sys.modules.keys())
+    for name in modules:
+        if name.startswith('cogs.utils'):
+            del sys.modules[name]
     ctx.bot.load_cogs()
     try:
         await ctx.message.add_reaction('🆗')
