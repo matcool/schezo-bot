@@ -80,5 +80,31 @@ class Starboard(commands.Cog):
         await self.delete_guild_starboard(ctx.guild.id)
         await ctx.send("Removed this server's starboard")
 
+    @commands.command()
+    async def starcheck(self, ctx, msg: discord.Message):
+        """
+        Checks if a message should be in starboard and adds it.
+        Works best with message links
+        <examples>
+        <cmd>https://discordapp.com/channels/123/123/123</cmd>
+        <res>yeah</res>
+        </examples>
+        """
+        starboard = await self.get_guild_starboard(ctx.guild.id)
+        if msg.guild != ctx.guild or starboard is None or starboard['channel_id'] == msg.channel.id:
+            return await ctx.send('Invalid message')
+        if await self.starboard_has_message(ctx.guild.id, msg.id):
+            return await ctx.send('Already on starboard')
+        for reaction in msg.reactions:
+            if reaction.emoji != '⭐': continue
+            if reaction.count < starboard['stars_req']:
+                return await ctx.send("Message doesn't meet star requirements")
+            await self.add_starboard_message(ctx.guild.id, msg.id)
+            channel = self.bot.get_channel(starboard['channel_id'])
+            embed = await message_embed(reaction.message, color=0xefd617)
+            message = await channel.send(embed=embed)
+            return await ctx.send('Added to starboard')
+        await ctx.send("Message doesn't meet star requirements")
+
 def setup(bot):
     bot.add_cog(Starboard(bot))
