@@ -27,7 +27,7 @@ class Private(commands.Cog, command_attrs=dict(hidden=True)):
             code = code[1:-1]
 
         # add return statement if eval is only one line
-        if len(code) == 1 and not code[0].startswith('return'):
+        if len(code) == 1 and not code[0].startswith('return') and '=' not in code[0]:
             code[0] = f'return {code[0]}'
 
         # use 4 spaces as it's discord code blocks indent size
