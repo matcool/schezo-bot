@@ -8,7 +8,7 @@ import time
 import pendulum
 
 class CountryInfo:
-    __slots__ = ('cases', 'new_cases', 'deaths', 'new_deaths', 'recovered', 'active', 'cpm', 'critical', 'tests', 'flag')
+    __slots__ = ('cases', 'new_cases', 'deaths', 'new_deaths', 'recovered', 'active', 'critical', 'tests', 'flag', 'updated')
 
     def __init__(self, data):
         self.cases = data['cases']
@@ -19,17 +19,20 @@ class CountryInfo:
         self.active = data['active']
         self.critical = data['critical']
         self.tests = data['tests']
-        self.cpm = data['casesPerOneMillion']
         self.flag = data['countryInfo']['flag']
+        self.updated = data['updated'] / 1000
 
 class GlobalInfo:
-    __slots__ = ('cases', 'deaths', 'recovered', 'updated')
+    __slots__ = ('cases', 'deaths', 'recovered', 'updated', 'tests', 'countries', 'active')
 
     def __init__(self, data):
         self.cases = data['cases']
         self.deaths = data['deaths']
         self.recovered = data['recovered']
         self.updated = data['updated'] / 1000
+        self.active = data['active']
+        self.tests = data['tests']
+        self.countries = data['affectedCountries']
 
 class Corona(commands.Cog):
     __slots__ = ('bot', 'all', 'countries', 'last_updated')
@@ -45,10 +48,10 @@ class Corona(commands.Cog):
 
     async def update(self):
         async with aiohttp.ClientSession() as session:
-            async with session.get('https://corona.lmao.ninja/all') as r:
+            async with session.get('https://corona.lmao.ninja/v2/all') as r:
                 self.all = GlobalInfo(await r.json())
 
-            async with session.get('https://corona.lmao.ninja/countries') as r:
+            async with session.get('https://corona.lmao.ninja/v2/countries') as r:
                 self.countries = {}
                 for country in await r.json():
                     self.countries[country['country']] = CountryInfo(country)
@@ -65,6 +68,9 @@ class Corona(commands.Cog):
             embed.add_field(name='Cases', value=f'{self.all.cases:,}')
             embed.add_field(name='Deaths', value=f'{self.all.deaths:,}')
             embed.add_field(name='Recovered', value=f'{self.all.recovered:,}')
+            embed.add_field(name='Active', value=f'{self.all.active:,}')
+            embed.add_field(name='Tests', value=f'{self.all.tests:,}')
+            embed.add_field(name='Countries affected', value=f'{self.all.countries}')
 
             embed.set_footer(text=f'Updated on {format_date(pendulum.from_timestamp(self.all.updated))} (UTC)')
             embed.set_thumbnail(url='https://i.imgur.com/ENjogk0.png')
@@ -93,7 +99,7 @@ class Corona(commands.Cog):
             embed.add_field(name='Critical', value=f'{data.critical:,}')
             embed.add_field(name='Tests', value=f'{data.tests:,}')
 
-            embed.set_footer(text=f'Updated on {format_date(pendulum.from_timestamp(self.all.updated))} (UTC)')
+            embed.set_footer(text=f'Updated on {format_date(pendulum.from_timestamp(data.updated))} (UTC)')
             embed.set_thumbnail(url=data.flag)
 
             await ctx.send(embed=embed)
