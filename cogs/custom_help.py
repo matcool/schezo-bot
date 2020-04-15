@@ -19,23 +19,6 @@ class CustomHelp(commands.Cog):
                     final[cogname].append(cmd)
         return final
 
-    @staticmethod
-    def get_xml_tag(name, string) -> Tuple[str, str]:
-        """Finds xml styled tag on given string and returns text inside them, and the string without the tag"""
-        open = f'<{name}>'
-        close = f'</{name}>'
-        start = string.find(open)
-        end = string.find(close)
-        if start == -1 or end == -1: return
-        inside = string[start + len(open) : end]
-        string = string[:start] + string[end + len(close):]
-        return (inside, string)
-
-    @staticmethod
-    def replace_xml_tag(name, string, fmt='{}') -> str:
-        """Finds xml styled tag on given string and formats it with given `fmt`"""
-        return re.sub(f'(<{name}>)(.*?)(<\/{name}>)', fmt.replace('{}', '\\2'), string)
-
     @commands.command(hidden=True)
     async def help(self, ctx, lookup=None, type=None):
         """
@@ -73,12 +56,23 @@ class CustomHelp(commands.Cog):
                 cmd_help = cmd.help
                 examples = None
                 if cmd_help:
-                    result = self.get_xml_tag('examples', cmd_help)
-                    if result:
-                        examples, cmd_help = result
-                        examples = self.replace_xml_tag('cmd', examples, fmt=f'`> {ctx.prefix}{cmd.name} {{}}`')
-                        # unused atm
-                        examples = self.replace_xml_tag('res', examples, fmt='{}')
+                    examples = ''
+                    final_help = ''
+                    in_example = False
+                    for line in cmd_help.splitlines():
+                        if not in_example:
+                            if line == 'Examples::':
+                                in_example = True
+                                final_help = final_help[:-1]
+                            else:
+                                final_help += line + '\n'
+                        else:
+                            if line[0] == '>':
+                                examples += f'`> {ctx.prefix}{cmd.name} {line[2:]}`\n'
+                            else:
+                                examples += line + '\n'
+                    cmd_help = final_help
+                    examples = examples[:-1]
                         
                 embed = discord.Embed(
                     title=cmd.name,

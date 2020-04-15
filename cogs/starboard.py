@@ -56,12 +56,11 @@ class Starboard(commands.Cog):
     async def starboard(self, ctx, channel: discord.TextChannel, stars_req: int):
         """
         Sets given channel as starboard channel for server
-        <examples>
-        <cmd>#starboard 5</cmd>
-        <res>Sets `#starboard` as this server's starboard channel with 5 stars required</res>
-        <cmd>remove</cmd>
-        <res>Removes starboard from server</res>
-        </examples>
+        Examples::
+        > #starboard 5
+        Sets `#starboard` as this server's starboard channel with 5 stars required
+        > remove
+        Removes starboard from server
         """
         if stars_req <= 0:
             return await ctx.send('Invalid star amount')
