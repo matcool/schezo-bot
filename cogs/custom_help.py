@@ -62,8 +62,8 @@ class CustomHelp(commands.Cog):
 
             embed = discord.Embed(title='**Commands**',colour=0x3498db)
             for cog in cmds:
-                commands = ' '.join(map(lambda cmd: f'`{cmd.name}`', cmds[cog]))
-                embed.add_field(name=cog, value=commands, inline=False)
+                formatted_cmds = ' '.join(map(lambda cmd: f'`{cmd.name}`', cmds[cog]))
+                embed.add_field(name=cog, value=formatted_cmds, inline=False)
             await ctx.send(embed=embed)
 
         # Look up command or cog
@@ -88,6 +88,8 @@ class CustomHelp(commands.Cog):
                 embed.add_field(name='Syntax', value=f'`{ctx.prefix}{cmd.name} {cmd.signature}`')
                 if cmd.aliases:
                     embed.add_field(name='Aliases', value=' '.join(map(lambda x: f'`{x}`', cmd.aliases)))
+                if isinstance(cmd, commands.Group):
+                    embed.add_field(name='Subcommands', value=' '.join(f'`{i.name}`' for i in cmd.commands))
                 if examples:
                     embed.add_field(name='Examples', value=examples, inline=False)
                 await ctx.send(embed=embed)
