@@ -38,10 +38,9 @@ class Conversion(commands.Cog):
     async def feet(self, ctx, cm: float):
         """
         Converts from cm to inches (and feet)
-        <examples>
-        <cmd>162.56</cmd>
-        <res>5'4"</res>
-        </examples>
+        Examples::
+        > 162.56
+        5'4"
         """
         if cm == 0: return await ctx.send('0')
         if not math.isfinite(cm): return await ctx.send('Invalid amount')
@@ -54,16 +53,13 @@ class Conversion(commands.Cog):
     async def cm(self, ctx, *, feet):
         """
         Converts from imperial to cm
-        <examples>
-        <cmd>5'4"</cmd>
-        <res>162.56cm</res>
-        <cmd>5'</cmd>
-        <res>152.40cm</res>
-        <cmd>4"</cmd>
-        <res>10.16cm</res>
-        <cmd>4</cmd>
-        <res>10.16cm</res>
-        </examples>
+        Examples::
+        > 5'4
+        162.56cm
+        > 5
+        152.40cm
+        > 4
+        10.16cm
         """
         match = self.feet_regex.match(feet)
         if not match or not any(match.groups()):

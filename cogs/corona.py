@@ -59,6 +59,14 @@ class Corona(commands.Cog):
 
     @commands.command()
     async def corona(self, ctx, *, country=None):
+        """
+        Shows stats about COVID-19.
+        Examples::
+        >
+        Sends worldwide info
+        > brazil
+        Sends a country's info
+        """
         if self.last_updated is None or time.time() - self.last_updated > self.update_time:
             await self.update()
 

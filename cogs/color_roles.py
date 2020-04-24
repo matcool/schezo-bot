@@ -54,22 +54,21 @@ class ColorRoles(commands.Cog, name='Color Roles'):
         This is **NOT recommended for big servers**, as this can make a role for every member that runs the command.
         This requires the bot to have the manage roles permission, and every role will be added to the very bottom, \
         which means it will require you to have no color on all other roles like member and such.
-        <examples>
-        <cmd>init</cmd>
-        <res>Starts the color roles system for this server. Requires you to have the manage roles permission</res>
-        <cmd>ff0000</cmd>
-        <res>Creates (or edits if already exists) a role for you with the given color</res>
-        <cmd>#ff0000</cmd>
-        <res>Same as above</res>
-        <cmd>toggle</cmd>
-        <res>Toggles the color system. Disabling it makes it so new roles can't be made and existing ones can't be changed</res>
-        <cmd>delete</cmd>
-        <res>Deletes color system data, **along with all the color roles**</res>
-        <cmd>restrict Special</cmd>
-        <res>Restricts color system to given role (can be name or id)</res>
-        <cmd>restrict</cmd>
-        <res>Resets restrict role</res>
-        </examples>
+        Examples::
+        > init
+        Starts the color roles system for this server. Requires you to have the manage roles permission
+        > ff0000
+        Creates (or edits if already exists) a role for you with the given color
+        > #ff0000
+        Same as above
+        > toggle
+        Toggles the color system. Disabling it makes it so new roles can't be made and existing ones can't be changed
+        > delete
+        Deletes color system data, **along with all the color roles**
+        > restrict Special
+        Restricts color system to given role (can be name or id)
+        > restrict
+        Resets restrict role
         """
         info = await self.get_guild(ctx.guild.id)
         if info is None:

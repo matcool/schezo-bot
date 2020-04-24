@@ -24,16 +24,15 @@ class CustomHelp(commands.Cog):
         """
         Shows help for given command or
         lists all/category commands
-        <examples>
-        <cmd></cmd>
-        <res>Sends an embed listing all commands</res>
-        <cmd>money</cmd>
-        <res>Sends help and info for command *money*</res>
-        <cmd>Conversion</cmd>
-        <res>Lists all commands in the *Conversion* category</res>
-        <cmd>Hypixel cog</cmd>
-        <res>Lists all commands in the *Hypixel* category</res>
-        </examples>
+        Examples::
+        > 
+        Sends an embed listing all commands
+        > money
+        Sends help and info for command *money*
+        > Conversion
+        Lists all commands in the *Conversion* category
+        > Hypixel cog
+        Lists all commands in the *Hypixel* category
         """
         # Show all cogs and their commands WITHOUT short doc
         if lookup is None:

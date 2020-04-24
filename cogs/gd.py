@@ -13,12 +13,11 @@ class GD(commands.Cog, name='Geometry Dash'):
     async def gd(self, ctx):
         """
         Group of Geometry Dash related commands.
-        <examples>
-        <cmd>search yeah</cmd>
-        <res>the level</res>
-        <cmd>search 123456</cmd>
-        <res>the exact level</res>
-        </examples>
+        Examples::
+        > search yeah
+        the level
+        > search 123456
+        the exact level
         """
         return
 
