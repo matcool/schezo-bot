@@ -40,6 +40,7 @@ class Hypixel(commands.Cog):
     @commands.cooldown(70, 60, BucketType.default)
     @commands.command()
     async def bwstats(self, ctx, username):
+        """Sends bedwars stats about given player"""
         uuid = await self.get_uuid(username)
         if not uuid: return await ctx.send('Player not found')
         
@@ -93,6 +94,7 @@ class Hypixel(commands.Cog):
     @commands.cooldown(70, 60, BucketType.default)
     @commands.command()
     async def swstats(self, ctx, username):
+        """Sends skywars stats about given player"""
         uuid = await self.get_uuid(username)
         if not uuid: return await ctx.send('Player not found')
         

@@ -92,16 +92,15 @@ class PlayingTracker(commands.Cog, name='Playing Tracker'):
     async def played(self, ctx, user: discord.Member=None):
         """
         Check played games stats
-        <examples>
-        <cmd></cmd>
-        <res>Shows your played games</res>
-        <cmd>@Joe</cmd>
-        <res>Shows Joe's played games</res>
-        <cmd>enable</cmd>
-        <res>Enables game tracking for you</res>
-        <cmd>delete</cmd>
-        <res>Disables tracking and deletes tracked data</res>
-        </examples>
+        Examples::
+        > 
+        Shows your played games
+        > @Joe
+        Shows Joe's played games
+        > enable
+        Enables game tracking for you
+        > delete
+        Disables tracking and deletes tracked data
         """
         if user and user.id not in self.to_track:
             await ctx.send('Tagged person does not have played tracking enabled')

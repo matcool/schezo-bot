@@ -56,12 +56,11 @@ class Starboard(commands.Cog):
     async def starboard(self, ctx, channel: discord.TextChannel, stars_req: int):
         """
         Sets given channel as starboard channel for server
-        <examples>
-        <cmd>#starboard 5</cmd>
-        <res>Sets `#starboard` as this server's starboard channel with 5 stars required</res>
-        <cmd>remove</cmd>
-        <res>Removes starboard from server</res>
-        </examples>
+        Examples::
+        > #starboard 5
+        Sets `#starboard` as this server's starboard channel with 5 stars required
+        > remove
+        Removes starboard from server
         """
         if stars_req <= 0:
             return await ctx.send('Invalid star amount')
@@ -85,10 +84,9 @@ class Starboard(commands.Cog):
         """
         Checks if a message should be in starboard and adds it.
         Works best with message links
-        <examples>
-        <cmd>https://discordapp.com/channels/123/123/123</cmd>
-        <res>yeah</res>
-        </examples>
+        Examples::
+        > https://discordapp.com/channels/123/123/123
+        yeah
         """
         starboard = await self.get_guild_starboard(ctx.guild.id)
         if msg.guild != ctx.guild or starboard is None or starboard['channel_id'] == msg.channel.id:
