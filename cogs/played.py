@@ -7,7 +7,7 @@ from typing import Set
 
 buttons_mixin(buttons)
 
-class PlayingTracker(commands.Cog, name='Playing Tracker'):
+class PlayingTracker(commands.Cog, name='Utility'):
     __slots__ = 'bot', 'db', 'task', 'to_track'
     def __init__(self, bot):
         self.bot = bot

@@ -8,7 +8,7 @@ import aiohttp
 import json
 import datetime
 
-class Hypixel(commands.Cog):
+class Hypixel(commands.Cog, name='Games'):
     __slots__ = 'bot', 'api_key'
     def __init__(self, bot):
         self.bot = bot

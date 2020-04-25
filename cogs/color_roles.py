@@ -3,7 +3,7 @@ from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
 from pymongo import ReturnDocument
 
-class ColorRoles(commands.Cog, name='Color Roles'):
+class ColorRoles(commands.Cog, name='Utility_'):
     __slots__ = 'bot', 'db'
     def __init__(self, bot):
         self.bot = bot
@@ -44,11 +44,11 @@ class ColorRoles(commands.Cog, name='Color Roles'):
     async def set_restrict(self, guild_id: int, role_id: int):
         await self.db.update_one({'guild_id': guild_id}, {'$set': {'restrict': role_id}})
 
-    @commands.group(invoke_without_command=True, aliases=['colorroles', 'cr'])
+    @commands.group(invoke_without_command=True, aliases=['color_roles', 'cr'])
     @commands.guild_only()
     @commands.bot_has_permissions(manage_roles=True)
     @commands.cooldown(1, 10, BucketType.member)
-    async def color_roles(self, ctx: commands.Context, color=None):
+    async def colorroles(self, ctx: commands.Context, color=None):
         """
         Sets up color roles system for this server.
         This is **NOT recommended for big servers**, as this can make a role for every member that runs the command.
@@ -112,14 +112,14 @@ class ColorRoles(commands.Cog, name='Color Roles'):
             await role.edit(color=discord.Color(color))
         await ctx.send('done')
 
-    @color_roles.command()
+    @colorroles.command()
     @commands.has_permissions(manage_roles=True)
     @commands.bot_has_permissions(manage_roles=True)
     async def init(self, ctx):
         await self.init_guild(ctx.guild.id)
         await ctx.send('done')
 
-    @color_roles.command()
+    @colorroles.command()
     @commands.has_permissions(manage_roles=True)
     @commands.bot_has_permissions(manage_roles=True)
     async def toggle(self, ctx):
@@ -128,9 +128,9 @@ class ColorRoles(commands.Cog, name='Color Roles'):
             state = 'disabled' if state else 'enabled'
             await ctx.send(f'System is now {state}')
         else:
-            await ctx.send(f'System must be initialized first, use `{ctx.prefix}color_roles init`')
+            await ctx.send(f'System must be initialized first, use `{ctx.prefix}colorroles init`')
     
-    @color_roles.command()
+    @colorroles.command()
     @commands.has_permissions(manage_roles=True)
     @commands.bot_has_permissions(manage_roles=True)
     async def delete(self, ctx):
@@ -147,7 +147,7 @@ class ColorRoles(commands.Cog, name='Color Roles'):
         else:
             await ctx.send('its not even on')
 
-    @color_roles.command()
+    @colorroles.command()
     @commands.has_permissions(manage_roles=True)
     @commands.bot_has_permissions(manage_roles=True)
     async def restrict(self, ctx, role: discord.Role=None):

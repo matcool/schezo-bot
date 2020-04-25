@@ -34,7 +34,7 @@ class GlobalInfo:
         self.tests = data['tests']
         self.countries = data['affectedCountries']
 
-class Corona(commands.Cog):
+class Corona(commands.Cog, name='General_'):
     __slots__ = ('bot', 'all', 'countries', 'last_updated')
     
     def __init__(self, bot: commands.Bot):

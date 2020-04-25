@@ -14,13 +14,15 @@ class CustomHelp(commands.Cog):
         for cogname, cog in self.bot.cogs.items():
             for cmd in cog.get_commands():
                 if not cmd.hidden:
-                    if final.get(cogname) == None:
+                    cogname = cogname.replace('_', '')
+                    if cogname not in final:
                         final[cogname] = []
                     final[cogname].append(cmd)
+        final = dict(sorted(final.items(), key=lambda i: len(i[1]), reverse=True))
         return final
 
-    @commands.command(hidden=True)
-    async def help(self, ctx, lookup=None, type=None):
+    @commands.command(name='help', hidden=True)
+    async def _help(self, ctx, lookup=None):
         """
         Shows help for given command or
         lists all/category commands
@@ -29,10 +31,6 @@ class CustomHelp(commands.Cog):
         Sends an embed listing all commands
         > money
         Sends help and info for command *money*
-        > Conversion
-        Lists all commands in the *Conversion* category
-        > Hypixel cog
-        Lists all commands in the *Hypixel* category
         """
         # Show all cogs and their commands WITHOUT short doc
         if lookup is None:
@@ -51,7 +49,7 @@ class CustomHelp(commands.Cog):
         # Look up command or cog
         else:
             cmd = self.bot.get_command(lookup.lower())
-            if cmd and type != 'cog':
+            if cmd:
                 cmd_help = cmd.help
                 examples = None
                 if cmd_help:
@@ -87,22 +85,7 @@ class CustomHelp(commands.Cog):
                     embed.add_field(name='Examples', value=examples, inline=False)
                 await ctx.send(embed=embed)
             else:
-                # Look for cog
-                cog = self.bot.get_cog(lookup)
-                if cog != None:
-                    cog = list(filter(lambda x: not x.hidden,cog.get_commands()))
-
-                if cog == None or len(cog) == 0:
-                    await ctx.send('No command or cog found with that name')
-                    return
-
-                cog.sort(key=lambda c: not bool(c.help))
-
-                final = ''
-                for cmd in cog:
-                    final += f'**{cmd.name}**' + (f' - {cmd.short_doc}' if cmd.short_doc else '') + '\n'
-                embed = discord.Embed(title=lookup,description=final,colour=0x3498db)
-                await ctx.send(embed=embed)
+                return await ctx.send('No command found with that name')
 
 def setup(bot):
     bot.add_cog(CustomHelp(bot))

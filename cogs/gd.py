@@ -3,7 +3,7 @@ import discord
 import aiohttp
 import asyncio
 
-class GD(commands.Cog, name='Geometry Dash'):
+class GD(commands.Cog, name='Games_'):
     __slots__ = ('bot')
 
     def __init__(self, bot: commands.Bot):
