@@ -4,6 +4,7 @@ import textwrap
 import io
 from contextlib import redirect_stdout
 import traceback
+from .utils.misc import run_command
 
 class Private(commands.Cog, command_attrs=dict(hidden=True)):
     __slots__ = 'bot', 
@@ -44,6 +45,8 @@ class Private(commands.Cog, command_attrs=dict(hidden=True)):
         }
         stdout = io.StringIO()
 
+        shorten = lambda x: x[:2000 - 20] + ' [...]' if len(x) > 2000 - 20 else x
+
         try:
             exec(code, env)
         except Exception as e:
@@ -58,16 +61,29 @@ class Private(commands.Cog, command_attrs=dict(hidden=True)):
                     ret = await func()
             except Exception as e:
                 value = stdout.getvalue()
-                await ctx.send(f'```py\n{value}{traceback.format_exc()}\n```')
+                await ctx.send(f'```py\n{value}{shorten(traceback.format_exc())}\n```')
             else:
-                value = stdout.getvalue()
+                value = shorten(stdout.getvalue())
                 # save return value on _
                 if ret is not None: self.last_result = ret
                 # prefer stdout over function return value
                 if value:
                     await ctx.send(f'```py\n{value}```')
                 elif ret is not None:
-                    await ctx.send(f'```py\n{repr(ret)}```')
+                    await ctx.send(f'```py\n{shorten(repr(ret))}```')
+
+    def pull_sync(self):
+        cmd = run_command(['git', 'pull'])
+        return cmd
+
+    @commands.command()
+    @commands.is_owner()
+    async def pull(self, ctx):
+        cmd = await self.bot.loop.run_in_executor(None, self.pull_sync)
+        if cmd.out == b'Already up to date.\n':
+            return await ctx.send('Already up to date.')
+        await ctx.send(f'```\n{cmd.out.decode("utf-8")}```')
+        await bot.get_command('rc').callback(ctx)
 
 def setup(bot):
     bot.add_cog(Private(bot))
