@@ -6,3 +6,4 @@ Pillow>=7.1.1
 psutil==5.6.6
 mcstatus==2.3.0
 py-cpuinfo==5.0.0
+gd.py==0.10.5

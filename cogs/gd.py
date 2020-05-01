@@ -2,6 +2,7 @@ from discord.ext import commands
 import discord
 import aiohttp
 import asyncio
+import gd
 
 class GD(commands.Cog):
     __slots__ = ('bot', 'overwrite_name')
@@ -9,9 +10,10 @@ class GD(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.overwrite_name = 'Games'
+        self.client = gd.Client()
 
-    @commands.group()
-    async def gd(self, ctx):
+    @commands.group(name='gd')
+    async def gd_(self, ctx):
         """
         Group of Geometry Dash related commands.
         Examples::
@@ -22,43 +24,61 @@ class GD(commands.Cog):
         """
         return
 
-    @gd.command()
+    @staticmethod
+    def level_icon(level: gd.Level) -> str:
+        if not level.is_demon():
+            name = ''
+            if level.difficulty == gd.LevelDifficulty.NA:
+                name = 'unrated'
+            elif level.difficulty == gd.LevelDifficulty.AUTO:
+                name = 'auto'
+            else:
+                name = level.difficulty.name.lower()
+        else:
+            name = 'demon-' + ('easy', 'medium', 'hard', 'insane', 'extreme')[level.difficulty.value - 1]
+        if level.is_epic():
+            name += '-epic'
+        elif level.is_featured():
+            name += '-featured'
+        return f'https://gdbrowser.com/difficulty/{name}.png'
+
+    @gd_.command()
     async def search(self, ctx, *, query):
-        async with aiohttp.ClientSession() as session:
-            async with session.get(f'https://gdbrowser.com/api/search/{query}') as r:
-                if await r.text() == '-1':
-                    return await ctx.send('No level found')
-                data = await r.json()
+        levels = await self.client.search_levels(query, pages=range(2))
+        if len(levels) == 0:
+            return await ctx.send('No level found')
 
         def check(reaction, user):
             return user == ctx.author and str(reaction.emoji) in '◀️▶'
 
         def get_embed(index) -> discord.Embed:
-            level = data[index]
-            level_id = level['id']
-            name = level['name']
-            stars = int(level['stars'])
+            level: gd.Level = levels[index]
+            level_id = level.id
+            name = level.name
+            stars = level.stars
             if stars:
                 name += f' ({stars}★)'
-            description = level['description']
+            description = level.description
             embed = discord.Embed(title=name, description=description, url=f'https://gdbrowser.com/{level_id}', color=0x87ff66)
-            embed.set_thumbnail(url=f'https://gdbrowser.com/difficulty/{level["difficultyFace"]}.png')
+            embed.set_thumbnail(url=self.level_icon(level))
             
-            embed.add_field(name='Downloads', value=f"{int(level['downloads']):,}")
-            embed.add_field(name='Likes', value=f"{int(level['likes']):,}")
-            song = f'{level["songName"]} - {level["songAuthor"]}'
+            embed.add_field(name='Downloads', value=f"{level.downloads:,}")
+            embed.add_field(name='Likes', value=f"{level.rating:,}")
+            song = f'{level.song.name} - {level.song.author}'
+            if level.song.is_custom():
+                song = f'[{song}]({level.song.link})'
             embed.add_field(name='Song', value=song, inline=False)
-            if level['author'] != '-':
+            if level.creator.id != 0:
                 url = ''
-                if int(level['accountID']):
-                    url = f'https://gdbrowser.com/profile/{level["author"].replace(" ", "%20")}'
-                embed.set_author(name=level['author'], url=url)
+                if level.creator.is_registered():
+                    url = f'https://gdbrowser.com/profile/{level.creator.name.replace(" ", "%20")}'
+                embed.set_author(name=level.creator.name, url=url)
             
-            embed.set_footer(text=f'ID: {level_id} | Level {index + 1}/{len(data)}')
+            embed.set_footer(text=f'ID: {level_id} | Level {index + 1}/{len(levels)}')
             return embed
 
         message = await ctx.send(embed=get_embed(0))
-        if len(data) == 1: return
+        if len(levels) == 1: return
 
         await message.add_reaction('◀️')
         await message.add_reaction('▶')
@@ -72,8 +92,8 @@ class GD(commands.Cog):
             else:
                 edit = True
                 if str(reaction.emoji) == '▶':
-                    edit = index != len(data) - 1
-                    index = min(index + 1, len(data) - 1)
+                    edit = index != len(levels) - 1
+                    index = min(index + 1, len(levels) - 1)
                 else:
                     edit = index != 0
                     index = max(index - 1, 0)
