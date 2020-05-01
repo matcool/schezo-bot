@@ -16,7 +16,7 @@ import pendulum
 from cpuinfo import get_cpu_info
 
 class General(commands.Cog):
-    __slots__ = 'bot', 
+    __slots__ = 'bot', 'weather_key'
     def __init__(self, bot):
         self.bot = bot
 

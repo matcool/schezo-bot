@@ -7,10 +7,11 @@ import math
 class RateLimited(Exception):
     pass
 
-class Money(commands.Cog, name='Conversion_'):
-    __slots__ = 'bot', 'api_key', 'currencies', 'base', 'currency_rates', 'update_time', 'max_requests'
+class Money(commands.Cog):
+    __slots__ = 'bot', 'overwrite_name', 'api_key', 'currencies', 'base', 'currency_rates', 'update_time', 'max_requests'
     def __init__(self, bot):
         self.bot = bot
+        self.overwrite_name = 'Conversion'
         self.api_key = self.bot.config.get('currencyapikey')
         if self.api_key is None:
             raise Exception('No currency api key found')

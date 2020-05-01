@@ -3,11 +3,12 @@ import discord
 import aiohttp
 import asyncio
 
-class GD(commands.Cog, name='Games_'):
-    __slots__ = ('bot')
+class GD(commands.Cog):
+    __slots__ = ('bot', 'overwrite_name')
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
+        self.overwrite_name = 'Games'
 
     @commands.group()
     async def gd(self, ctx):

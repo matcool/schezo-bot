@@ -7,13 +7,14 @@ from typing import Set
 
 buttons_mixin(buttons)
 
-class PlayingTracker(commands.Cog, name='Utility'):
-    __slots__ = 'bot', 'db', 'task', 'to_track'
+class PlayingTracker(commands.Cog):
+    __slots__ = 'bot', 'db', 'task', 'to_track', 'overwrite_name'
     def __init__(self, bot):
         self.bot = bot
         self.db = self.bot.db.played
         self.task = asyncio.create_task(self.update_playing())
         self.to_track: Set[int] = set()
+        self.overwrite_name = 'Utility'
 
     def cog_unload(self):
         self.task.cancel()

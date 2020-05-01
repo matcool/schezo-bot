@@ -3,11 +3,12 @@ from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
 from pymongo import ReturnDocument
 
-class ColorRoles(commands.Cog, name='Utility_'):
-    __slots__ = 'bot', 'db'
+class ColorRoles(commands.Cog):
+    __slots__ = 'bot', 'db', 'overwrite_name'
     def __init__(self, bot):
         self.bot = bot
         self.db = self.bot.db.color_roles
+        self.overwrite_name = 'Utility'
 
     async def init_guild(self, guild_id: int):
         return await self.db.insert_one({

@@ -34,11 +34,12 @@ class GlobalInfo:
         self.tests = data['tests']
         self.countries = data['affectedCountries']
 
-class Corona(commands.Cog, name='General_'):
-    __slots__ = ('bot', 'all', 'countries', 'last_updated')
+class Corona(commands.Cog):
+    __slots__ = ('bot', 'overwrite_name', 'all', 'countries', 'last_updated')
     
     def __init__(self, bot: commands.Bot):
         self.bot = bot
+        self.overwrite_name = 'General'
 
         self.all: GlobalInfo = None
         self.countries: Dict[str, CountryInfo] = None

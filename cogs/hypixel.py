@@ -8,11 +8,13 @@ import aiohttp
 import json
 import datetime
 
-class Hypixel(commands.Cog, name='Games'):
-    __slots__ = 'bot', 'api_key'
+class Hypixel(commands.Cog):
+    __slots__ = 'bot', 'api_key', 'overwrite_name'
     def __init__(self, bot):
         self.bot = bot
         self.api_key = self.bot.config.get('hypixelkey')
+
+        self.overwrite_name = 'Games'
 
     async def get_uuid(self, username: str) -> str:
         """

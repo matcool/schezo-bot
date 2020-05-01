@@ -12,9 +12,10 @@ class CustomHelp(commands.Cog):
     def commands_dict(self) -> Dict[str, List[commands.Command]]:
         final = {}
         for cogname, cog in self.bot.cogs.items():
+            if hasattr(cog, 'overwrite_name'):
+                cogname = cog.overwrite_name
             for cmd in cog.get_commands():
                 if not cmd.hidden:
-                    cogname = cogname.replace('_', '')
                     if cogname not in final:
                         final[cogname] = []
                     final[cogname].append(cmd)
@@ -46,7 +47,7 @@ class CustomHelp(commands.Cog):
                 embed.add_field(name=cog, value=formatted_cmds, inline=False)
             await ctx.send(embed=embed)
 
-        # Look up command or cog
+        # Look up command
         else:
             cmd = self.bot.get_command(lookup.lower())
             if cmd:
