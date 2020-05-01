@@ -8,7 +8,7 @@ class RateLimited(Exception):
     pass
 
 class Money(commands.Cog):
-    __slots__ = 'bot', 'overwrite_name', 'api_key', 'currencies', 'base', 'currency_rates', 'update_time', 'max_requests'
+    __slots__ = 'bot', 'overwrite_name', 'api_key', 'currencies', 'base', 'currency_rates', 'update_time', 'max_requests', 'custom_currencies'
     def __init__(self, bot):
         self.bot = bot
         self.overwrite_name = 'Conversion'
@@ -28,6 +28,9 @@ class Money(commands.Cog):
         # update every 2 hours
         self.update_time = 2 * 3600
         self.max_requests = 90
+        self.custom_currencies = {
+            'RBX': (80, 'USD')
+        }
 
     def needs_update(self, t):
         now = pendulum.now('UTC').timestamp()
@@ -115,7 +118,19 @@ class Money(commands.Cog):
 
             # Convert from one currency to another if both given
             else:
-                if self.currencies.get(curr_a) is None or self.currencies.get(curr_b) is None:
+                if curr_a in self.custom_currencies or curr_b in self.custom_currencies:
+                    if curr_a == curr_b: return await ctx.send('cant be bothered')
+                    # 0 for curr_a, 1 for curr_b
+                    which = curr_b in self.custom_currencies
+                    custom = self.custom_currencies[curr_b if which else curr_a]
+                    if which:
+                        val = await self.convert_currency(session, curr_a, custom[1], amt=amount)
+                        await ctx.send(f'{amount:.2f} {curr_a} is about {val * custom[0]:.2f} {curr_b}')
+                    else:
+                        val = await self.convert_currency(session, custom[1], curr_b, amt=amount)
+                        await ctx.send(f'{amount:.2f} {curr_a} is about {val / custom[0]:.2f} {curr_b}')
+                    return
+                if curr_a not in self.currencies or curr_b not in self.currencies:
                     return await ctx.send('Unknown currency')
                 if amount <= 0 or not math.isfinite(amount):
                     return await ctx.send('Invalid amount')
