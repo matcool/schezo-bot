@@ -83,7 +83,7 @@ class Private(commands.Cog, command_attrs=dict(hidden=True)):
         if cmd.out == b'Already up to date.\n':
             return await ctx.send('Already up to date.')
         await ctx.send(f'```\n{cmd.out.decode("utf-8")}```')
-        await bot.get_command('rc').callback(ctx)
+        await self.bot.get_command('rc').callback(ctx)
 
 def setup(bot):
     bot.add_cog(Private(bot))
