@@ -112,5 +112,51 @@ class Video(commands.Cog):
         else:
             await msg.edit(content='No video found')
 
+    def vibrato_ffmpeg(self, video, f) -> bytes:
+        with tempfile.TemporaryDirectory() as folder:
+            inpath = os.path.join(folder, 'input')
+            with open(inpath, 'wb') as file:
+                file.write(video)
+            if not has_audio(inpath):
+                return None
+            outpath = os.path.join(folder, 'out.mp4') 
+            cmd = [
+                'ffmpeg', '-i', inpath,
+                '-af', f'vibrato={f:.2f}:1', '-c:v', 'copy',
+                '-f', 'mp4', outpath,
+                '-hide_banner', '-v', 'error'
+            ]
+
+            process = run_command(cmd)
+            if process.ret:
+                self.bot.logger.error(process.err.decode('utf-8'))
+                raise Exception(f'FFmpeg returned code {process.ret}')
+
+            with open(outpath, 'rb') as file:
+                data = file.read()
+        return data
+
+    @commands.command()
+    @commands.cooldown(2, 20, BucketType.default)
+    async def vibrato(self, ctx, ondulation: float=0.5):
+        """
+        vibrato audio ooOoOooOOOooooOoo
+        looks for recent video and runs command on it
+        """
+        msg = await ctx.send('Looking for video...')
+        video = await get_nearest(ctx, lookup=get_msg_video)
+        if video:
+            await msg.edit(content='Rendering video...')
+            f = ondulation * 16
+            vid = await self.bot.loop.run_in_executor(None, self.vibrato_ffmpeg, video, f)
+            if vid is None:
+                return await ctx.send('Video has no audio')
+            vid = io.BytesIO(vid)
+            await msg.edit(content='Uploading video...')
+            await ctx.send(file=discord.File(vid, filename='vibrato.mp4'))
+            await msg.delete()
+        else:
+            await msg.edit(content='No video found')
+
 def setup(bot):
     bot.add_cog(Video(bot))
