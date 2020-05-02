@@ -122,7 +122,7 @@ class Video(commands.Cog):
             outpath = os.path.join(folder, 'out.mp4') 
             cmd = [
                 'ffmpeg', '-i', inpath,
-                '-af', f'vibrato={f:.2f}:1', '-c:v', 'copy',
+                '-af', f'vibrato={f:.2f}:1,aformat=s16p', '-c:v', 'copy',
                 '-f', 'mp4', outpath,
                 '-hide_banner', '-v', 'error'
             ]
