@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from .http import get_file_size, get_file_type, get_page
+from .http import get_file_size, get_file_type, get_page, get_headers
 from typing import Union, Callable
 
 async def get_avatar(user: discord.User, url: bool=False) -> Union[bytes, str]:
@@ -21,8 +21,10 @@ async def get_msg_image(message: discord.Message, url: bool=False) -> Union[byte
 async def get_msg_video(message: discord.Message, max_size: int=8000000, url: bool=False, thumb: bool=False) -> Union[bytes, str]:
     if message.attachments:
         for att in message.attachments:
-            file_type = await get_file_type(att.url)
-            if file_type and file_type.startswith('video/'):
+            headers = await get_headers(att.url)
+            file_type = headers.get('Content-Type')
+            size = headers.get('Content-Length')
+            if size and int(size) < max_size and file_type and file_type.startswith('video/'):
                 if url: return att.url
                 elif thumb: return att.proxy_url + '?format=jpeg'
                 else: return await att.read()
@@ -35,7 +37,7 @@ async def get_msg_video(message: discord.Message, max_size: int=8000000, url: bo
                     elif thumb: return embed.video.proxy_url + '?format=jpeg'
                     else: return await get_page(embed.video.url)
 
-async def get_nearest(ctx: commands.Context, limit: int=10, lookup: Callable[[discord.Message], Union[bytes, str]]=get_msg_image, **lookup_kwargs) -> Union[bytes, str]:
+async def get_nearest(ctx: commands.Context, limit: int=20, lookup: Callable[[discord.Message], Union[bytes, str]]=get_msg_image, **lookup_kwargs) -> Union[bytes, str]:
     look = await lookup(ctx.message, **lookup_kwargs)
     if look is None:
         async for message in ctx.history(limit=limit):
