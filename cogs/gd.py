@@ -133,7 +133,7 @@ class GD(commands.Cog):
         except gd.MissingAccess:
             return await ctx.send('No user found')
 
-        embed = discord.Embed(title=user.name, color=user.icon_set.color_1.value)
+        embed = discord.Embed(title=user.name, color=user.icon_set.color_1.value, url=f'https://gdbrowser.com/profile/{user.name}')
         embed.add_field(name='Stars', value=f'{user.stars:,}{self.em_star}')
         embed.add_field(name='Demons', value=f'{user.demons:,}{self.em_demon}')
         embed.add_field(name='Coins', value=f'{user.coins:,}{self.em_coin}')
