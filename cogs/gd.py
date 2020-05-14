@@ -11,6 +11,12 @@ class GD(commands.Cog):
         self.bot = bot
         self.overwrite_name = 'Games'
         self.client = gd.Client()
+        # hardcoded emotes lets go
+        self.em_star = '<:gd_star:710548947965575238>'
+        self.em_demon = '<:gd_demon:710549050444873809>'
+        self.em_coin = '<:gd_coin:710548974691418183>'
+        self.em_user_coin = '<:gd_user_coin:710549002784866335>'
+        self.em_cp = '<:gd_cp:710549072053928029>'
 
     @commands.group(name='gd')
     async def gd_(self, ctx):
@@ -43,7 +49,7 @@ class GD(commands.Cog):
         return f'https://gdbrowser.com/difficulty/{name}.png'
 
     @gd_.command()
-    async def search(self, ctx, *, query):
+    async def level(self, ctx, *, query):
         levels = await self.client.search_levels(query, pages=range(2))
         if len(levels) == 0:
             return await ctx.send('No level found')
@@ -102,6 +108,47 @@ class GD(commands.Cog):
                     await reaction.remove(user)
                 except Exception:
                     continue
+
+    @staticmethod
+    def user_icon(user: gd.User) -> str:
+        # Sadly even though this is a bit faster, discord struggles on showing this in an embed
+        if False:
+            icon = user.icon_set
+            params = {
+                'noUser': 1,
+                'icon': icon.cube,
+                'col1': icon.color_1.index,
+                'col2': icon.color_2.index,
+                'glow': int(icon.has_glow_outline())
+            }
+            params = '&'.join(f'{key}={str(value)}' for key, value in params.items())
+            return f'https://gdbrowser.com/icon/a?{params}&dicordpleaseembed=10.png'
+        else:
+            return f'https://gdbrowser.com/icon/{user.name}'
+
+    @gd_.command()
+    async def user(self, ctx, *, query):
+        try:
+            user: gd.User = await self.client.search_user(query)
+        except gd.MissingAccess:
+            return await ctx.send('No user found')
+
+        embed = discord.Embed(title=user.name, color=user.icon_set.color_1.value)
+        embed.add_field(name='Stars', value=f'{user.stars:,}{self.em_star}')
+        embed.add_field(name='Demons', value=f'{user.demons:,}{self.em_demon}')
+        embed.add_field(name='Coins', value=f'{user.coins:,}{self.em_coin}')
+        embed.add_field(name='User Coins', value=f'{user.user_coins:,}{self.em_user_coin}')
+        embed.add_field(name='Diamonds', value=f'{user.diamonds:,}💎')
+        if user.cp:
+            embed.add_field(name='Creator Points', value=f'{user.cp:,}{self.em_cp}')
+        embed.set_thumbnail(url=self.user_icon(user))
+        try:
+            comments = await user.get_page_comments(0)
+        except gd.errors.NothingFound:
+            pass
+        else:
+            embed.add_field(name='Latest comment', value=comments[0].body, inline=False)
+        await ctx.send(embed=embed)
         
 
 def setup(bot):
