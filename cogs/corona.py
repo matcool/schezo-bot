@@ -8,7 +8,7 @@ import time
 import pendulum
 
 class CountryInfo:
-    __slots__ = ('cases', 'new_cases', 'deaths', 'new_deaths', 'recovered', 'active', 'critical', 'tests', 'flag', 'updated')
+    __slots__ = ('cases', 'new_cases', 'deaths', 'new_deaths', 'recovered', 'active', 'critical', 'tests', 'flag', 'updated', 'tests_pm')
 
     def __init__(self, data):
         self.cases = data['cases']
@@ -21,6 +21,7 @@ class CountryInfo:
         self.tests = data['tests']
         self.flag = data['countryInfo']['flag']
         self.updated = data['updated'] / 1000
+        self.tests_pm = data['testsPerOneMillion']
 
 class GlobalInfo:
     __slots__ = ('cases', 'deaths', 'recovered', 'updated', 'tests', 'countries', 'active')
@@ -49,10 +50,10 @@ class Corona(commands.Cog):
 
     async def update(self):
         async with aiohttp.ClientSession() as session:
-            async with session.get('https://corona.lmao.ninja/v2/all') as r:
+            async with session.get('https://disease.sh/v2/all') as r:
                 self.all = GlobalInfo(await r.json())
 
-            async with session.get('https://corona.lmao.ninja/v2/countries') as r:
+            async with session.get('https://disease.sh/v2/countries') as r:
                 self.countries = {}
                 for country in await r.json():
                     self.countries[country['country']] = CountryInfo(country)
@@ -73,7 +74,7 @@ class Corona(commands.Cog):
 
         if country is None:
             embed = discord.Embed(title='Worldwide coronavirus status')
-            embed.description = '[Data source](https://www.worldometers.info/coronavirus/), [API](https://corona.lmao.ninja/)'
+            embed.description = '[Data source](https://www.worldometers.info/coronavirus/), [API](https://disease.sh/)'
             embed.add_field(name='Cases', value=f'{self.all.cases:,}')
             embed.add_field(name='Deaths', value=f'{self.all.deaths:,}')
             embed.add_field(name='Recovered', value=f'{self.all.recovered:,}')
@@ -100,13 +101,19 @@ class Corona(commands.Cog):
                 country = countries[0]
             data = self.countries[country]
 
+            new_cases = '' if data.new_cases == 0 else f'\n*+{data.new_cases:,} today*'
+            new_deaths = '' if data.new_deaths == 0 else f'\n*+{data.new_deaths:,} today*'
+
+            death_rate = '' if data.cases == 0 or data.deaths == 0 else f' ({data.deaths / data.cases * 100:.1f}%)'
+            recov_rate = '' if data.cases == 0 or data.recovered == 0 else f' ({data.recovered / data.cases * 100:.1f}%)'
+
             embed = discord.Embed(title=f"{country}'s coronavirus status")
-            embed.add_field(name='Cases', value=f'{data.cases:,} *+{data.new_cases:,} today*')
-            embed.add_field(name='Deaths', value=f'{data.deaths:,} *+{data.new_deaths:,} today*')
-            embed.add_field(name='Recovered', value=f'{data.recovered:,}')
+            embed.add_field(name='Cases', value=f'{data.cases:,}{new_cases}')
+            embed.add_field(name='Deaths' + death_rate, value=f'{data.deaths:,}{new_deaths}')
+            embed.add_field(name='Recovered' + recov_rate, value=f'{data.recovered:,}')
             embed.add_field(name='Active', value=f'{data.active:,}')
             embed.add_field(name='Critical', value=f'{data.critical:,}')
-            embed.add_field(name='Tests', value=f'{data.tests:,}')
+            embed.add_field(name=f'Tests ({data.tests_pm} per mil)', value=f'{data.tests:,}')
 
             embed.set_footer(text=f'Updated on {format_date(pendulum.from_timestamp(data.updated))} (UTC)')
             embed.set_thumbnail(url=data.flag)
