@@ -3,6 +3,7 @@ import discord
 import aiohttp
 import asyncio
 import gd
+from .utils.paginator import Paginator
 
 class GD(commands.Cog):
     __slots__ = ('bot', 'overwrite_name')
@@ -83,35 +84,12 @@ class GD(commands.Cog):
             embed.set_footer(text=f'ID: {level_id} | Level {index + 1}/{len(levels)}')
             return embed
 
-        message = await ctx.send(embed=get_embed(0))
-        if len(levels) == 1: return
-
-        await message.add_reaction('◀️')
-        await message.add_reaction('▶')
-
-        index = 0
-        while True:
-            try:
-                reaction, user = await self.bot.wait_for('reaction_add', timeout=20.0, check=check)
-            except asyncio.TimeoutError:
-                break
-            else:
-                edit = True
-                if str(reaction.emoji) == '▶':
-                    edit = index != len(levels) - 1
-                    index = min(index + 1, len(levels) - 1)
-                else:
-                    edit = index != 0
-                    index = max(index - 1, 0)
-                if edit: await message.edit(embed=get_embed(index))
-                try:
-                    await reaction.remove(user)
-                except Exception:
-                    continue
+        paginator = Paginator(len(levels), get_embed)
+        await paginator.start(ctx)
 
     @staticmethod
     def user_icon(user: gd.User) -> str:
-        # Sadly even though this is a bit faster, discord struggles on showing this in an embed
+        # Sadly even though this is a bit faster, discord struggles to show this in an embed
         if False:
             icon = user.icon_set
             params = {

@@ -5,7 +5,7 @@ import asyncio
 class Paginator:
     __slots__ = ('_get_embed', '_is_coroutine', 'clear_reactions', 'delete_message', 'n_pages', 'message', 'timeout')
 
-    def __init__(self, n_pages: int, get_embed, clear_reactions: bool=True, delete_message: bool=True, timeout: float=10.0):
+    def __init__(self, n_pages: int, get_embed, clear_reactions: bool=True, delete_message: bool=True, timeout: float=15.0):
         self._get_embed = get_embed
         self._is_coroutine = asyncio.iscoroutine(self._get_embed)
         self.n_pages = n_pages
