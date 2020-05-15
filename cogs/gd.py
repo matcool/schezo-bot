@@ -132,6 +132,8 @@ class GD(commands.Cog):
             user: gd.User = await self.client.search_user(query)
         except gd.MissingAccess:
             return await ctx.send('No user found')
+        if not user.is_registered():
+            return await ctx.send('User not registered')
 
         embed = discord.Embed(title=user.name, color=user.icon_set.color_1.value, url=f'https://gdbrowser.com/profile/{user.name}')
         embed.add_field(name='Stars', value=f'{user.stars:,}{self.em_star}')
