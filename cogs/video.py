@@ -7,10 +7,31 @@ import tempfile
 import os
 import io
 
+class FFmpegError(Exception):
+    def __init__(self, process):
+        self.ret = process.ret
+        self.error = process.err.decode('utf-8')
+
 class Video(commands.Cog):
     __slots__ = 'bot',
     def __init__(self, bot):
         self.bot: commands.Bot = bot
+
+    async def basic_ffmpeg_command(self, ctx: commands.Context, ffmpeg_func, *args, filename='video.mp4'):
+        msg = await ctx.send('Looking for video...')
+        video = await get_nearest(ctx, lookup=get_msg_video)
+        if video:
+            try:
+                await msg.edit(content='Rendering video...')
+                video = await self.bot.loop.run_in_executor(None, ffmpeg_func, video, *args)
+                video = io.BytesIO(video)
+                await msg.edit(content='Uploading video...')
+                await ctx.send(file=discord.File(video, filename=filename))
+                await msg.delete()
+            except FFmpegError as error:
+                await msg.edit(content=f'FFmpeg error:\n```\n{error.error}```')
+        else:
+            await msg.edit(content='No video found')
 
     def how_ffmpeg(self, video) -> bytes:
         with tempfile.TemporaryDirectory() as folder:
@@ -28,8 +49,8 @@ class Video(commands.Cog):
 
             process = run_command(cmd)
             if process.ret:
-                self.bot.logger.error(process.err.decode('utf-8'))
-                raise Exception(f'FFmpeg returned code {process.ret}')
+                self.bot.logger.error(process.err)
+                raise FFmpegError(process)
 
             with open(outpath, 'rb') as file:
                 data = file.read()
@@ -42,17 +63,7 @@ class Video(commands.Cog):
         HOW (video)
         looks for recent video and runs command on it
         """
-        msg = await ctx.send('Looking for video...')
-        video = await get_nearest(ctx, lookup=get_msg_video)
-        if video:
-            await msg.edit(content='Rendering video...')
-            vid = await self.bot.loop.run_in_executor(None, self.how_ffmpeg, video)
-            vid = io.BytesIO(vid)
-            await msg.edit(content='Uploading video...')
-            await ctx.send(file=discord.File(vid, filename='HOW.mp4'))
-            await msg.delete()
-        else:
-            await msg.edit(content='No video found')
+        return await self.basic_ffmpeg_command(ctx, self.how_ffmpeg, filename='HOW.mp4')
 
     def keem_ffmpeg(self, video) -> bytes:
         # hard coded as to not do an unecessary ffprobe command everytime
@@ -75,7 +86,7 @@ class Video(commands.Cog):
             cmd = [
                 'ffmpeg', '-i', 'assets/keem.mp4', '-i', inpath,
                 '-c:v', 'h264',
-                '-filter_complex', f'[0]scale=width={w}:height={h}[scaled];[1][scaled]overlay=x=main_w-overlay_w:y=0:eval=init:eof_action=endall', '-shortest',
+                '-filter_complex', f'[0]scale=width={w}:height={h}[scaled];[1][scaled]overlay=x=main_w-overlay_w:y=0:eval=init:eof_action=endall[final];[final]pad=ceil(iw/2)*2:ceil(ih/2)*2', '-shortest',
                 '-f', 'mp4', outpath,
                 '-hide_banner', '-v', 'error'
             ]
@@ -86,8 +97,8 @@ class Video(commands.Cog):
 
             process = run_command(cmd)
             if process.ret:
-                self.bot.logger.error(process.err.decode('utf-8'))
-                raise Exception(f'FFmpeg returned with error code {process.ret}')
+                self.bot.logger.error(process.err)
+                raise FFmpegError(process)
 
             with open(outpath, 'rb') as file:
                 data = file.read()
@@ -100,17 +111,7 @@ class Video(commands.Cog):
         keemstar scream
         looks for recent video and runs command on it
         """
-        msg = await ctx.send('Looking for video...')
-        video = await get_nearest(ctx, lookup=get_msg_video)
-        if video:
-            await msg.edit(content='Rendering video...')
-            vid = await self.bot.loop.run_in_executor(None, self.keem_ffmpeg, video)
-            vid = io.BytesIO(vid)
-            await msg.edit(content='Uploading video...')
-            await ctx.send(file=discord.File(vid, filename='keem.mp4'))
-            await msg.delete()
-        else:
-            await msg.edit(content='No video found')
+        return await self.basic_ffmpeg_command(ctx, self.keem_ffmpeg, filename='keem.mp4')
 
     def vibrato_ffmpeg(self, video, f) -> bytes:
         with tempfile.TemporaryDirectory() as folder:
@@ -129,8 +130,8 @@ class Video(commands.Cog):
 
             process = run_command(cmd)
             if process.ret:
-                self.bot.logger.error(process.err.decode('utf-8'))
-                raise Exception(f'FFmpeg returned code {process.ret}')
+                self.bot.logger.error(process.err)
+                raise FFmpegError(process)
 
             with open(outpath, 'rb') as file:
                 data = file.read()
@@ -143,20 +144,8 @@ class Video(commands.Cog):
         vibrato audio ooOoOooOOOooooOoo
         looks for recent video and runs command on it
         """
-        msg = await ctx.send('Looking for video...')
-        video = await get_nearest(ctx, lookup=get_msg_video)
-        if video:
-            await msg.edit(content='Rendering video...')
-            f = ondulation * 16
-            vid = await self.bot.loop.run_in_executor(None, self.vibrato_ffmpeg, video, f)
-            if vid is None:
-                return await ctx.send('Video has no audio')
-            vid = io.BytesIO(vid)
-            await msg.edit(content='Uploading video...')
-            await ctx.send(file=discord.File(vid, filename='vibrato.mp4'))
-            await msg.delete()
-        else:
-            await msg.edit(content='No video found')
+        f = ondulation * 16
+        return await self.basic_ffmpeg_command(ctx, self.vibrato_ffmpeg, f, filename='keem.mp4')
 
 def setup(bot):
     bot.add_cog(Video(bot))
