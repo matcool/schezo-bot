@@ -14,11 +14,20 @@ def save_image(img, *args, **kwargs) -> io.BytesIO:
     tmp.seek(0)
     return tmp
 
-# class name is Image_ as to not intefere with PIL's Image class
 class Image_(commands.Cog, name='Image'):
     __slots__ = 'bot', 
     def __init__(self, bot):
         self.bot = bot
+
+    async def basic_image_command(self, ctx: commands.Context, pil_func, *args, filename='image.png'):
+        async with ctx.typing():
+            # get_nearest defaults to nearest image
+            image = await get_nearest(ctx)
+            if image:
+                img = await self.bot.loop.run_in_executor(None, pil_func, image, *args)
+                await ctx.send(file=discord.File(img, filename=filename))
+            else:
+                await ctx.send('No image found')
 
     def how_pil(self, image: bytes):
         how = Image.open('assets/how.jpg')
@@ -30,18 +39,8 @@ class Image_(commands.Cog, name='Image'):
 
     @commands.command()
     async def how(self, ctx: commands.Context, *links):
-        """
-        HOW
-        *command runs with image found in past 10 messages*
-        """
-        async with ctx.typing():
-            # get_nearest defaults to nearest image
-            image = await get_nearest(ctx)
-            if image:
-                img = await self.bot.loop.run_in_executor(None, self.how_pil, image)
-                await ctx.send(file=discord.File(img, filename='HOW.jpeg'))
-            else:
-                await ctx.send('No image found')
+        """HOW"""
+        return await self.basic_image_command(ctx, self.how_pil, filename='HOW.jpeg')
 
     def networth_pil(self, pfp: bytes, name: str, user_id: int):
         networth = Image.new('RGBA', (1200, 421), color='WHITE')
@@ -88,16 +87,8 @@ class Image_(commands.Cog, name='Image'):
         """
         Google
         https://google.com
-        *command runs with image found in past 10 messages*
         """
-        async with ctx.typing():
-            # get_nearest defaults to nearest image
-            image = await get_nearest(ctx)
-            if image:
-                img = await self.bot.loop.run_in_executor(None, self.google_pil, image)
-                await ctx.send(file=discord.File(img, filename='google.jpeg'))
-            else:
-                await ctx.send('No image found')
+        return await self.basic_image_command(ctx, self.google_pil, filename='google.jpeg')
 
     def byemom_pil(self, image: bytes):
         byemom = Image.open('assets/byemom.png')
@@ -109,18 +100,8 @@ class Image_(commands.Cog, name='Image'):
 
     @commands.command()
     async def byemom(self, ctx: commands.Context, *links):
-        """
-        BYE MOM!!
-        *command runs with image found in past 10 messages*
-        """
-        async with ctx.typing():
-            # get_nearest defaults to nearest image
-            image = await get_nearest(ctx)
-            if image:
-                img = await self.bot.loop.run_in_executor(None, self.byemom_pil, image)
-                await ctx.send(file=discord.File(img, filename='BYEMOM!.jpeg'))
-            else:
-                await ctx.send('No image found')
+        """BYE MOM!!"""
+        return await self.basic_image_command(ctx, self.byemom_pil, filename='BYEMOM!.jpeg')
 
     def reddit_pil(self, image: bytes, username: str):
         choice = random.choice(('wholesome', 'everyone', 'reddit', 'reddit-post', 'reddit-watermark', 'reddit-imin', 'reddit-killedher', 'reddit-tumblr', 'nobody'))
@@ -167,18 +148,8 @@ Not even Redditors at Area 51:
 
     @commands.command()
     async def reddit(self, ctx: commands.Context, *links):
-        """
-        Reddit post whoelsome
-        *command runs with image found in past 10 messages*
-        """
-        async with ctx.typing():
-            # get_nearest defaults to nearest image
-            image = await get_nearest(ctx)
-            if image:
-                img = await self.bot.loop.run_in_executor(None, self.reddit_pil, image, ctx.author.name)
-                await ctx.send(file=discord.File(img, filename='reddit.png'))
-            else:
-                await ctx.send('No image found')
+        """Reddit post whoelsome"""
+        return await self.basic_image_command(ctx, self.reddit_pil, ctx.author.name, filename='reddit.png')
 
 def setup(bot):
     bot.add_cog(Image_(bot))
