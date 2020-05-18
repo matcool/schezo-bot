@@ -4,6 +4,8 @@ import aiohttp
 import asyncio
 import gd
 from .utils.paginator import Paginator
+from .utils.http import get_page
+import io
 
 class GD(commands.Cog):
     __slots__ = ('bot', 'overwrite_name')
@@ -84,13 +86,15 @@ class GD(commands.Cog):
             embed.set_footer(text=f'ID: {level_id} | Level {index + 1}/{len(levels)}')
             return embed
 
+        if len(levels) == 1:
+            return await ctx.send(embed=get_embed(0))
+
         paginator = Paginator(len(levels), get_embed)
         await paginator.start(ctx)
 
     @staticmethod
     def user_icon(user: gd.User) -> str:
-        # Sadly even though this is a bit faster, discord struggles to show this in an embed
-        if False:
+        if True:
             icon = user.icon_set
             params = {
                 'noUser': 1,
@@ -100,36 +104,45 @@ class GD(commands.Cog):
                 'glow': int(icon.has_glow_outline())
             }
             params = '&'.join(f'{key}={str(value)}' for key, value in params.items())
-            return f'https://gdbrowser.com/icon/a?{params}&dicordpleaseembed=10.png'
+            return f'https://gdbrowser.com/icon/a?{params}.png'
         else:
             return f'https://gdbrowser.com/icon/{user.name}'
 
     @gd_.command()
     async def user(self, ctx, *, query):
-        try:
-            user: gd.User = await self.client.search_user(query)
-        except gd.MissingAccess:
-            return await ctx.send('No user found')
-        if not user.is_registered():
-            return await ctx.send('User not registered')
+        async with ctx.typing():
+            try:
+                user: gd.User = await self.client.search_user(query)
+            except gd.MissingAccess:
+                return await ctx.send('No user found')
+            if not user.is_registered():
+                return await ctx.send('User not registered')
 
-        embed = discord.Embed(title=user.name, color=user.icon_set.color_1.value, url=f'https://gdbrowser.com/profile/{user.name}')
-        embed.add_field(name='Stars', value=f'{user.stars:,}{self.em_star}')
-        embed.add_field(name='Demons', value=f'{user.demons:,}{self.em_demon}')
-        embed.add_field(name='Coins', value=f'{user.coins:,}{self.em_coin}')
-        embed.add_field(name='User Coins', value=f'{user.user_coins:,}{self.em_user_coin}')
-        embed.add_field(name='Diamonds', value=f'{user.diamonds:,}💎')
-        if user.cp:
-            embed.add_field(name='Creator Points', value=f'{user.cp:,}{self.em_cp}')
-        embed.set_thumbnail(url=self.user_icon(user))
-        try:
-            comments = await user.get_page_comments(0)
-        except gd.errors.NothingFound:
-            pass
-        else:
-            embed.add_field(name='Latest comment', value=comments[0].body, inline=False)
-        await ctx.send(embed=embed)
-        
+            color = user.icon_set.color_1.value
+            if color == 0xffffff:
+                color = 0xfffffe # thank you discord
+
+            embed = discord.Embed(title=user.name, color=color, url=f'https://gdbrowser.com/profile/{user.name}')
+            embed.add_field(name='Stars', value=f'{user.stars:,}{self.em_star}')
+            embed.add_field(name='Demons', value=f'{user.demons:,}{self.em_demon}')
+            embed.add_field(name='Coins', value=f'{user.coins:,}{self.em_coin}')
+            embed.add_field(name='User Coins', value=f'{user.user_coins:,}{self.em_user_coin}')
+            embed.add_field(name='Diamonds', value=f'{user.diamonds:,}💎')
+            if user.cp:
+                embed.add_field(name='Creator Points', value=f'{user.cp:,}{self.em_cp}')
+
+            icon_url = self.user_icon(user)
+            icon_data = await get_page(icon_url)
+            icon_file = discord.File(io.BytesIO(icon_data), filename='icon.png')
+            embed.set_thumbnail(url='attachment://icon.png')
+
+            try:
+                comments = await user.get_page_comments(0)
+            except gd.errors.NothingFound:
+                pass
+            else:
+                embed.add_field(name='Latest comment', value=comments[0].body, inline=False)
+            await ctx.send(file=icon_file, embed=embed)
 
 def setup(bot):
     bot.add_cog(GD(bot))
