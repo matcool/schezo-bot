@@ -145,7 +145,7 @@ class Video(commands.Cog):
         looks for recent video and runs command on it
         """
         f = ondulation * 16
-        return await self.basic_ffmpeg_command(ctx, self.vibrato_ffmpeg, f, filename='keem.mp4')
+        return await self.basic_ffmpeg_command(ctx, self.vibrato_ffmpeg, f, filename='vibrato.mp4')
 
 def setup(bot):
     bot.add_cog(Video(bot))
