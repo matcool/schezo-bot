@@ -73,7 +73,7 @@ class GD(commands.Cog):
             
             embed.add_field(name='Downloads', value=f"{level.downloads:,}")
             embed.add_field(name='Likes', value=f"{level.rating:,}")
-            song = f'{level.song.name} - {level.song.author}'
+            song = level.song.name
             if level.song.is_custom():
                 song = f'[{song}]({level.song.link})'
             embed.add_field(name='Song', value=song, inline=False)
