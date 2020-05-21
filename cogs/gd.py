@@ -104,7 +104,7 @@ class GD(commands.Cog):
                 'glow': icon.has_glow_outline()
             }
             params = '&'.join(f'{key}={str(value)}' for key, value in params.items() if value)
-            return f'https://gdbrowser.com/icon/a?{params}.png'
+            return f'https://gdbrowser.com/icon/a?{params}'
         else:
             return f'https://gdbrowser.com/icon/{user.name}'
 
