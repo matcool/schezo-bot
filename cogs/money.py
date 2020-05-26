@@ -7,6 +7,9 @@ import math
 class RateLimited(Exception):
     pass
 
+class APIError(Exception):
+    pass
+
 class Money(commands.Cog):
     __slots__ = 'bot', 'overwrite_name', 'api_key', 'currencies', 'base', 'currency_rates', 'update_time', 'max_requests', 'custom_currencies'
     def __init__(self, bot):
@@ -55,16 +58,22 @@ class Money(commands.Cog):
 
     async def update_currencies(self, session):
         async with session.get(f'https://free.currconv.com/api/v7/currencies?apiKey={self.api_key}') as r:
+            if r.status != 200:
+                raise APIError(r.status)
             js = await r.json()
             self.currencies = js['results']
 
     async def update_currency(self, session, currency):
         async with session.get(f'https://free.currconv.com/api/v7/convert?apiKey=&q={self.base}_{currency}&compact=ultra&apiKey={self.api_key}') as r:
+            if r.status != 200:
+                raise APIError(r.status)
             js = await r.json()
             self.currency_rates[currency] = (js[f'{self.base}_{currency}'], pendulum.now('UTC').timestamp())
 
     async def get_usage(self, session):
         async with session.get(f'https://free.currconv.com/others/usage?apiKey={self.api_key}') as r:
+            if r.status != 200:
+                raise APIError(r.status)
             js = await r.json()
             return js['usage']
 
@@ -76,70 +85,73 @@ class Money(commands.Cog):
     async def money(self, ctx, curr_a=None, curr_b=None, amount: float=1):
         """Shows info about currency/currencies and can also convert between currencies"""
         async with aiohttp.ClientSession() as session:
-            if self.currencies is None:
-                await self.update_currencies(session)
+            try:
+                if self.currencies is None:
+                    await self.update_currencies(session)
 
-            curr_a = curr_a.upper() if curr_a else None
-            curr_b = curr_b.upper() if curr_b else None
-            
-            # Send all currencies if none are given
-            if curr_a is None:
-                currencies = list(self.currencies.keys())
-                currencies.sort()
-                formatted = []
-                for curr in currencies:
-                    c = self.currencies[curr]
-                    # Format so its like "USD - United States Dollar"
-                    formatted.append(f"{curr} - {c['currencyName']}")
+                curr_a = curr_a.upper() if curr_a else None
+                curr_b = curr_b.upper() if curr_b else None
                 
-                curr_per_page = 30
-                pages = []
-                while len(formatted):
-                    msg = ''
-                    for _ in range(curr_per_page):
-                        if len(formatted) == 0: break
-                        msg += formatted[0]+'\n'
-                        formatted.pop(0)
-                    pages.append(msg)
-                
-                pag = buttons.Paginator(title='List of available currencies', colour=0x8BF488, embed=True, timeout=30, use_defaults=True,
-                    entries=pages, length=1, format='```')
-                await pag.start(ctx)
+                # Send all currencies if none are given
+                if curr_a is None:
+                    currencies = list(self.currencies.keys())
+                    currencies.sort()
+                    formatted = []
+                    for curr in currencies:
+                        c = self.currencies[curr]
+                        # Format so its like "USD - United States Dollar"
+                        formatted.append(f"{curr} - {c['currencyName']}")
+                    
+                    curr_per_page = 30
+                    pages = []
+                    while len(formatted):
+                        msg = ''
+                        for _ in range(curr_per_page):
+                            if len(formatted) == 0: break
+                            msg += formatted[0]+'\n'
+                            formatted.pop(0)
+                        pages.append(msg)
+                    
+                    pag = buttons.Paginator(title='List of available currencies', colour=0x8BF488, embed=True, timeout=30, use_defaults=True,
+                        entries=pages, length=1, format='```')
+                    await pag.start(ctx)
 
-            # Send info about currency if only one is given
-            elif curr_b is None:
-                info = await self.curr_info(curr_a)
-                if info is None:
-                    return await ctx.send('Unknown currency')
-                name = info['currencyName']
-                symbol = info.get('currencySymbol')
-                symbol = ' - ' + symbol if symbol else ''
-                await ctx.send(name + symbol)
+                # Send info about currency if only one is given
+                elif curr_b is None:
+                    info = await self.curr_info(curr_a)
+                    if info is None:
+                        return await ctx.send('Unknown currency')
+                    name = info['currencyName']
+                    symbol = info.get('currencySymbol')
+                    symbol = ' - ' + symbol if symbol else ''
+                    await ctx.send(name + symbol)
 
-            # Convert from one currency to another if both given
-            else:
-                if curr_a in self.custom_currencies or curr_b in self.custom_currencies:
-                    if curr_a == curr_b: return await ctx.send('cant be bothered')
-                    # 0 for curr_a, 1 for curr_b
-                    which = curr_b in self.custom_currencies
-                    custom = self.custom_currencies[curr_b if which else curr_a]
-                    if which:
-                        val = await self.convert_currency(session, curr_a, custom[1], amt=amount)
-                        await ctx.send(f'{amount:.2f} {curr_a} is about {val * custom[0]:.2f} {curr_b}')
-                    else:
-                        val = await self.convert_currency(session, custom[1], curr_b, amt=amount)
-                        await ctx.send(f'{amount:.2f} {curr_a} is about {val / custom[0]:.2f} {curr_b}')
-                    return
-                if curr_a not in self.currencies or curr_b not in self.currencies:
-                    return await ctx.send('Unknown currency')
-                if amount <= 0 or not math.isfinite(amount):
-                    return await ctx.send('Invalid amount')
-                try:
-                    val = await self.convert_currency(session, curr_a, curr_b, amt=amount)
-                except RateLimited as e:
-                    await ctx.send('Rate limited')
+                # Convert from one currency to another if both given
                 else:
-                    await ctx.send(f'{amount:.2f} {curr_a} is about {val:.2f} {curr_b}')
+                    if curr_a in self.custom_currencies or curr_b in self.custom_currencies:
+                        if curr_a == curr_b: return await ctx.send('cant be bothered')
+                        # 0 for curr_a, 1 for curr_b
+                        which = curr_b in self.custom_currencies
+                        custom = self.custom_currencies[curr_b if which else curr_a]
+                        if which:
+                            val = await self.convert_currency(session, curr_a, custom[1], amt=amount)
+                            await ctx.send(f'{amount:.2f} {curr_a} is about {val * custom[0]:.2f} {curr_b}')
+                        else:
+                            val = await self.convert_currency(session, custom[1], curr_b, amt=amount)
+                            await ctx.send(f'{amount:.2f} {curr_a} is about {val / custom[0]:.2f} {curr_b}')
+                        return
+                    if curr_a not in self.currencies or curr_b not in self.currencies:
+                        return await ctx.send('Unknown currency')
+                    if amount <= 0 or not math.isfinite(amount):
+                        return await ctx.send('Invalid amount')
+                    try:
+                        val = await self.convert_currency(session, curr_a, curr_b, amt=amount)
+                    except RateLimited as e:
+                        await ctx.send('Rate limited')
+                    else:
+                        await ctx.send(f'{amount:.2f} {curr_a} is about {val:.2f} {curr_b}')
+            except APIError as e:
+                await ctx.send(f'API error, probably down ({e.args[0]})')
 
 def setup(bot):
     bot.add_cog(Money(bot))
