@@ -1,4 +1,4 @@
-from discord.ext import commands
+from discord.ext import commands, tasks
 import discord
 import aiohttp
 import asyncio
@@ -20,6 +20,51 @@ class GD(commands.Cog):
         self.em_coin = '<:gd_coin:710548974691418183>'
         self.em_user_coin = '<:gd_user_coin:710549002784866335>'
         self.em_cp = '<:gd_cp:710549072053928029>'
+        
+        self.recent_rated = []
+        self.rated_channels = set()
+        self.update_recent_rated.start()
+
+    def cog_unload(self):
+        self.update_recent_rated.cancel()
+
+    def level_embed(self, level: gd.Level, color=0x87ff66) -> discord.Embed:
+        level_id = level.id
+        name = level.name
+        stars = level.stars
+        if stars:
+            name += f' ({stars}★)'
+        description = level.description
+        embed = discord.Embed(title=name, description=description, url=f'https://gdbrowser.com/{level_id}', color=color)
+        embed.set_thumbnail(url=self.level_icon(level))
+        
+        embed.add_field(name='Downloads', value=f"{level.downloads:,}")
+        embed.add_field(name='Likes', value=f"{level.rating:,}")
+        song = level.song.name
+        if level.song.is_custom():
+            song = f'[{song}]({level.song.link})'
+        embed.add_field(name='Song', value=song, inline=False)
+        if level.creator.id != 0:
+            url = ''
+            if level.creator.is_registered():
+                url = f'https://gdbrowser.com/profile/{level.creator.name.replace(" ", "%20")}'
+            embed.set_author(name=level.creator.name, url=url)
+        
+        embed.set_footer(text=f'ID: {level_id}')
+        return embed
+
+    @tasks.loop(minutes=1)
+    async def update_recent_rated(self):
+        now_rated = await self.client.search_levels(filters=gd.Filters(strategy=gd.SearchStrategy.AWARDED), pages=range(2))
+        if len(self.recent_rated):
+            levels = [i for i in now_rated if i not in self.recent_rated]
+            if levels:
+                for channel in self.rated_channels:
+                    channel = self.bot.get_channel(channel)
+                    for level in levels:
+                        embed = self.level_embed(level, color=0xfffd00)
+                        await channel.send('New rated level!', embed=embed)
+        self.recent_rated = now_rated
 
     @commands.group(name='gd')
     async def gd_(self, ctx):
@@ -61,29 +106,9 @@ class GD(commands.Cog):
             return user == ctx.author and str(reaction.emoji) in '◀️▶'
 
         def get_embed(index) -> discord.Embed:
-            level: gd.Level = levels[index]
-            level_id = level.id
-            name = level.name
-            stars = level.stars
-            if stars:
-                name += f' ({stars}★)'
-            description = level.description
-            embed = discord.Embed(title=name, description=description, url=f'https://gdbrowser.com/{level_id}', color=0x87ff66)
-            embed.set_thumbnail(url=self.level_icon(level))
-            
-            embed.add_field(name='Downloads', value=f"{level.downloads:,}")
-            embed.add_field(name='Likes', value=f"{level.rating:,}")
-            song = level.song.name
-            if level.song.is_custom():
-                song = f'[{song}]({level.song.link})'
-            embed.add_field(name='Song', value=song, inline=False)
-            if level.creator.id != 0:
-                url = ''
-                if level.creator.is_registered():
-                    url = f'https://gdbrowser.com/profile/{level.creator.name.replace(" ", "%20")}'
-                embed.set_author(name=level.creator.name, url=url)
-            
-            embed.set_footer(text=f'ID: {level_id} | Level {index + 1}/{len(levels)}')
+            level = levels[index]
+            embed = self.level_embed(level)
+            embed.set_footer(text=f'ID: {level.id} | Level {index + 1}/{len(levels)}')
             return embed
 
         if len(levels) == 1:
@@ -143,6 +168,16 @@ class GD(commands.Cog):
             else:
                 embed.add_field(name='Latest comment', value=comments[0].body, inline=False)
             await ctx.send(file=icon_file, embed=embed)
+
+    @commands.command(hidden=True)
+    @commands.is_owner()
+    async def on_gd_rate(self, ctx, channel: discord.TextChannel):
+        if channel.id in self.rated_channels:
+            self.rated_channels.discard(channel.id)
+            await ctx.send('Channel removed')
+        else:
+            self.rated_channels.add(channel.id)
+            await ctx.send(f'Recently rated levels will now be posted on {channel.mention}')
 
 def setup(bot):
     bot.add_cog(GD(bot))
