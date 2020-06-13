@@ -14,6 +14,7 @@ import json
 import aiohttp
 import pendulum
 from cpuinfo import get_cpu_info
+import io
 
 class General(commands.Cog):
     __slots__ = 'bot', 'weather_key'
@@ -127,9 +128,16 @@ class General(commands.Cog):
                 return await ctx.send('Error while trying to connect')
         embed = discord.Embed(title=f'**{server_ip}** status *[{int(server.ping)}ms]*', description=server.desc, colour=discord.Colour(0x339c31))
         embed.add_field(name='Version', value=server.version or 'Unknown')
+        if len(server.players) == 0:
+            players = 'Unknown' if server.online > 0 else 'No one'
+        else:
+            players = '\n'.join(f'- {player}' for player in server.players)
         embed.add_field(name=f'Players: {server.online}/{server.max}',
-                        value='\n'.join(f'- {player}' for player in server.players) if len(server.players) > 0 else 'No one')
-        await ctx.send(embed=embed)
+                        value=players)
+        if server.icon:
+            icon_file = discord.File(io.BytesIO(server.icon), filename='icon.png')
+            embed.set_thumbnail(url='attachment://icon.png')
+        await ctx.send(embed=embed, file=icon_file)
 
     @commands.command()
     @commands.cooldown(50, 60, BucketType.default)

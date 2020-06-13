@@ -3,6 +3,7 @@ from typing import Union, Sequence
 import subprocess
 from collections import namedtuple
 from mcstatus import MinecraftServer
+from base64 import b64decode
 
 def string_distance(a: str, b: str):
     """
@@ -50,7 +51,7 @@ def run_command(cmd: Sequence[str], input: bool=None) -> ProcessInfo:
     ret = process.poll()
     return ProcessInfo(out, err, ret)
 
-MinecraftInfo = namedtuple('MinecraftInfo', ['ping', 'desc', 'online', 'max', 'players', 'version'])
+MinecraftInfo = namedtuple('MinecraftInfo', ['ping', 'desc', 'online', 'max', 'players', 'version', 'icon'])
 
 def mcserver_status(server_ip: str, query: bool=False) -> MinecraftInfo:
     server = MinecraftServer.lookup(server_ip)
@@ -66,18 +67,23 @@ def mcserver_status(server_ip: str, query: bool=False) -> MinecraftInfo:
                 query.players.online,
                 query.players.max,
                 query.players.names,
-                query.software.version
+                query.software.version,
+                None
             )
     try:
         status = server.status(retries=1)
     except Exception:
         pass
     else:
+        icon = status.favicon
+        if icon:
+            icon = b64decode(icon.split(',')[1].encode())
         return MinecraftInfo(
             status.latency,
             status.description if isinstance(status.description, str) else status.description['text'],
             status.players.online,
             status.players.max,
             [p.name for p in status.players.sample or []],
-            status.version.name
+            status.version.name,
+            icon
         )
