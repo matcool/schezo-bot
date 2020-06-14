@@ -2,10 +2,12 @@ import discord
 from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
 from .utils.video import run_command, video_size, has_audio
-from .utils.message import get_nearest, get_msg_video
+from .utils.message import get_nearest, get_msg_video, get_msg_image
 import tempfile
 import os
 import io
+from PIL import Image
+import random
 
 class FFmpegError(Exception):
     def __init__(self, process):
@@ -17,9 +19,9 @@ class Video(commands.Cog):
     def __init__(self, bot):
         self.bot: commands.Bot = bot
 
-    async def basic_ffmpeg_command(self, ctx: commands.Context, ffmpeg_func, *args, filename='video.mp4'):
+    async def basic_ffmpeg_command(self, ctx: commands.Context, ffmpeg_func, *args, filename='video.mp4', lookup=get_msg_video):
         msg = await ctx.send('Looking for video...')
-        video = await get_nearest(ctx, lookup=get_msg_video)
+        video = await get_nearest(ctx, lookup=lookup)
         if video:
             try:
                 await msg.edit(content='Rendering video...')
@@ -146,6 +148,38 @@ class Video(commands.Cog):
         """
         f = ondulation * 16
         return await self.basic_ffmpeg_command(ctx, self.vibrato_ffmpeg, f, filename='vibrato.mp4')
+
+    def cavesounds_ffmpeg(self, image) -> bytes:
+        with tempfile.TemporaryDirectory() as folder:
+            inpath = os.path.join(folder, 'input.png')
+            image = Image.open(io.BytesIO(image)).convert('RGB')
+            size = image.size
+            image.save(inpath)
+            outpath = os.path.join(folder, 'out.mp4') 
+            cmd = [
+                'ffmpeg', '-f', 'lavfi', '-i', f'color=c=black:s={size[0]}x{size[1]}:d=10',
+                '-i', inpath, '-filter_complex', '[0:v][1:v]overlay=0:0',
+                '-i', f'assets/cave/cave{random.randint(0, 7)}.ogg', '-shortest',
+                '-f', 'mp4', outpath,
+            ]
+
+            process = run_command(cmd)
+            if process.ret:
+                self.bot.logger.error(process.err)
+                raise FFmpegError(process)
+
+            with open(outpath, 'rb') as file:
+                data = file.read()
+        return data
+
+    @commands.command()
+    @commands.cooldown(2, 20, BucketType.default)
+    async def cavesounds(self, ctx):
+        """
+        minecraft cave sound to a picture
+        looks for recent video and runs command on it
+        """
+        return await self.basic_ffmpeg_command(ctx, self.cavesounds_ffmpeg, filename='cave.mp4', lookup=get_msg_image)
 
 def setup(bot):
     bot.add_cog(Video(bot))
