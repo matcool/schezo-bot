@@ -131,7 +131,7 @@ class GD(commands.Cog):
             params = '&'.join(f'{key}={str(value)}' for key, value in params.items() if value)
             return f'https://gdbrowser.com/icon/a?{params}'
         else:
-            return f'https://gdbrowser.com/icon/{user.name}'
+            return f'https://gdbrowser.com/icon/{user.name.replace(" ", "%20")}'
 
     @gd_.command()
     async def user(self, ctx, *, query):
@@ -147,7 +147,7 @@ class GD(commands.Cog):
             if color == 0xffffff:
                 color = 0xfffffe # thank you discord
 
-            embed = discord.Embed(title=user.name, color=color, url=f'https://gdbrowser.com/profile/{user.name}')
+            embed = discord.Embed(title=user.name, color=color, url=f'https://gdbrowser.com/profile/{user.name.replace(" ", "%20")}')
             embed.add_field(name='Stars', value=f'{user.stars:,}{self.em_star}')
             embed.add_field(name='Demons', value=f'{user.demons:,}{self.em_demon}')
             embed.add_field(name='Coins', value=f'{user.coins:,}{self.em_coin}')
