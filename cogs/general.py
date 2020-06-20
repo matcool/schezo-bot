@@ -137,6 +137,8 @@ class General(commands.Cog):
         if server.icon:
             icon_file = discord.File(io.BytesIO(server.icon), filename='icon.png')
             embed.set_thumbnail(url='attachment://icon.png')
+        else:
+            icon_file = None
         await ctx.send(embed=embed, file=icon_file)
 
     @commands.command()
