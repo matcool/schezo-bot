@@ -14,6 +14,7 @@ class GD(commands.Cog):
         self.bot = bot
         self.overwrite_name = 'Games'
         self.client = gd.Client()
+        
         # hardcoded emotes lets go
         self.em_star = '<:gd_star:710548947965575238>'
         self.em_demon = '<:gd_demon:710549050444873809>'
@@ -21,12 +22,15 @@ class GD(commands.Cog):
         self.em_user_coin = '<:gd_user_coin:710549002784866335>'
         self.em_cp = '<:gd_cp:710549072053928029>'
         
-        self.recent_rated = []
-        self.rated_channels = set()
-        self.update_recent_rated.start()
+        gd.events.attach_to_loop(bot.loop)
+
+        self.client.listen_for('rate')(self.on_level_rated)
+        self.client.listen_for('daily')(self.on_new_daily)
+        self.client.listen_for('weekly')(self.on_new_weekly)
 
     def cog_unload(self):
-        self.update_recent_rated.cancel()
+        for listener in gd.events.all_listeners:
+            listener.close()
 
     def level_embed(self, level: gd.Level, color=0x87ff66) -> discord.Embed:
         level_id = level.id
@@ -53,18 +57,26 @@ class GD(commands.Cog):
         embed.set_footer(text=f'ID: {level_id}')
         return embed
 
-    @tasks.loop(minutes=1)
-    async def update_recent_rated(self):
-        now_rated = await self.client.search_levels(filters=gd.Filters(strategy=gd.SearchStrategy.AWARDED), pages=range(2))
-        if len(self.recent_rated):
-            levels = [i for i in now_rated if i not in self.recent_rated]
-            if levels:
-                for channel in self.rated_channels:
-                    channel = self.bot.get_channel(channel)
-                    for level in levels:
-                        embed = self.level_embed(level, color=0xfffd00)
-                        await channel.send('New rated level!', embed=embed)
-        self.recent_rated = now_rated
+    async def rated_channels(self):
+        return [i['gd_updates'] async for i in self.bot.gf.db.find({'gd_updates': {'$not': {'$eq': None}}}, {'gd_updates': True})]
+
+    async def on_level_rated(self, level):
+        embed = self.level_embed(level, color=0xfffd00)
+        for channel in await self.rated_channels():
+            channel = self.bot.get_channel(channel)
+            await channel.send('New rated level!', embed=self.level_embed(level))
+
+    async def on_new_daily(self, level):
+        embed = self.level_embed(level, color=0xfffd00)
+        for channel in await self.rated_channels():
+            channel = self.bot.get_channel(channel)
+            await channel.send('New daily!', embed=level)
+
+    async def on_new_weekly(self, level):
+        embed = self.level_embed(level, color=0xfffd00)
+        for channel in await self.rated_channels():
+            channel = self.bot.get_channel(channel)
+            await channel.send('New weekly!', embed=level)
 
     @commands.group(name='gd')
     async def gd_(self, ctx):
@@ -168,16 +180,6 @@ class GD(commands.Cog):
             else:
                 embed.add_field(name='Latest comment', value=comments[0].body, inline=False)
             await ctx.send(file=icon_file, embed=embed)
-
-    @commands.command(hidden=True)
-    @commands.is_owner()
-    async def on_gd_rate(self, ctx, channel: discord.TextChannel):
-        if channel.id in self.rated_channels:
-            self.rated_channels.discard(channel.id)
-            await ctx.send('Channel removed')
-        else:
-            self.rated_channels.add(channel.id)
-            await ctx.send(f'Recently rated levels will now be posted on {channel.mention}')
 
 def setup(bot):
     bot.add_cog(GD(bot))

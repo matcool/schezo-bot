@@ -7,9 +7,10 @@ import os
 import motor.motor_asyncio as motor
 import logging
 import sys
+from cogs.utils.guild_features import GuildFeatures
 
 class Schezo(commands.Bot):
-    __slots__ = 'config', 'start_time', '_cogs_loaded', 'db_client', 'db', 'logger'
+    __slots__ = 'config', 'start_time', '_cogs_loaded', 'db_client', 'db', 'logger', 'gf'
     def __init__(self):
         if not os.path.exists('bot_config.json'):
             raise FileNotFoundError('Could not find "bot_config.json". Make sure to copy and rename the template and then change the values.')
@@ -20,6 +21,8 @@ class Schezo(commands.Bot):
         self._cogs_loaded = False
         self.db_client = motor.AsyncIOMotorClient('localhost', 27017, retryWrites=self.config.get('retrywrites', True))
         self.db = self.db_client[self.config['dbname']]
+
+        self.gf: GuildFeatures = GuildFeatures(self.db)
 
         self.logger = logging.getLogger('schezo')
         formatter = logging.Formatter('[{asctime} {levelname}] {message}', datefmt='%d/%m/%Y %H:%M', style='{')
