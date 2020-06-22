@@ -157,10 +157,10 @@ class Video(commands.Cog):
             image.save(inpath)
             outpath = os.path.join(folder, 'out.mp4') 
             cmd = [
-                'ffmpeg', '-f', 'lavfi', '-i', f'color=c=black:s={size[0]}x{size[1]}:d=10',
-                '-i', inpath, '-filter_complex', '[0:v][1:v]overlay=0:0',
-                '-i', f'assets/cave/cave{random.randint(0, 7)}.ogg', '-shortest',
-                '-f', 'mp4', outpath,
+                'ffmpeg', '-i', f'assets/cave/cave{random.randint(0, 7)}.ogg',
+                '-loop', '1', '-i', inpath,
+                '-shortest', '-pix_fmt', 'yuv420p',
+                '-f', 'mp4', outpath
             ]
 
             process = run_command(cmd)
