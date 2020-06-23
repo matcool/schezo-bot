@@ -6,4 +6,4 @@ Pillow>=7.1.1
 psutil==5.6.6
 mcstatus==2.3.0
 py-cpuinfo==5.0.0
-gd.py==0.10.5
+git+https://github.com/NeKitDS/gd.py@c09354596cea6ca847164cb519add468074573d3

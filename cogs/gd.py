@@ -14,7 +14,7 @@ class GD(commands.Cog):
         self.bot = bot
         self.overwrite_name = 'Games'
         self.client = gd.Client()
-        
+    
         # hardcoded emotes lets go
         self.em_star = '<:gd_star:710548947965575238>'
         self.em_demon = '<:gd_demon:710549050444873809>'
@@ -22,15 +22,14 @@ class GD(commands.Cog):
         self.em_user_coin = '<:gd_user_coin:710549002784866335>'
         self.em_cp = '<:gd_cp:710549072053928029>'
         
-        gd.events.attach_to_loop(bot.loop)
-
         self.client.listen_for('rate')(self.on_level_rated)
         self.client.listen_for('daily')(self.on_new_daily)
         self.client.listen_for('weekly')(self.on_new_weekly)
 
+        gd.events.enable(bot.loop)
+
     def cog_unload(self):
-        for listener in gd.events.all_listeners:
-            listener.close()
+        gd.events.cancel_tasks()
 
     def level_embed(self, level: gd.Level, color=0x87ff66) -> discord.Embed:
         level_id = level.id
@@ -70,13 +69,13 @@ class GD(commands.Cog):
         embed = self.level_embed(level, color=0xf72c2c)
         for channel in await self.rated_channels():
             channel = self.bot.get_channel(channel)
-            await channel.send('New daily!', embed=level)
+            await channel.send('New daily!', embed=self.level_embed(level))
 
     async def on_new_weekly(self, level):
         embed = self.level_embed(level, color=0x555555)
         for channel in await self.rated_channels():
             channel = self.bot.get_channel(channel)
-            await channel.send('New weekly!', embed=level)
+            await channel.send('New weekly!', embed=self.level_embed(level))
 
     @commands.group(name='gd')
     async def gd_(self, ctx):
