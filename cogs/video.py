@@ -32,6 +32,7 @@ class Video(commands.Cog):
                 await msg.delete()
             except FFmpegError as error:
                 await msg.edit(content=f'FFmpeg error:\n```\n{error.error[:1500]}```')
+                self.bot.logger.error(error.error)
         else:
             await msg.edit(content='No video found')
 
@@ -51,7 +52,6 @@ class Video(commands.Cog):
 
             process = run_command(cmd)
             if process.ret:
-                self.bot.logger.error(process.err)
                 raise FFmpegError(process)
 
             with open(outpath, 'rb') as file:
@@ -99,7 +99,6 @@ class Video(commands.Cog):
 
             process = run_command(cmd)
             if process.ret:
-                self.bot.logger.error(process.err)
                 raise FFmpegError(process)
 
             with open(outpath, 'rb') as file:
@@ -132,7 +131,6 @@ class Video(commands.Cog):
 
             process = run_command(cmd)
             if process.ret:
-                self.bot.logger.error(process.err)
                 raise FFmpegError(process)
 
             with open(outpath, 'rb') as file:
@@ -141,12 +139,14 @@ class Video(commands.Cog):
 
     @commands.command()
     @commands.cooldown(2, 20, BucketType.default)
-    async def vibrato(self, ctx, ondulation: float=0.5):
+    async def vibrato(self, ctx, modulation: float=0.5):
         """
         vibrato audio ooOoOooOOOooooOoo
         looks for recent video and runs command on it
         """
-        f = ondulation * 16
+        f = modulation * 16
+        if f >= 20000 or f <= 0:
+            return await ctx.send(f'Modulation is too big, has to be in range of [0.1 - 1250]')
         return await self.basic_ffmpeg_command(ctx, self.vibrato_ffmpeg, f, filename='vibrato.mp4')
 
     def cavesounds_ffmpeg(self, image) -> bytes:
@@ -166,7 +166,6 @@ class Video(commands.Cog):
 
             process = run_command(cmd)
             if process.ret:
-                self.bot.logger.error(process.err)
                 raise FFmpegError(process)
 
             with open(outpath, 'rb') as file:
