@@ -49,7 +49,7 @@ def run_command(cmd: Sequence[str], input: bool=None) -> ProcessInfo:
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = process.communicate(input)
     ret = process.poll()
-    return ProcessInfo(out, err, ret)
+    return ProcessInfo(out, err.decode('utf-8'), ret)
 
 MinecraftInfo = namedtuple('MinecraftInfo', ['ping', 'desc', 'online', 'max', 'players', 'version', 'icon'])
 

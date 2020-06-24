@@ -31,7 +31,7 @@ class Video(commands.Cog):
                 await ctx.send(file=discord.File(video, filename=filename))
                 await msg.delete()
             except FFmpegError as error:
-                await msg.edit(content=f'FFmpeg error:\n```\n{error.error}```')
+                await msg.edit(content=f'FFmpeg error:\n```\n{error.error[:1500]}```')
         else:
             await msg.edit(content='No video found')
 
@@ -160,6 +160,7 @@ class Video(commands.Cog):
                 'ffmpeg', '-i', f'assets/cave/cave{random.randint(0, 7)}.ogg',
                 '-loop', '1', '-i', inpath,
                 '-shortest', '-pix_fmt', 'yuv420p',
+                '-filter_complex', 'pad=ceil(iw/2)*2:ceil(ih/2)*2',
                 '-f', 'mp4', outpath
             ]
 
