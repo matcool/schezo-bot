@@ -68,19 +68,19 @@ class GD(commands.Cog):
         embed = self.level_embed(level, color=0xfffd00)
         for channel in await self.rated_channels():
             channel = self.bot.get_channel(channel)
-            await channel.send('New rated level!', embed=self.level_embed(level))
+            await channel.send('New rated level!', embed=embed)
 
     async def on_new_daily(self, level):
         embed = self.level_embed(level, color=0xf72c2c)
         for channel in await self.rated_channels():
             channel = self.bot.get_channel(channel)
-            await channel.send('New daily!', embed=self.level_embed(level))
+            await channel.send('New daily!', embed=embed)
 
     async def on_new_weekly(self, level):
         embed = self.level_embed(level, color=0x555555)
         for channel in await self.rated_channels():
             channel = self.bot.get_channel(channel)
-            await channel.send('New weekly!', embed=self.level_embed(level))
+            await channel.send('New weekly!', embed=embed)
 
     @commands.group(name='gd')
     async def gd_(self, ctx):
