@@ -25,11 +25,16 @@ class GD(commands.Cog):
         self.client.listen_for('rate')(self.on_level_rated)
         self.client.listen_for('daily')(self.on_new_daily)
         self.client.listen_for('weekly')(self.on_new_weekly)
-
+        
         gd.events.enable(bot.loop)
 
     def cog_unload(self):
-        gd.events.cancel_tasks()
+        # gd.events.cancel_tasks()
+        # gd.events.shutdown_threads()
+        # gd.events.disable()
+        # none of these work
+        # bot may error on shutdown due to these not stopping
+        return
 
     def level_embed(self, level: gd.Level, color=0x87ff66) -> discord.Embed:
         level_id = level.id
