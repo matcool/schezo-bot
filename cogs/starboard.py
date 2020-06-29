@@ -53,6 +53,7 @@ class Starboard(commands.Cog):
 
     @commands.group(invoke_without_command=True)
     @commands.has_permissions(manage_channels=True)
+    @commands.guild_only()
     async def starboard(self, ctx, channel: discord.TextChannel, stars_req: int):
         """
         Sets given channel as starboard channel for server

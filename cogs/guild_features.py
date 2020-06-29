@@ -46,7 +46,7 @@ class GuildFeatures(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
-        if message.guild.id not in self.active_guilds: return
+        if not message.guild or message.guild.id not in self.active_guilds: return
         if await self.gf.get_option(message.guild.id, 'quote_links'):
             msg = await self.get_message_from_url(message.content)
             if msg:

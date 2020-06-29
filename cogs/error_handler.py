@@ -39,6 +39,9 @@ class ErrorHandlerCog(commands.Cog):
 
         elif isinstance(error, commands.BotMissingPermissions):
             await ctx.send(f'Bot has missing permissions: {", ".join(error.missing_perms)}')
+
+        elif isinstance(error, commands.NoPrivateMessage):
+            await ctx.send('This command is guild only')
         
         else:
             tb = traceback.format_exception(type(error), error, error.__traceback__)
