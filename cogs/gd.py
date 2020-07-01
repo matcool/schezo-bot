@@ -185,5 +185,24 @@ class GD(commands.Cog):
                 embed.add_field(name='Latest comment', value=comments[0].body, inline=False)
             await ctx.send(file=icon_file, embed=embed)
 
+    @gd_.command()
+    async def daily(self, ctx):
+        try:
+            level = await self.client.get_daily()
+        except gd.MissingAccess:
+            return await ctx.send('Could not fetch daily')
+        
+        await ctx.send(embed=self.level_embed(level, color=0xf72c2c))
+
+    @gd_.command()
+    async def weekly(self, ctx):
+        try:
+            level = await self.client.get_weekly()
+        except gd.MissingAccess:
+            return await ctx.send('Could not fetch weekly')
+        
+        await ctx.send(embed=self.level_embed(level, color=0x555555))
+
+
 def setup(bot):
     bot.add_cog(GD(bot))
