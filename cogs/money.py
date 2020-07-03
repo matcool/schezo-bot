@@ -135,10 +135,10 @@ class Money(commands.Cog):
                         custom = self.custom_currencies[curr_b if which else curr_a]
                         if which:
                             val = await self.convert_currency(session, curr_a, custom[1], amt=amount)
-                            await ctx.send(f'{amount:.2f} {curr_a} is about {val * custom[0]:.2f} {curr_b}')
+                            await ctx.send(f'{amount:.2f} {curr_a} is about {val * custom[0]:,.2f} {curr_b}')
                         else:
                             val = await self.convert_currency(session, custom[1], curr_b, amt=amount)
-                            await ctx.send(f'{amount:.2f} {curr_a} is about {val / custom[0]:.2f} {curr_b}')
+                            await ctx.send(f'{amount:.2f} {curr_a} is about {val / custom[0]:,.2f} {curr_b}')
                         return
                     if curr_a not in self.currencies or curr_b not in self.currencies:
                         return await ctx.send('Unknown currency')
@@ -149,7 +149,7 @@ class Money(commands.Cog):
                     except RateLimited as e:
                         await ctx.send('Rate limited')
                     else:
-                        await ctx.send(f'{amount:.2f} {curr_a} is about {val:.2f} {curr_b}')
+                        await ctx.send(f'{amount:.2f} {curr_a} is about {val:,.2f} {curr_b}')
             except APIError as e:
                 await ctx.send(f'API error, probably down ({e.args[0]})')
 
