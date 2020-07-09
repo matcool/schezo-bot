@@ -7,16 +7,20 @@ async def get_avatar(user: discord.User, url: bool=False) -> Union[bytes, str]:
     avatar = user.avatar_url_as(format='png')
     return str(avatar) if url else await avatar.read()
 
-async def get_msg_image(message: discord.Message, url: bool=False) -> Union[bytes, str]:
+
+async def get_msg_image(message: discord.Message, max_size: int=8000000, url: bool=False) -> Union[bytes, str]:
     if message.attachments:
         for att in message.attachments:
-            file_type = await get_file_type(att.url)
-            if file_type and file_type.startswith('image/') and 'svg' not in file_type:
+            headers = await get_headers(att.url)
+            file_type = headers.get('Content-Type')
+            size = headers.get('Content-Length')
+            if file_type and file_type.startswith('image/') and 'svg' not in file_type and size and int(size) < max_size:
                 return att.url if url else await att.read()
     if message.embeds:
         for embed in message.embeds:
             url_str = embed.thumbnail.url or embed.image.url
-            if url_str: return url_str if url else await get_page(url_str)
+            size = get_file_size(url_str)
+            if url_str and size and int(size) < max_size: return url_str if url else await get_page(url_str)
 
 async def get_msg_video(message: discord.Message, max_size: int=8000000, url: bool=False, thumb: bool=False) -> Union[bytes, str]:
     if message.attachments:

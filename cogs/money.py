@@ -128,8 +128,8 @@ class Money(commands.Cog):
 
                 # Convert from one currency to another if both given
                 else:
+                    if curr_a == curr_b: return await ctx.send('cant be bothered')
                     if curr_a in self.custom_currencies or curr_b in self.custom_currencies:
-                        if curr_a == curr_b: return await ctx.send('cant be bothered')
                         # 0 for curr_a, 1 for curr_b
                         which = curr_b in self.custom_currencies
                         custom = self.custom_currencies[curr_b if which else curr_a]
