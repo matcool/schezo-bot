@@ -19,7 +19,7 @@ async def get_msg_image(message: discord.Message, max_size: int=8000000, url: bo
     if message.embeds:
         for embed in message.embeds:
             url_str = embed.thumbnail.url or embed.image.url
-            size = get_file_size(url_str)
+            size = await get_file_size(url_str)
             if url_str and size and int(size) < max_size: return url_str if url else await get_page(url_str)
 
 async def get_msg_video(message: discord.Message, max_size: int=8000000, url: bool=False, thumb: bool=False) -> Union[bytes, str]:
