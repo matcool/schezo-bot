@@ -85,5 +85,22 @@ class Private(commands.Cog, command_attrs=dict(hidden=True)):
         await ctx.send(f'```\n{cmd.out.decode("utf-8")}```')
         await self.bot.get_command('rc').callback(ctx)
 
+    @commands.command(hidden=True)
+    @commands.guild_only()
+    async def boom(self, ctx: commands.Context):
+        for vc in ctx.guild.voice_channels:
+            if ctx.author in vc.members:
+                if ctx.voice_client is not None:
+                    await ctx.voice_client.move_to(vc)
+                else:
+                    await vc.connect()
+
+                source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio('./assets/boom.mp3'))
+                ctx.voice_client.play(source, after=lambda e: print('Player error: %s' % e) if e else None)
+
+                break
+        else:
+            await ctx.send('u not in vc')
+
 def setup(bot):
     bot.add_cog(Private(bot))
