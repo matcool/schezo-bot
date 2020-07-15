@@ -95,8 +95,9 @@ class Private(commands.Cog, command_attrs=dict(hidden=True)):
                 else:
                     await vc.connect()
 
-                source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio('./assets/boom.mp3'))
-                ctx.voice_client.play(source, after=lambda e: print('Player error: %s' % e) if e else None)
+                if ctx.voice_client:
+                    source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio('./assets/boom.mp3'))
+                    ctx.voice_client.play(source)
 
                 break
         else:

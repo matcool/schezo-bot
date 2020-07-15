@@ -172,10 +172,9 @@ class GD(commands.Cog):
             if user.cp:
                 embed.add_field(name='Creator Points', value=f'{user.cp:,}{self.em_cp}')
 
-            icon_url = self.user_icon(user)
-            icon_data = await get_page(icon_url)
-            icon_file = discord.File(io.BytesIO(icon_data), filename='icon.png')
-            embed.set_thumbnail(url='attachment://icon.png')
+            icons_data = await get_page(f'http://nekit.xyz/api/icons/all/{user.name}'.replace(' ', '%20'))
+            icons_file = discord.File(io.BytesIO(icons_data), filename='icons.png')
+            embed.set_image(url='attachment://icons.png')
 
             try:
                 comments = await user.get_page_comments(0)
@@ -183,7 +182,7 @@ class GD(commands.Cog):
                 pass
             else:
                 embed.add_field(name='Latest comment', value=comments[0].body, inline=False)
-            await ctx.send(file=icon_file, embed=embed)
+            await ctx.send(file=icons_file, embed=embed)
 
     @gd_.command()
     async def daily(self, ctx):
