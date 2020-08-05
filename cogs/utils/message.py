@@ -69,3 +69,6 @@ async def message_embed(message: discord.Message, original: bool=True, color: in
         fancy = '\n'.join(f'- [{att.filename}]({att.url})' for att in message.attachments if att.url != url)
         if fancy: embed.add_field(name='Attachments', value=fancy)
     return embed
+
+async def clean_text(ctx: commands.Context, text: str, **kwargs) -> str:
+    return await commands.clean_content(**kwargs).convert(ctx, text)

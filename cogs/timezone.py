@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import pendulum
 from .utils import time as time_utils
+from .utils.message import clean_text
 
 class Timezone(commands.Cog):
     __slots__ = 'bot', 'db'
@@ -57,7 +58,7 @@ class Timezone(commands.Cog):
                                f'Your current time is: {time_utils.format_date(pendulum.now(timezone))}')
             else:
                 own_timezone = None if other is None else await self.get_user_timezone(ctx.author.id)
-                response = f"It's {time_utils.format_date(pendulum.now(timezone))} for {other.display_name}"
+                response = f"It's {time_utils.format_date(pendulum.now(timezone))} for {await clean_text(ctx, other.display_name)}"
                 if own_timezone and own_timezone != timezone:
                     diff = time_utils.timezone_diff(timezone, own_timezone)
                     if diff != 0:
