@@ -7,6 +7,75 @@ from .utils.paginator import Paginator
 from .utils.http import get_page
 import io
 
+class GDEvents:
+    def __init__(self, client: gd.Client, delay: int=5, pages: int=2, timely_delay: int=10):
+        self.client = client
+        self.delay = delay
+        self.pages = pages
+        self.timely_delay = timely_delay
+
+        self.rated_cache = set()
+        self.last_daily = None
+        self.last_weekly = None
+
+        self.listeners = {
+            'rated': [],
+            'daily': [],
+            'weekly': []
+        }
+
+        self.rated_task = tasks.loop(minutes=self.delay)(self.fetch_rated)
+        self.timely_task = tasks.loop(minutes=self.timely_delay)(self.fetch_timely)
+
+    def add_listener(self, kind, listener):
+        assert kind in {'rated', 'daily', 'weekly'}
+        self.listeners[kind].append(listener)
+
+    def start(self):
+        self.rated_task.start()
+        self.timely_task.start()
+
+    def stop(self):
+        if self.rated_task: self.rated_task.cancel()
+        if self.timely_task: self.timely_task.cancel()
+
+    async def fetch_rated(self):
+        now_rated = await self.client.search_levels(filters=gd.Filters(strategy=gd.SearchStrategy.AWARDED), pages=range(self.pages))
+        if self.rated_cache:
+            levels = [i.id for i in now_rated if i.id not in self.rated_cache]
+            if levels:
+                await asyncio.sleep(5) # sometimes levels get rated and then featured, which is why the 5 second delay
+                levels = await self.client.get_many_levels(*levels)
+                for listener in self.listeners['rated']:
+                    await listener(levels)
+        self.rated_cache = {i.id for i in now_rated}
+    
+    async def fetch_timely(self):
+        await self.fetch_daily()
+        await self.fetch_weekly()
+
+    async def fetch_daily(self):
+        try:
+            daily = await self.client.get_daily()
+        except gd.MissingAccess:
+            # level is most likely being updated, ignore
+            return
+        if self.last_daily and daily.id != self.last_daily:
+            for listener in self.listeners['daily']:
+                await listener(daily)
+        self.last_daily = daily.id
+
+    async def fetch_weekly(self):
+        try:
+            weekly = await self.client.get_weekly()
+        except gd.MissingAccess:
+            # level is most likely being updated, ignore
+            return
+        if self.last_weekly and weekly.id != self.last_weekly:
+            for listener in self.listeners['weekly']:
+                await listener(weekly)
+        self.last_weekly = weekly.id
+
 class GD(commands.Cog):
     __slots__ = ('bot', 'overwrite_name')
 
@@ -21,20 +90,17 @@ class GD(commands.Cog):
         self.em_coin = '<:gd_coin:710548974691418183>'
         self.em_user_coin = '<:gd_user_coin:710549002784866335>'
         self.em_cp = '<:gd_cp:710549072053928029>'
+
+        self.events = GDEvents(self.client)
         
-        self.client.listen_for('rate')(self.on_level_rated)
-        self.client.listen_for('daily')(self.on_new_daily)
-        self.client.listen_for('weekly')(self.on_new_weekly)
+        self.events.add_listener('rated', self.on_rated)
+        self.events.add_listener('daily', self.on_daily)
+        self.events.add_listener('weekly', self.on_weekly)
         
-        gd.events.enable(bot.loop)
+        self.events.start()
 
     def cog_unload(self):
-        # gd.events.cancel_tasks()
-        # gd.events.shutdown_threads()
-        # gd.events.disable()
-        # none of these work
-        # bot may error on shutdown due to these not stopping
-        return
+        self.events.stop()
 
     def level_embed(self, level: gd.Level, color=0x87ff66) -> discord.Embed:
         level_id = level.id
@@ -64,19 +130,20 @@ class GD(commands.Cog):
     async def rated_channels(self):
         return [i['gd_updates'] async for i in self.bot.gf.db.find({'gd_updates': {'$not': {'$eq': None}}}, {'gd_updates': True})]
 
-    async def on_level_rated(self, level):
-        embed = self.level_embed(level, color=0xfffd00)
+    async def on_rated(self, levels):
+        embeds = [self.level_embed(level, color=0xfffd00) for level in levels]
         for channel in await self.rated_channels():
             channel = self.bot.get_channel(channel)
-            await channel.send('New rated level!', embed=embed)
+            for embed in embeds:
+                await channel.send('New rated level!', embed=embed)
 
-    async def on_new_daily(self, level):
+    async def on_daily(self, level):
         embed = self.level_embed(level, color=0xf72c2c)
         for channel in await self.rated_channels():
             channel = self.bot.get_channel(channel)
             await channel.send('New daily!', embed=embed)
 
-    async def on_new_weekly(self, level):
+    async def on_weekly(self, level):
         embed = self.level_embed(level, color=0x555555)
         for channel in await self.rated_channels():
             channel = self.bot.get_channel(channel)
