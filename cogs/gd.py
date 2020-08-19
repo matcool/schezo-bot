@@ -8,7 +8,7 @@ from .utils.http import get_page
 import io
 
 class GDEvents:
-    def __init__(self, client: gd.Client, delay: int=5, pages: int=2, timely_delay: int=10):
+    def __init__(self, client: gd.Client, delay: float=1.5, pages: int=2, timely_delay: float=5):
         self.client = client
         self.delay = delay
         self.pages = pages
