@@ -243,11 +243,8 @@ class GD(commands.Cog):
             icons_file = discord.File(io.BytesIO(icons_data), filename='icons.png')
             embed.set_image(url='attachment://icons.png')
 
-            try:
-                comments = await user.get_page_comments(0)
-            except gd.errors.NothingFound:
-                pass
-            else:
+            comments = await user.get_page_comments(0)
+            if comments:
                 embed.add_field(name='Latest comment', value=comments[0].body, inline=False)
             await ctx.send(file=icons_file, embed=embed)
 
