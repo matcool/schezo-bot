@@ -41,6 +41,8 @@ class GDEvents:
 
     async def fetch_rated(self):
         now_rated = await self.client.search_levels(filters=gd.Filters(strategy=gd.SearchStrategy.AWARDED), pages=range(self.pages))
+        # If the list is empty gd servers are most likely dead
+        if not now_rated: return
         if self.rated_cache:
             levels = [i.id for i in now_rated if i.id not in self.rated_cache]
             if levels:
