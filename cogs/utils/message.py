@@ -42,6 +42,12 @@ async def get_msg_video(message: discord.Message, max_size: int=8000000, url: bo
                     elif thumb: return embed.video.proxy_url + '?format=jpeg'
                     else: return await get_page(embed.video.url)
 
+async def get_msg_video_or_img(message: discord.Message, prefer_img: bool=False, **kwargs):
+    media = await (get_msg_image if prefer_img else get_msg_video)(message, **kwargs)
+    if media: return (media, 'image' if prefer_img else 'video')
+    media = await (get_msg_video if prefer_img else get_msg_image)(message, **kwargs)
+    if media: return (media, 'video' if prefer_img else 'image')
+
 async def get_nearest(ctx: commands.Context, limit: int=20, lookup: Callable[[discord.Message], Union[bytes, str]]=get_msg_image, **lookup_kwargs) -> Union[bytes, str]:
     look = await lookup(ctx.message, **lookup_kwargs)
     if look is None:

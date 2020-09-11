@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
 from .utils.video import run_command, video_size, has_audio
-from .utils.message import get_nearest, get_msg_video, get_msg_image
+from .utils.message import get_nearest, get_msg_video, get_msg_image, get_msg_video_or_img
 import tempfile
 import os
 import io
@@ -35,6 +35,65 @@ class Video(commands.Cog):
                 self.bot.logger.error(error.error)
         else:
             await msg.edit(content='No video found')
+
+    @staticmethod
+    def _sound_ffmpeg(media, media_type: str, sound: str):
+        with tempfile.TemporaryDirectory() as folder:
+            outpath = os.path.join(folder, 'out.webm')
+            # enums?? what are those
+            if media_type == 'image':
+                inpath = os.path.join(folder, 'input.png')
+                Image.open(io.BytesIO(media)).convert('RGB').save(inpath)
+
+                cmd = [
+                    'ffmpeg', '-i', sound,
+                    '-loop', '1', '-i', inpath,
+                    '-shortest', '-pix_fmt', 'yuv420p',
+                    '-filter_complex', 'pad=ceil(iw/2)*2:ceil(ih/2)*2',
+                    '-f', 'webm', outpath
+                ]
+            elif media_type == 'video':
+                inpath = os.path.join(folder, 'input')
+                with open(inpath, 'wb') as file:
+                    file.write(media)
+
+                cmd = [
+                    'ffmpeg', '-v', 'error',
+                    '-i', inpath,
+                    '-i', sound,
+                    '-map', '0:v',
+                    '-map', '1:a',
+                    '-shortest',
+                    '-f', 'webm', outpath
+                ]
+            else:
+                # ???
+                raise Exception(f'What {media_type!r}')
+
+            process = run_command(cmd)
+            if process.ret:
+                raise FFmpegError(process)
+
+            with open(outpath, 'rb') as file:
+                data = file.read()
+        return data
+
+    async def sound_ffmpeg_command(self, ctx: commands.Context, sound: str, filename: str='video.mp4'):
+        msg = await ctx.send('Looking for media...')
+        media = await get_nearest(ctx, lookup=get_msg_video_or_img)
+        if media:
+            try:
+                await msg.edit(content='Rendering video...')
+                video = await self.bot.loop.run_in_executor(None, self._sound_ffmpeg, media[0], media[1], sound)
+                video = io.BytesIO(video)
+                await msg.edit(content='Uploading video...')
+                await ctx.send(file=discord.File(video, filename=filename))
+                await msg.delete()
+            except FFmpegError as error:
+                await msg.edit(content=f'FFmpeg error:\n```\n{error.error[:500]}```')
+                self.bot.logger.error(error.error)
+        else:
+            await msg.edit(content='No media found')
 
     def how_ffmpeg(self, video) -> bytes:
         with tempfile.TemporaryDirectory() as folder:
@@ -149,37 +208,27 @@ class Video(commands.Cog):
             return await ctx.send(f'Modulation is too big, has to be in range of [0.1 - 1250]')
         return await self.basic_ffmpeg_command(ctx, self.vibrato_ffmpeg, f, filename='vibrato.mp4')
 
-    def cavesounds_ffmpeg(self, image) -> bytes:
-        with tempfile.TemporaryDirectory() as folder:
-            inpath = os.path.join(folder, 'input.png')
-            image = Image.open(io.BytesIO(image)).convert('RGB')
-            size = image.size
-            image.save(inpath)
-            outpath = os.path.join(folder, 'out.mp4') 
-            cmd = [
-                'ffmpeg', '-i', f'assets/cave/cave{random.randint(0, 7)}.ogg',
-                '-loop', '1', '-i', inpath,
-                '-shortest', '-pix_fmt', 'yuv420p',
-                '-filter_complex', 'pad=ceil(iw/2)*2:ceil(ih/2)*2',
-                '-f', 'mp4', outpath
-            ]
-
-            process = run_command(cmd)
-            if process.ret:
-                raise FFmpegError(process)
-
-            with open(outpath, 'rb') as file:
-                data = file.read()
-        return data
-
     @commands.command()
     @commands.cooldown(2, 20, BucketType.default)
     async def cavesounds(self, ctx):
         """
         minecraft cave sound to a picture
+        looks for recent image and runs command on it
+        """
+        return await self.sound_ffmpeg_command(ctx, f'assets/cave/cave{random.randint(0, 7)}.mp3', filename='cave.webm')
+
+    @commands.command()
+    @commands.cooldown(2, 20, BucketType.default)
+    async def fnafsounds(self, ctx):
+        """
+        fnaf sound
         looks for recent video and runs command on it
         """
-        return await self.basic_ffmpeg_command(ctx, self.cavesounds_ffmpeg, filename='cave.mp4', lookup=get_msg_image)
+        # TODO: have user choose these
+        fnaf = os.path.join('assets/fnaf', random.choice(('1', '2', '3', '4', '6', 'sl', 'ucn')))
+        sounds = os.listdir(fnaf)
+        sound = os.path.join(fnaf, random.choice(sounds))
+        return await self.sound_ffmpeg_command(ctx, sound, filename='fnaf.webm')
 
 def setup(bot):
     bot.add_cog(Video(bot))
