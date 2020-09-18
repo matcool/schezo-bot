@@ -38,8 +38,9 @@ class Video(commands.Cog):
 
     @staticmethod
     def _sound_ffmpeg(media, media_type: str, sound: str):
+        ext = 'webm' if media_type == 'video' else 'mp4'
         with tempfile.TemporaryDirectory() as folder:
-            outpath = os.path.join(folder, 'out.webm')
+            outpath = os.path.join(folder, 'out.' + ext)
             # enums?? what are those
             if media_type == 'image':
                 inpath = os.path.join(folder, 'input.png')
@@ -50,7 +51,8 @@ class Video(commands.Cog):
                     '-loop', '1', '-i', inpath,
                     '-shortest', '-pix_fmt', 'yuv420p',
                     '-filter_complex', 'pad=ceil(iw/2)*2:ceil(ih/2)*2',
-                    '-f', 'webm', outpath
+                    '-c:v', 'mpeg4',
+                    '-f', 'mp4', outpath
                 ]
             elif media_type == 'video':
                 inpath = os.path.join(folder, 'input')
@@ -76,18 +78,18 @@ class Video(commands.Cog):
 
             with open(outpath, 'rb') as file:
                 data = file.read()
-        return data
+        return (data, ext)
 
-    async def sound_ffmpeg_command(self, ctx: commands.Context, sound: str, filename: str='video.mp4'):
+    async def sound_ffmpeg_command(self, ctx: commands.Context, sound: str, filename: str='video'):
         msg = await ctx.send('Looking for media...')
         media = await get_nearest(ctx, lookup=get_msg_video_or_img)
         if media:
             try:
                 await msg.edit(content='Rendering video...')
-                video = await self.bot.loop.run_in_executor(None, self._sound_ffmpeg, media[0], media[1], sound)
+                video, ext = await self.bot.loop.run_in_executor(None, self._sound_ffmpeg, media[0], media[1], sound)
                 video = io.BytesIO(video)
                 await msg.edit(content='Uploading video...')
-                await ctx.send(file=discord.File(video, filename=filename))
+                await ctx.send(file=discord.File(video, filename=filename + f'.{ext}'))
                 await msg.delete()
             except FFmpegError as error:
                 await msg.edit(content=f'FFmpeg error:\n```\n{error.error[:500]}```')
@@ -208,27 +210,31 @@ class Video(commands.Cog):
             return await ctx.send(f'Modulation is too big, has to be in range of [0.1 - 1250]')
         return await self.basic_ffmpeg_command(ctx, self.vibrato_ffmpeg, f, filename='vibrato.mp4')
 
-    @commands.command()
+    @commands.command(aliases=['cave'])
     @commands.cooldown(2, 20, BucketType.default)
     async def cavesounds(self, ctx):
         """
         minecraft cave sound to a picture
-        looks for recent image and runs command on it
+        looks for recent image/video and runs command on it
         """
-        return await self.sound_ffmpeg_command(ctx, f'assets/cave/cave{random.randint(0, 7)}.mp3', filename='cave.webm')
+        return await self.sound_ffmpeg_command(ctx, f'assets/cave/cave{random.randint(0, 7)}.mp3', filename='cave')
 
-    @commands.command()
+    @commands.command(aliases=['fnaf'])
     @commands.cooldown(2, 20, BucketType.default)
-    async def fnafsounds(self, ctx):
+    async def fnafsounds(self, ctx, fnaf=None):
         """
         fnaf sound
-        looks for recent video and runs command on it
+        looks for recent image/video and runs command on it
+
+        `fnaf` can be either set to `1`, `2`, `3`, `4`, `6`, `sl` or `ucn`. defaults to random
         """
-        # TODO: have user choose these
-        fnaf = os.path.join('assets/fnaf', random.choice(('1', '2', '3', '4', '6', 'sl', 'ucn')))
-        sounds = os.listdir(fnaf)
-        sound = os.path.join(fnaf, random.choice(sounds))
-        return await self.sound_ffmpeg_command(ctx, sound, filename='fnaf.webm')
+        options = ('1', '2', '3', '4', '6', 'sl', 'ucn')
+        if fnaf is None or fnaf not in options:
+            fnaf = random.choice(options)
+        folder = os.path.join('assets/fnaf', fnaf)
+        sounds = os.listdir(folder)
+        sound = os.path.join(folder, random.choice(sounds))
+        return await self.sound_ffmpeg_command(ctx, sound, filename='fnaf')
 
 def setup(bot):
     bot.add_cog(Video(bot))
