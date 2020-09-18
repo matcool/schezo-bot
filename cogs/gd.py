@@ -157,9 +157,9 @@ class GD(commands.Cog):
         """
         Group of Geometry Dash related commands.
         Examples::
-        > search yeah
+        > level yeah
         the level
-        > search 123456
+        > level 123456
         the exact level
         """
         return
