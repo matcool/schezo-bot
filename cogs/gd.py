@@ -92,6 +92,8 @@ class GD(commands.Cog):
         self.em_coin = '<:gd_coin:710548974691418183>'
         self.em_user_coin = '<:gd_user_coin:710549002784866335>'
         self.em_cp = '<:gd_cp:710549072053928029>'
+        self.em_mod = '<:gd_mod:763864307065683978>'
+        self.em_mod_elder = '<:gd_mod_elder:763864329036103722>'
 
         self.events = GDEvents(self.client)
         
@@ -249,6 +251,12 @@ class GD(commands.Cog):
             except Exception:
                 # nekit's website is most likely down, ignore
                 icons_file = None
+
+            embed.set_footer(text=f'Account ID: {user.account_id}')
+
+            if user.is_mod():
+                elder = user.is_mod('elder')
+                embed.title = f'{self.em_mod_elder if elder else self.em_mod} {embed.title}'
 
             comments = await user.get_page_comments(0)
             if comments:
