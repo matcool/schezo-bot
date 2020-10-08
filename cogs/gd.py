@@ -242,9 +242,13 @@ class GD(commands.Cog):
             if user.cp:
                 embed.add_field(name='Creator Points', value=f'{user.cp:,}{self.em_cp}')
 
-            icons_data = await get_page(f'http://nekit.xyz/api/icons/all/{user.name}'.replace(' ', '%20'))
-            icons_file = discord.File(io.BytesIO(icons_data), filename='icons.png')
-            embed.set_image(url='attachment://icons.png')
+            try:
+                icons_data = await get_page(f'http://nekit.dev/api/icons/all/{user.name}'.replace(' ', '%20'))
+                icons_file = discord.File(io.BytesIO(icons_data), filename='icons.png')
+                embed.set_image(url='attachment://icons.png')
+            except Exception:
+                # nekit's website is most likely down, ignore
+                icons_file = None
 
             comments = await user.get_page_comments(0)
             if comments:
