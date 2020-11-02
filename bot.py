@@ -16,7 +16,26 @@ class Schezo(commands.Bot):
             raise FileNotFoundError('Could not find "bot_config.json". Make sure to copy and rename the template and then change the values.')
         with open('bot_config.json', 'r', encoding='utf-8') as file:
             self.config = json.load(file)
-        super().__init__(command_prefix=self.config['prefix'])
+        
+        intents = discord.Intents(
+            # These are both true for s.played
+            # although that command might be removed entirely in the future
+            presences=True,
+            members=True,
+    
+            reactions=True,
+            messages=True,
+            guilds=True,
+            typing=False,
+            invites=False,
+            webhooks=False,
+            integrations=False,
+            emojis=False,
+            bans=False,
+            voice_states=False,
+        )
+
+        super().__init__(command_prefix=self.config['prefix'], intents=intents)
         self.start_time = time.time()
         self._cogs_loaded = False
         self.db_client = motor.AsyncIOMotorClient('localhost', 27017, retryWrites=self.config.get('retrywrites', True))
