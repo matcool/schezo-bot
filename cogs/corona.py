@@ -59,8 +59,8 @@ class Corona(commands.Cog):
                     self.countries[country['country']] = CountryInfo(country)
         self.last_updated = time.time()
 
-    @commands.command()
-    async def corona(self, ctx, *, country=None):
+    @commands.command(aliases=['corona'])
+    async def covid(self, ctx, *, country=None):
         """
         Shows stats about COVID-19.
         Examples::
@@ -73,7 +73,7 @@ class Corona(commands.Cog):
             await self.update()
 
         if country is None:
-            embed = discord.Embed(title='Worldwide coronavirus status')
+            embed = discord.Embed(title='Worldwide COVID-19 status')
             embed.description = '[Data source](https://www.worldometers.info/coronavirus/), [API](https://disease.sh/)'
             embed.add_field(name='Cases', value=f'{self.all.cases:,}')
             embed.add_field(name='Deaths', value=f'{self.all.deaths:,}')
@@ -107,7 +107,7 @@ class Corona(commands.Cog):
             death_rate = '' if data.cases == 0 or data.deaths == 0 else f' ({data.deaths / data.cases * 100:.1f}%)'
             recov_rate = '' if data.cases == 0 or data.recovered == 0 else f' ({data.recovered / data.cases * 100:.1f}%)'
 
-            embed = discord.Embed(title=f"{country}'s coronavirus status")
+            embed = discord.Embed(title=f"{country}'s COVID-19 status")
             embed.add_field(name='Cases', value=f'{data.cases:,}{new_cases}')
             embed.add_field(name='Deaths' + death_rate, value=f'{data.deaths:,}{new_deaths}')
             embed.add_field(name='Recovered' + recov_rate, value=f'{data.recovered:,}')
