@@ -188,6 +188,42 @@ class GD(commands.Cog):
 
     @gd_.command()
     async def level(self, ctx, *, query):
+        """
+        Search levels.
+
+        List of all args:
+        `--user [username]`
+        `--difficulty [difficulties separated by spaces]`
+        `--length [lengths separated by spaces]`
+        `--song [official song names]`
+        `--song-id [newgrounds song id]`
+        `--coins`
+        `--featured`
+        `--epic`
+        `--rated`
+        `--no-star`
+        `--original`
+        `--2-player`
+        `--downloads`
+        `--likes`
+        `--recent`
+        `--magic`
+        `--trending`
+        `--hall-of-fame`
+        `--awarded`
+
+        Examples::
+        > level easy
+        Looks up level easy
+        > --user mat4
+        Looks up all levels by `mat4`
+        > challenge --length tiny short
+        Looks up challenge levels that are tiny or short
+        > --length tiny short --rated
+        Looks up all rated level that are tiny or short
+        > --difficulty extreme_demon --song-id 467339
+        Looks up all extreme demons with the most original song
+        """
         # Filters
         ARG_PREFIX = '--' # maybe change to / ?
         first = query.find(ARG_PREFIX)
@@ -275,8 +311,6 @@ class GD(commands.Cog):
                 search_filter['rated'] = False
             elif key == '2-player' or key == '2player' or key == 'two-player' or key == 'twoplayer':
                 search_filter['require_two_player'] = True
-            elif key == 'original':
-                search_filter['require_original'] = True
             elif key == 'original':
                 search_filter['require_original'] = True
             elif key == 'most-downloaded' or key == 'downloads':

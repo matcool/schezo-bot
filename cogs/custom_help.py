@@ -23,7 +23,7 @@ class CustomHelp(commands.Cog):
         return final
 
     @commands.command(name='help', hidden=True)
-    async def _help(self, ctx, lookup=None):
+    async def _help(self, ctx, lookup=None, *subcommands):
         """
         Shows help for given command or
         lists all/category commands
@@ -49,7 +49,7 @@ class CustomHelp(commands.Cog):
 
         # Look up command
         else:
-            cmd = self.bot.get_command(lookup.lower())
+            cmd = self.bot.get_command(' '.join([lookup.lower(), *map(str.lower, subcommands)]))
             if cmd:
                 cmd_help = cmd.help
                 examples = None
@@ -66,18 +66,18 @@ class CustomHelp(commands.Cog):
                                 final_help += line + '\n'
                         else:
                             if line[0] == '>':
-                                examples += f'`> {ctx.prefix}{cmd.name} {line[2:]}`\n'
+                                examples += f'`> {ctx.prefix}{cmd.qualified_name} {line[2:]}`\n'
                             else:
                                 examples += line + '\n'
                     cmd_help = final_help
                     examples = examples[:-1]
                         
                 embed = discord.Embed(
-                    title=cmd.name,
+                    title=cmd.qualified_name,
                     description=cmd_help,
                     colour=0x87ef73
                     )
-                embed.add_field(name='Syntax', value=f'`{ctx.prefix}{cmd.name} {cmd.signature}`')
+                embed.add_field(name='Syntax', value=f'`{ctx.prefix}{cmd.qualified_name} {cmd.signature}`')
                 if cmd.aliases:
                     embed.add_field(name='Aliases', value=' '.join(map(lambda x: f'`{x}`', cmd.aliases)))
                 if isinstance(cmd, commands.Group):
@@ -86,7 +86,7 @@ class CustomHelp(commands.Cog):
                     embed.add_field(name='Examples', value=examples, inline=False)
                 await ctx.send(embed=embed)
             else:
-                return await ctx.send('No command found with that name')
+                return await ctx.send('Command not found')
 
 def setup(bot):
     bot.add_cog(CustomHelp(bot))
