@@ -295,7 +295,7 @@ class GD(commands.Cog):
                 if not value:
                     return await invalid_value(key, 'Value is empty')
                 try:
-                    user = await self.client.find_user(value.replace('"', ''))
+                    user = await self.client.search_user(value.replace('"', ''), abstract=True)
                 except gd.MissingAccess:
                     return await invalid_value(key, 'User not found')
                 search_filter['strategy'] = SearchStrategy.BY_USER
