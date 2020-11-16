@@ -3,7 +3,7 @@ import discord
 import aiohttp
 import asyncio
 import gd
-from gd.utils.enums import SearchStrategy
+from gd import SearchStrategy
 from .utils.paginator import Paginator
 from .utils.http import get_page
 import io
@@ -42,7 +42,7 @@ class GDEvents:
         if self.timely_task: self.timely_task.cancel()
 
     async def fetch_rated(self):
-        now_rated = await self.client.search_levels(filters=gd.Filters(strategy=gd.SearchStrategy.AWARDED), pages=range(self.pages))
+        now_rated = await self.client.search_levels(filters=gd.Filters(strategy=SearchStrategy.AWARDED), pages=range(self.pages))
         # If the list is empty gd servers are most likely dead
         if not now_rated: return
         if self.rated_cache:
@@ -195,7 +195,7 @@ class GD(commands.Cog):
         `--user [username]`
         `--difficulty [difficulties separated by spaces]`
         `--length [lengths separated by spaces]`
-        `--song [official song names]`
+        `--song [official song name]`
         `--song-id [newgrounds song id]`
         `--coins`
         `--featured`
