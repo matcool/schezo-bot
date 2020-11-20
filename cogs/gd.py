@@ -1,4 +1,5 @@
 from discord.ext import commands, tasks
+from discord.ext.commands.cooldowns import BucketType
 import discord
 import aiohttp
 import asyncio
@@ -424,6 +425,46 @@ class GD(commands.Cog):
             return await ctx.send('Could not fetch weekly')
         
         await ctx.send(embed=self.level_embed(level, color=0x555555))
+
+    @commands.cooldown(1, 5, BucketType.default)
+    @gd_.command()
+    async def song(self, ctx, song_id: int):
+        """Gets info about a newgrounds song"""
+        async with ctx.typing():
+            emoji = lambda x: '\🟢' if x else '\🔴'
+            try:
+                info = await self.client.get_artist_info(song_id)
+            except ValueError:
+                # either the song doesn't actually exist or
+                # the artist isn't scouted
+                # (maybe even external api disabled? idk)
+                try:
+                    ng_song = await self.client.get_ng_song(song_id)
+                except gd.errors.HTTPStatusError:
+                    return await ctx.send('Song not found')
+                else:
+                    song = {
+                        'name': ng_song.name,
+                        'url': ng_song.link,
+                        'artist': ng_song.author,
+                        'artist_url': ng_song.get_author().link,
+                        'scouted': False,
+                        'whitelisted': False
+                    }
+            else:
+                song = {
+                    'name': info.song,
+                    'url': f'https://www.newgrounds.com/audio/listen/{song_id}',
+                    'artist': info.artist,
+                    'artist_url': f'https://{info.artist}.newgrounds.com/',
+                    'scouted': info.is_scouted(),
+                    'whitelisted': info.is_whitelisted()
+                }
+            await ctx.send(embed=discord.Embed(title=song['name'], url=song['url'], color=0xd4d5d6,
+                description=f'*by [{song["artist"]}]({song["artist_url"]})*\n\n'
+                f'{emoji(song["scouted"])} Scouted\n'
+                f'{emoji(song["whitelisted"])} Allowed in GD'
+            ).set_thumbnail(url=f'https://aicon.ngfiles.com/{str(song_id)[:3]}/{song_id}.png'))
 
 
 def setup(bot):
