@@ -431,7 +431,7 @@ class GD(commands.Cog):
     async def song(self, ctx, song_id: int):
         """Gets info about a newgrounds song"""
         async with ctx.typing():
-            emoji = lambda x: '\🟢' if x else '\🔴'
+            emoji = lambda x: '\✅' if x else '\❌'
             try:
                 info = await self.client.get_artist_info(song_id)
             except ValueError:
