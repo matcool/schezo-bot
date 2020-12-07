@@ -4,6 +4,7 @@ import subprocess
 from collections import namedtuple
 from mcstatus import MinecraftServer
 from base64 import b64decode
+import re
 
 def string_distance(a: str, b: str):
     """
@@ -87,3 +88,21 @@ def mcserver_status(server_ip: str, query: bool=False) -> MinecraftInfo:
             status.version.name,
             icon
         )
+
+def parse_args(query: str, arg_prefix: str='--') -> dict:
+    """
+    Parse arguments unix style
+    ```
+    >>> parse_args('mat mat --hello world --no-val')
+    ('mat mat', {'hello': 'world', 'no-val': None})
+    ```
+    """
+    first = query.find(arg_prefix)
+    args = {}
+    if first != -1:
+        for match in re.finditer(arg_prefix + r'([a-z-]+)(?: ([\w ]+))?', query):
+            key, value = match.group(1, 2)
+            args[key] = value
+        return query[:first].rstrip(), args
+    else:
+        return query, args

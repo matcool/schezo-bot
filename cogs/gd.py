@@ -7,6 +7,7 @@ import gd
 from gd import SearchStrategy
 from .utils.paginator import Paginator
 from .utils.http import get_page
+from .utils.misc import parse_args
 import io
 import re
 
@@ -225,113 +226,110 @@ class GD(commands.Cog):
         > --difficulty extreme_demon --song-id 467339
         Looks up all extreme demons with the most original song
         """
-        # Filters
-        ARG_PREFIX = '--' # maybe change to / ?
-        first = query.find(ARG_PREFIX)
-        args = {}
-        if first != -1:
-            for match in re.finditer(ARG_PREFIX + r'([a-z-]+)(?: ([\w ]+))?', query):
-                key, value = match.group(1, 2)
-                args[key] = value
-            query = query[:first].rstrip()
+        if not query.isnumeric():
+            # maybe change to / ?
+            query, args = parse_args(query, arg_prefix='--')
 
-        async def invalid_value(arg, msg):
-            await ctx.send(f'Invalid value on argument `{arg}`: {msg}')
+            async def invalid_value(arg, msg):
+                await ctx.send(f'Invalid value on argument `{arg}`: {msg}')
 
-        search_filter = {}
-        user = None
-        for key, value in args.items():
-            if value:
-                value = value.strip()
-            if key == 'difficulty' or key == 'diff':
-                if not value:
-                    return await invalid_value(key, 'Difficulty value is empty')
-                value = value.lower()
-                diffs = value.split(' ')
-                diff_names = {'na', 'easy', 'normal', 'hard', 'harder', 'insane', 'demon'}
-                demon_names = {'easy_demon', 'medium_demon', 'hard_demon', 'insane_demon', 'extreme_demon'}
-                if '_demon' in value:
-                    if len(diffs) > 1:
-                        return await invalid_value(key, 'Only one demon difficulty is allowed')
-                    diff = diffs[0]
-                    if diff not in demon_names:
-                        return await invalid_value(key, 'Invalid difficulty')
-                    search_filter['demon_difficulty'] = diff
-                else:
-                    for diff in diffs:
-                        if diff not in diff_names:
+            search_filter = {}
+            user = None
+            for key, value in args.items():
+                if value:
+                    value = value.strip()
+                if key == 'difficulty' or key == 'diff':
+                    if not value:
+                        return await invalid_value(key, 'Difficulty value is empty')
+                    value = value.lower()
+                    diffs = value.split(' ')
+                    diff_names = {'na', 'easy', 'normal', 'hard', 'harder', 'insane', 'demon'}
+                    demon_names = {'easy_demon', 'medium_demon', 'hard_demon', 'insane_demon', 'extreme_demon'}
+                    if '_demon' in value:
+                        if len(diffs) > 1:
+                            return await invalid_value(key, 'Only one demon difficulty is allowed')
+                        diff = diffs[0]
+                        if diff not in demon_names:
                             return await invalid_value(key, 'Invalid difficulty')
-                    search_filter['difficulty'] = diffs
-            elif key == 'length':
-                if not value:
-                    return await invalid_value(key, 'Length value is empty')
-                names = {'tiny', 'short', 'medium', 'long', 'xl', 'extra_long'}
-                lengths = value.lower().split(' ')
-                for length in lengths:
-                    if length not in names:
-                        return await invalid_value(key, 'Invalid length')
-                search_filter['length'] = lengths
-            elif key == 'song':
-                if not value:
-                    return await invalid_value(key, 'Song value is empty')
-                songs = ['stereo madness', 'back on track', 'polargeist', 'dry out',
-                'base after base', 'cant let go', 'jumper', 'time machine',
-                'cycles', 'xstep', 'clutterfunk', 'theory of everything', 'electroman adventures',
-                'clubstep', 'electrodynamix', 'hexagon force', 'blast processing', 'theory of everything 2',
-                'geometrical dominator', 'deadlocked', 'fingerdash']
-                try:
-                    search_filter['song_id'] = songs.index(value.lower()) + 1
-                except ValueError:
-                    return await invalid_value(key, 'Invalid song')
-            elif key == 'song-id' or key == 'custom-song':
-                if not value:
-                    return await invalid_value(key, 'Song ID is empty')
-                try:
-                    song_id = int(value)
-                except ValueError:
-                    return await invalid_value(key, 'Invalid song ID')
-                search_filter['song_id'] = song_id
-                search_filter['use_custom_song'] = True
-            elif key == 'creator' or key == 'user':
-                if not value:
-                    return await invalid_value(key, 'Value is empty')
-                try:
-                    user = await self.client.search_user(value.replace('"', ''), abstract=True)
-                except gd.MissingAccess:
-                    return await invalid_value(key, 'User not found')
-                search_filter['strategy'] = SearchStrategy.BY_USER
-            elif key == 'coins':
-                search_filter['require_coins'] = True
-            elif key == 'featured':
-                search_filter['featured'] = True
-            elif key == 'epic':
-                search_filter['epic'] = True
-            elif key == 'rated' or key == 'star':
-                search_filter['rated'] = True
-            elif key == 'no-star':
-                search_filter['rated'] = False
-            elif key == '2-player' or key == '2player' or key == 'two-player' or key == 'twoplayer':
-                search_filter['require_two_player'] = True
-            elif key == 'original':
-                search_filter['require_original'] = True
-            elif key == 'most-downloaded' or key == 'downloads':
-                search_filter['strategy'] = SearchStrategy.MOST_DOWNLOADED
-            elif key == 'most-liked' or key == 'most-likes' or key == 'likes':
-                search_filter['strategy'] = SearchStrategy.MOST_LIKED
-            elif key == 'trending':
-                search_filter['strategy'] = SearchStrategy.TRENDING
-            elif key == 'recent':
-                search_filter['strategy'] = SearchStrategy.RECENT
-            elif key == 'magic':
-                search_filter['strategy'] = SearchStrategy.MAGIC
-            elif key == 'awarded':
-                search_filter['strategy'] = SearchStrategy.AWARDED
-            elif key == 'hall-of-fame' or key == 'hof':
-                search_filter['strategy'] = SearchStrategy.HALL_OF_FAME
+                        search_filter['demon_difficulty'] = diff
+                    else:
+                        for diff in diffs:
+                            if diff not in diff_names:
+                                return await invalid_value(key, 'Invalid difficulty')
+                        search_filter['difficulty'] = diffs
+                elif key == 'length':
+                    if not value:
+                        return await invalid_value(key, 'Length value is empty')
+                    names = {'tiny', 'short', 'medium', 'long', 'xl', 'extra_long'}
+                    lengths = value.lower().split(' ')
+                    for length in lengths:
+                        if length not in names:
+                            return await invalid_value(key, 'Invalid length')
+                    search_filter['length'] = lengths
+                elif key == 'song':
+                    if not value:
+                        return await invalid_value(key, 'Song value is empty')
+                    songs = ['stereo madness', 'back on track', 'polargeist', 'dry out',
+                    'base after base', 'cant let go', 'jumper', 'time machine',
+                    'cycles', 'xstep', 'clutterfunk', 'theory of everything', 'electroman adventures',
+                    'clubstep', 'electrodynamix', 'hexagon force', 'blast processing', 'theory of everything 2',
+                    'geometrical dominator', 'deadlocked', 'fingerdash']
+                    try:
+                        search_filter['song_id'] = songs.index(value.lower()) + 1
+                    except ValueError:
+                        return await invalid_value(key, 'Invalid song')
+                elif key == 'song-id' or key == 'custom-song':
+                    if not value:
+                        return await invalid_value(key, 'Song ID is empty')
+                    try:
+                        song_id = int(value)
+                    except ValueError:
+                        return await invalid_value(key, 'Invalid song ID')
+                    search_filter['song_id'] = song_id
+                    search_filter['use_custom_song'] = True
+                elif key == 'creator' or key == 'user':
+                    if not value:
+                        return await invalid_value(key, 'Value is empty')
+                    try:
+                        user = await self.client.search_user(value.replace('"', ''), abstract=True)
+                    except gd.MissingAccess:
+                        return await invalid_value(key, 'User not found')
+                    search_filter['strategy'] = SearchStrategy.BY_USER
+                elif key == 'coins':
+                    search_filter['require_coins'] = True
+                elif key == 'featured':
+                    search_filter['featured'] = True
+                elif key == 'epic':
+                    search_filter['epic'] = True
+                elif key == 'rated' or key == 'star':
+                    search_filter['rated'] = True
+                elif key == 'no-star':
+                    search_filter['rated'] = False
+                elif key == '2-player' or key == '2player' or key == 'two-player' or key == 'twoplayer':
+                    search_filter['require_two_player'] = True
+                elif key == 'original':
+                    search_filter['require_original'] = True
+                elif key == 'most-downloaded' or key == 'downloads':
+                    search_filter['strategy'] = SearchStrategy.MOST_DOWNLOADED
+                elif key == 'most-liked' or key == 'most-likes' or key == 'likes':
+                    search_filter['strategy'] = SearchStrategy.MOST_LIKED
+                elif key == 'trending':
+                    search_filter['strategy'] = SearchStrategy.TRENDING
+                elif key == 'recent':
+                    search_filter['strategy'] = SearchStrategy.RECENT
+                elif key == 'magic':
+                    search_filter['strategy'] = SearchStrategy.MAGIC
+                elif key == 'awarded':
+                    search_filter['strategy'] = SearchStrategy.AWARDED
+                elif key == 'hall-of-fame' or key == 'hof':
+                    search_filter['strategy'] = SearchStrategy.HALL_OF_FAME
 
-        gd_filter = gd.Filters(**search_filter)
+            gd_filter = gd.Filters(**search_filter)
 
-        levels = await self.client.search_levels(query, pages=range(2), filters=gd_filter, user=user)
+            levels = await self.client.search_levels(query, pages=range(2), filters=gd_filter, user=user)
+        else:
+            levels = [await self.client.get_level(int(query), get_data=False)]
+
         if len(levels) == 0:
             return await ctx.send('No level found')
 
