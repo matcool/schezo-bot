@@ -328,7 +328,10 @@ class GD(commands.Cog):
 
             levels = await self.client.search_levels(query, pages=range(2), filters=gd_filter, user=user)
         else:
-            levels = [await self.client.get_level(int(query), get_data=False)]
+            try:
+                levels = [await self.client.get_level(int(query), get_data=False)]
+            except Exception:
+                levels = []
 
         if len(levels) == 0:
             return await ctx.send('No level found')
@@ -369,7 +372,7 @@ class GD(commands.Cog):
         async with ctx.typing():
             try:
                 user: gd.User = await self.client.search_user(query)
-            except gd.MissingAccess:
+            except (gd.MissingAccess, gd.DeError):
                 return await ctx.send('No user found')
             if not user.is_registered():
                 return await ctx.send('User not registered')
@@ -401,7 +404,7 @@ class GD(commands.Cog):
                 elder = user.is_mod('elder')
                 embed.title = f'{self.em_mod_elder if elder else self.em_mod} {embed.title}'
 
-            comments = await user.get_page_comments(0)
+            comments = await user.get_comments_on_page(0)
             if comments:
                 embed.add_field(name='Latest comment', value=comments[0].body, inline=False)
             await ctx.send(file=icons_file, embed=embed)
