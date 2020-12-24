@@ -105,7 +105,7 @@ class GD(commands.Cog):
         self.events.add_listener('daily', self.on_daily)
         self.events.add_listener('weekly', self.on_weekly)
         
-        self.events.start()
+        # self.events.start()
 
     def cog_unload(self):
         self.events.stop()
@@ -186,7 +186,7 @@ class GD(commands.Cog):
             name += '-epic'
         elif level.is_featured():
             name += '-featured'
-        return f'https://gdbrowser.com/difficulty/{name}.png'
+        return f'https://gdbrowser.com/assets/difficulties/{name}.png'
 
     @gd_.command()
     async def level(self, ctx, *, query):
