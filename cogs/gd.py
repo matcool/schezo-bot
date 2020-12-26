@@ -401,7 +401,7 @@ class GD(commands.Cog):
             embed.set_footer(text=f'Account ID: {user.account_id}')
 
             if user.is_mod():
-                elder = user.is_mod('elder')
+                elder = user.is_mod('elder_moderator')
                 embed.title = f'{self.em_mod_elder if elder else self.em_mod} {embed.title}'
 
             comments = await user.get_comments_on_page(0)
