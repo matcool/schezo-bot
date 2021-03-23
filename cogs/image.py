@@ -151,5 +151,20 @@ Not even Redditors at Area 51:
         """Reddit post whoelsome"""
         return await self.basic_image_command(ctx, self.reddit_pil, ctx.author.name, filename='reddit.png')
 
+    def clearly_pil(self, text):
+        image = Image.open('assets/clearly.jpg')
+        draw = ImageDraw.Draw(image)
+        times = ImageFont.truetype('times.ttf', 21)
+        s = draw.multiline_textsize(text, font=times)
+        draw.multiline_text((image.size[0] / 2 - s[0] / 2, 330), text, fill='white', font=times, align='center')
+        return save_image(image, format='JPEG', quality=50)
+
+    @commands.command()
+    @commands.cooldown(1, 5, BucketType.default)
+    async def clearly(self, ctx: commands.Context, *, text):
+        async with ctx.typing():
+            img = await self.bot.loop.run_in_executor(None, self.clearly_pil, text)
+            await ctx.send(file=discord.File(img, filename='clearly.jpg'))
+
 def setup(bot):
     bot.add_cog(Image_(bot))
