@@ -236,5 +236,14 @@ class Video(commands.Cog):
         sound = os.path.join(folder, random.choice(sounds))
         return await self.sound_ffmpeg_command(ctx, sound, filename='fnaf')
 
+    @commands.command(aliases=['amongus'])
+    @commands.cooldown(2, 20, BucketType.default)
+    async def amongussounds(self, ctx, sfx=None):
+        """among us sound fx on video or img"""
+        options = ('amongus', 'death', 'drip', 'report', 'vent')
+        if sfx not in options:
+            sfx = random.choice(options)
+        return await self.sound_ffmpeg_command(ctx, f'assets/amongus/{sfx}.mp3', filename='amongus')
+
 def setup(bot):
     bot.add_cog(Video(bot))
