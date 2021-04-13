@@ -166,5 +166,23 @@ Not even Redditors at Area 51:
             img = await self.bot.loop.run_in_executor(None, self.clearly_pil, text)
             await ctx.send(file=discord.File(img, filename='clearly.jpg'))
 
+    def tucker_pil(self, image):
+        image: Image.Image = Image.open(io.BytesIO(image))
+        tucker: Image.Image = Image.open('assets/tucker.png')
+        size = image.size
+        if size[0] < size[1]:
+            w = size[0] // 4
+            h = (tucker.size[1] * w) // tucker.size[0]
+        else:
+            h = size[1] // 4
+            w = (tucker.size[0] * h) // tucker.size[1]
+        image.paste(tucker.resize((w, h)), (size[0] - w, size[1] - h))
+        return save_image(image, format='PNG')
+
+    @commands.command()
+    @commands.cooldown(1, 5, BucketType.default)
+    async def tucker(self, ctx: commands.Context, *_):
+        return await self.basic_image_command(ctx, self.tucker_pil, filename='tucker.png')
+
 def setup(bot):
     bot.add_cog(Image_(bot))
