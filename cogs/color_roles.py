@@ -162,5 +162,5 @@ class ColorRoles(commands.Cog):
             await self.set_restrict(ctx.guild.id, role.id)
             await ctx.send(f'Restrict role has been set to {role.name}')
 
-def setup(bot):
-    bot.add_cog(ColorRoles(bot))
+async def setup(bot):
+    await bot.add_cog(ColorRoles(bot))

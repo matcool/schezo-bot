@@ -85,5 +85,5 @@ class Private(commands.Cog, command_attrs=dict(hidden=True)):
         await ctx.send(f'```\n{cmd.out.decode("utf-8")}```')
         await self.bot.get_command('rc').callback(ctx)
 
-def setup(bot):
-    bot.add_cog(Private(bot))
+async def setup(bot):
+    await bot.add_cog(Private(bot))

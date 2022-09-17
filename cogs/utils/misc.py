@@ -2,7 +2,7 @@ import discord
 from typing import Union, Sequence
 import subprocess
 from collections import namedtuple
-from mcstatus import MinecraftServer
+from mcstatus import JavaServer as MinecraftServer
 from base64 import b64decode
 import re
 

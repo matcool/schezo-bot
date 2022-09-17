@@ -73,5 +73,5 @@ class Conversion(commands.Cog):
         inches += feet * 12
         await ctx.send(f'{inches * 2.54:.2f}cm')
 
-def setup(bot):
-    bot.add_cog(Conversion(bot))
+async def setup(bot):
+    await bot.add_cog(Conversion(bot))

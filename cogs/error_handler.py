@@ -51,5 +51,5 @@ class ErrorHandlerCog(commands.Cog):
                           f'Traceback: {tb}')
             await ctx.send('Internal error')
 
-def setup(bot):
-    bot.add_cog(ErrorHandlerCog(bot))
+async def setup(bot):
+    await bot.add_cog(ErrorHandlerCog(bot))

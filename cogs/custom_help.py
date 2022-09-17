@@ -88,5 +88,5 @@ class CustomHelp(commands.Cog):
             else:
                 return await ctx.send('Command not found')
 
-def setup(bot):
-    bot.add_cog(CustomHelp(bot))
+async def setup(bot):
+    await bot.add_cog(CustomHelp(bot))

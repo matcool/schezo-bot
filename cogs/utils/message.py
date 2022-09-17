@@ -4,7 +4,7 @@ from .http import get_file_size, get_file_type, get_page, get_headers
 from typing import Union, Callable
 
 async def get_avatar(user: discord.User, url: bool=False) -> Union[bytes, str]:
-    avatar = user.avatar_url_as(format='png')
+    avatar = user.display_avatar.with_format('png')
     return str(avatar) if url else await avatar.read()
 
 
@@ -59,7 +59,7 @@ async def get_nearest(ctx: commands.Context, limit: int=20, lookup: Callable[[di
 
 async def message_embed(message: discord.Message, original: bool=True, color: int=0xa3a3a3, timestamp: bool=True, attachments: bool=True, thumb: bool=True) -> discord.Embed:
     embed = discord.Embed(description=message.clean_content, colour=color)
-    embed.set_author(name=message.author.display_name, icon_url=message.author.avatar_url)
+    embed.set_author(name=message.author.display_name, icon_url=await get_avatar(message.author, url=True))
     if original:
         embed.description = f'[Original]({message.jump_url})\n\n' + embed.description
     if timestamp:

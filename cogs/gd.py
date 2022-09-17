@@ -125,11 +125,11 @@ class GD(commands.Cog):
         embed.add_field(name='Length', value=('Tiny', 'Short', 'Medium', 'Long', 'XL', 'Unknown')[level.length.value])
         song = level.song.name
         if level.song.is_custom():
-            song = f'[{song}]({level.song.link})'
+            song = f'[{song}]({level.song.url})'
         embed.add_field(name='Song', value=song, inline=False)
         if level.creator.id != 0:
             url = ''
-            if level.creator.is_registered():
+            if level.creator.id and level.creator.account_id:
                 url = f'https://gdbrowser.com/profile/{level.creator.name.replace(" ", "%20")}'
             embed.set_author(name=level.creator.name, url=url)
         
@@ -172,7 +172,9 @@ class GD(commands.Cog):
 
     @staticmethod
     def level_icon(level: gd.Level) -> str:
-        if not level.is_demon():
+        # print(f'diff is {level.difficulty}')
+        return f'https://gdbrowser.com/assets/difficulties/unrated.png'
+        if level.difficulty != level.difficulty.DEMON:
             name = ''
             if level.difficulty == gd.LevelDifficulty.NA:
                 name = 'unrated'
@@ -251,21 +253,21 @@ class GD(commands.Cog):
                         diff = diffs[0]
                         if diff not in demon_names:
                             return await invalid_value(key, 'Invalid difficulty')
-                        search_filter['demon_difficulty'] = diff
+                        search_filter['difficulties'] = [gd.Difficulty.from_name(diff)]
                     else:
                         for diff in diffs:
                             if diff not in diff_names:
                                 return await invalid_value(key, 'Invalid difficulty')
-                        search_filter['difficulty'] = diffs
+                        search_filter['difficulties'] = [gd.Difficulty.from_name(d) for d in diffs]
                 elif key == 'length':
                     if not value:
                         return await invalid_value(key, 'Length value is empty')
-                    names = {'tiny', 'short', 'medium', 'long', 'xl', 'extra_long'}
+                    names = ['tiny', 'short', 'medium', 'long', 'xl', 'extra_long']
                     lengths = value.lower().split(' ')
                     for length in lengths:
                         if length not in names:
                             return await invalid_value(key, 'Invalid length')
-                    search_filter['length'] = lengths
+                    search_filter['lengths'] = [gd.LevelLength.from_value(min(names.index(name), 4)) for name in lengths]
                 elif key == 'song':
                     if not value:
                         return await invalid_value(key, 'Song value is empty')
@@ -286,12 +288,12 @@ class GD(commands.Cog):
                     except ValueError:
                         return await invalid_value(key, 'Invalid song ID')
                     search_filter['song_id'] = song_id
-                    search_filter['use_custom_song'] = True
+                    search_filter['custom_song'] = True
                 elif key == 'creator' or key == 'user':
                     if not value:
                         return await invalid_value(key, 'Value is empty')
                     try:
-                        user = await self.client.search_user(value.replace('"', ''), abstract=True)
+                        user = await self.client.search_user(value.replace('"', ''), simple=True)
                     except gd.MissingAccess:
                         return await invalid_value(key, 'User not found')
                     search_filter['strategy'] = SearchStrategy.BY_USER
@@ -374,10 +376,10 @@ class GD(commands.Cog):
                 user: gd.User = await self.client.search_user(query)
             except (gd.MissingAccess, gd.DeError):
                 return await ctx.send('No user found')
-            if not user.is_registered():
+            if not (user.account_id and user.id):
                 return await ctx.send('User not registered')
 
-            color = user.icon_set.color_1.value
+            color = user.color_1.value
             if color == 0xffffff:
                 color = 0xfffffe # thank you discord
 
@@ -387,27 +389,26 @@ class GD(commands.Cog):
             embed.add_field(name='Coins', value=f'{user.coins:,}{self.em_coin}')
             embed.add_field(name='User Coins', value=f'{user.user_coins:,}{self.em_user_coin}')
             embed.add_field(name='Diamonds', value=f'{user.diamonds:,}💎')
-            if user.cp:
-                embed.add_field(name='Creator Points', value=f'{user.cp:,}{self.em_cp}')
+            if user.creator_points:
+                embed.add_field(name='Creator Points', value=f'{user.creator_points:,}{self.em_cp}')
 
-            try:
-                icons_data = await get_page(f'http://nekit.dev/api/icons/all/{user.name}'.replace(' ', '%20'))
-                icons_file = discord.File(io.BytesIO(icons_data), filename='icons.png')
-                embed.set_image(url='attachment://icons.png')
-            except Exception:
-                # nekit's website is most likely down, ignore
-                icons_file = None
+            # try:
+            #     icons_data = await get_page(f'http://nekit.dev/api/icons/all/{user.name}'.replace(' ', '%20'))
+            #     icons_file = discord.File(io.BytesIO(icons_data), filename='icons.png')
+            #     embed.set_image(url='attachment://icons.png')
+            # except Exception:
+            #     # nekit's website is most likely down, ignore
+            #     icons_file = None
 
             embed.set_footer(text=f'Account ID: {user.account_id}')
 
-            if user.is_mod():
-                elder = user.is_mod('elder_moderator')
-                embed.title = f'{self.em_mod_elder if elder else self.em_mod} {embed.title}'
+            if user.role == user.role.MODERATOR or user.role == user.role.ELDER_MODERATOR:
+                embed.title = f'{self.em_mod_elder if user.role == user.role.ELDER_MODERATOR else self.em_mod} {embed.title}'
 
             comments = await user.get_comments_on_page(0)
             if comments:
-                embed.add_field(name='Latest comment', value=comments[0].body, inline=False)
-            await ctx.send(file=icons_file, embed=embed)
+                embed.add_field(name='Latest comment', value=comments[0].content, inline=False)
+            await ctx.send(embed=embed)
 
     @gd_.command()
     async def daily(self, ctx):
@@ -432,41 +433,31 @@ class GD(commands.Cog):
     async def song(self, ctx, song_id: int):
         """Gets info about a newgrounds song"""
         async with ctx.typing():
-            emoji = lambda x: '\✅' if x else '\❌'
+            emoji = lambda x: '\\✅' if x else '\\❌'
             try:
-                info = await self.client.get_artist_info(song_id)
-            except ValueError:
+                info = await self.client.get_song(song_id)
+            except (gd.SongRestricted, gd.MissingAccess):
+                return await ctx.send('Song not found')
                 # either the song doesn't actually exist or
                 # the artist isn't scouted
                 # (maybe even external api disabled? idk)
-                try:
-                    ng_song = await self.client.get_ng_song(song_id)
-                except gd.errors.HTTPStatusError:
-                    return await ctx.send('Song not found')
-                else:
-                    song = {
-                        'name': ng_song.name,
-                        'url': ng_song.link,
-                        'artist': ng_song.author,
-                        'artist_url': ng_song.get_author().link,
-                        'scouted': False,
-                        'whitelisted': False
-                    }
-            else:
-                song = {
-                    'name': info.song,
-                    'url': f'https://www.newgrounds.com/audio/listen/{song_id}',
-                    'artist': info.artist,
-                    'artist_url': f'https://{info.artist}.newgrounds.com/',
-                    'scouted': info.is_scouted(),
-                    'whitelisted': info.is_whitelisted()
-                }
+                # try:
+                #     info = await self.client.get_newgrounds_song(song_id)
+                # except gd.MissingAccess:
+            song = {
+                'name': info.name,
+                'url': f'https://www.newgrounds.com/audio/listen/{song_id}',
+                'artist': info.artist.name,
+                'artist_url': info.artist.url,
+                # 'scouted': info.is_scouted(),
+                # 'whitelisted': info.is_whitelisted()
+            }
             await ctx.send(embed=discord.Embed(title=song['name'], url=song['url'], color=0xd4d5d6,
                 description=f'*by [{song["artist"]}]({song["artist_url"]})*\n\n'
-                f'{emoji(song["scouted"])} Scouted\n'
-                f'{emoji(song["whitelisted"])} Allowed in GD'
+                # f'{emoji(song["scouted"])} Scouted\n'
+                # f'{emoji(song["whitelisted"])} Allowed in GD'
             ).set_thumbnail(url=f'https://aicon.ngfiles.com/{str(song_id)[:3]}/{song_id}.png'))
 
 
-def setup(bot):
-    bot.add_cog(GD(bot))
+async def setup(bot):
+    await bot.add_cog(GD(bot))

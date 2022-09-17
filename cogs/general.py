@@ -89,8 +89,8 @@ class General(commands.Cog):
         Works with message link (recommended) or message id (not so reliable)"""
         embed = await message_embed(msg)
         await ctx.send(embed=embed)
-        if ctx.guild and ctx.guild.me.permissions_in(ctx.channel).manage_messages:
-            await ctx.message.delete()
+        # if ctx.guild and ctx.guild.me.permissions_in(ctx.channel).manage_messages:
+        #     await ctx.message.delete()
 
     @commands.command()
     async def invite(self, ctx: commands.Context):
@@ -178,5 +178,5 @@ class General(commands.Cog):
             
             await ctx.send(embed=embed)
 
-def setup(bot):
-    bot.add_cog(General(bot))
+async def setup(bot):
+    await bot.add_cog(General(bot))

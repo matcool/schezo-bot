@@ -245,5 +245,5 @@ class Video(commands.Cog):
             sfx = random.choice(options)
         return await self.sound_ffmpeg_command(ctx, f'assets/amongus/{sfx}.mp3', filename='amongus')
 
-def setup(bot):
-    bot.add_cog(Video(bot))
+async def setup(bot):
+    await bot.add_cog(Video(bot))

@@ -67,5 +67,5 @@ class Timezone(commands.Cog):
                         response += f"\nYou are {diff} hour{'s' if diff > 1 else ''} {adj} them"
                 await ctx.send(response)
 
-def setup(bot):
-    bot.add_cog(Timezone(bot))
+async def setup(bot):
+    await bot.add_cog(Timezone(bot))

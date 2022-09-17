@@ -1,9 +1,7 @@
-discord.py==1.5.1
-pendulum==2.1.0
-motor==2.1.0
-git+https://github.com/PythonistaGuild/buttons.git
-Pillow>=7.1.1
-psutil==5.7.0
-mcstatus==3.1.1
-py-cpuinfo==6.0.0
-https://github.com/nekitdev/gd.py/archive/develop.zip
+discord.py==2.0.1
+git+https://github.com/nekitdev/gd.py@ba003a058c537b3f57d4a7cc28c8685566250fb8
+mcstatus==9.4.2
+motor==3.0.0
+pendulum==2.1.2
+Pillow==9.2.0
+py-cpuinfo==8.0.0

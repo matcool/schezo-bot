@@ -184,5 +184,5 @@ Not even Redditors at Area 51:
     async def tucker(self, ctx: commands.Context, *_):
         return await self.basic_image_command(ctx, self.tucker_pil, filename='tucker.png')
 
-def setup(bot):
-    bot.add_cog(Image_(bot))
+async def setup(bot):
+    await bot.add_cog(Image_(bot))

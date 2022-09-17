@@ -17,23 +17,8 @@ class Schezo(commands.Bot):
         with open('bot_config.json', 'r', encoding='utf-8') as file:
             self.config = json.load(file)
         
-        intents = discord.Intents(
-            # These are both true for s.played
-            # although that command might be removed entirely in the future
-            presences=True,
-            members=True,
-    
-            reactions=True,
-            messages=True,
-            guilds=True,
-            typing=False,
-            invites=False,
-            webhooks=False,
-            integrations=False,
-            emojis=False,
-            bans=False,
-            voice_states=False,
-        )
+        intents = discord.Intents.default()
+        intents.message_content = True
 
         super().__init__(command_prefix=self.config['prefix'], intents=intents)
         self.start_time = time.time()
@@ -62,24 +47,24 @@ class Schezo(commands.Bot):
         self.logger.info(msg)
         game = discord.Activity(name=self.config['game'], type=discord.ActivityType.watching)
         await self.change_presence(activity=game)
-        self.load_cogs()
+        await self.load_cogs()
 
     def get_cogs(self):
         files = glob.glob('cogs/*.py')
         # Replace / or \ with . and remove .py at the end
         return map(lambda p: p.replace('\\','.').replace('/','.')[:-3], files)
 
-    def load_cogs(self):
+    async def load_cogs(self):
         if self._cogs_loaded: return
         self._cogs_loaded = True
         for cog in self.get_cogs():
-            self.load_extension(cog)
+            await self.load_extension(cog)
 
-    def unload_cogs(self):
+    async def unload_cogs(self):
         self._cogs_loaded = False
         extensions = tuple(self.extensions.keys())
         for cog in extensions:
-            self.unload_extension(cog)
+            await self.unload_extension(cog)
 
     def run(self):
         super().run(self.config['token'])
@@ -89,12 +74,12 @@ bot = Schezo()
 @bot.command(hidden=True, aliases=['rc'])
 @commands.is_owner()
 async def reloadcogs(ctx):
-    ctx.bot.unload_cogs()
+    await ctx.bot.unload_cogs()
     modules = tuple(sys.modules.keys())
     for name in modules:
         if name.startswith('cogs.utils'):
             del sys.modules[name]
-    ctx.bot.load_cogs()
+    await ctx.bot.load_cogs()
     try:
         await ctx.message.add_reaction('🆗')
     except discord.DiscordException:
